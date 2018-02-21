@@ -1,8 +1,9 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
-import com.example.wangyulong.campuspass.Constant.DisplayMsg;
+import com.example.wangyulong.campuspass.Constant.ToastMsg;
 import com.example.wangyulong.campuspass.Helper.ConnectionHelper;
 import com.example.wangyulong.campuspass.Helper.DisplayMsgHelper;
+import com.example.wangyulong.campuspass.Message.ToastMessageHandler;
 
 /**
  * Created by wangyulong on 20/02/18.
@@ -66,18 +67,23 @@ public class LoginViewModel extends BasicViewModel
     {
         if (_user_matric != null && _user_pass != null)
         {
-            connectionHelper.ConnectUser(_user_matric, _user_pass);
+            if (connectionHelper.ConnectUser(_user_matric, _user_pass))
+            {
+            }
+
+            ToastMessageHandler.errorMsg.set(ToastMsg.LOGIN_SUCCESS);
         } else
         {
             //TODO: Flag Failure
+            //Toast.makeText(MainActivity., "Please fill in information", Toast.LENGTH_SHORT).show();
+            ToastMessageHandler.errorMsg.set(ToastMsg.LOGIN_FAILED);
         }
     }
 
     public void onRegisterButtonClicked()
     {
-
+        //TODO: Implement Layout Switching
     }
-
     //endregion Button Events
 
     //region Methods
