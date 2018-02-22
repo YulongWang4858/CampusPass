@@ -13,5 +13,6 @@ public class DisplayMsg
     public static String ASK_MATRIC = "Matric Number: ";
     public static String LOGIN_BUTTON = "Login";
     public static String REGISTER_BUTTON = "Register";
+    public static String REGISTER_PAGE_WELCOME_MSG = "Become a Member!";
     //endregion Login Page Messages
 }

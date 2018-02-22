@@ -6,6 +6,10 @@
         <variable
             name="LoginVM"
             type="com.example.wangyulong.campuspass.ViewModel.LoginViewModel"/>
+
+        <variable
+            name="ClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -97,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="150dp"
             android:layout_marginTop="450dp"
-            android:onClick="@{() -> LoginVM.loginViewModel().onRegisterButtonClicked()}"
+            android:onClick="@{(v) -> ClickListener.onClick()}"
             android:text="@{LoginVM.loginViewModel().displayMsgHelper.getRegisterButtonTxt()}"
             />
 

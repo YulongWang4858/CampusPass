@@ -1,9 +1,12 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
-import com.example.wangyulong.campuspass.Constant.ToastMsg;
+import android.databinding.ObservableField;
+import android.support.design.widget.Snackbar;
+
+import com.example.wangyulong.campuspass.Constant.SnackBarMsg;
 import com.example.wangyulong.campuspass.Helper.ConnectionHelper;
 import com.example.wangyulong.campuspass.Helper.DisplayMsgHelper;
-import com.example.wangyulong.campuspass.Message.ToastMessageHandler;
+import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 
 /**
  * Created by wangyulong on 20/02/18.
@@ -65,28 +68,33 @@ public class LoginViewModel extends BasicViewModel
     //region Button Events
     public void onLoginButtonClicked()
     {
+        //connect and verify info
         if (_user_matric != null && _user_pass != null)
         {
-            if (connectionHelper.ConnectUser(_user_matric, _user_pass))
+            if (connectionHelper.ConnectUser(_user_matric, _user_pass)) //Connection and Info correct
             {
+                this.showOnSnackBar(SnackBarMsg.LOGIN_SUCCESS);
+            } else
+            {
+                this.showOnSnackBar(SnackBarMsg.LOGIN_FAILED_WRONG_INFO);
             }
-
-            ToastMessageHandler.errorMsg.set(ToastMsg.LOGIN_SUCCESS);
         } else
         {
-            //TODO: Flag Failure
-            //Toast.makeText(MainActivity., "Please fill in information", Toast.LENGTH_SHORT).show();
-            ToastMessageHandler.errorMsg.set(ToastMsg.LOGIN_FAILED);
+            this.showOnSnackBar(SnackBarMsg.LOGIN_FAILED_EMPTY_INFO);
         }
-    }
-
-    public void onRegisterButtonClicked()
-    {
-        //TODO: Implement Layout Switching
     }
     //endregion Button Events
 
     //region Methods
+    private void showOnSnackBar(String content)
+    {
+        SnackBarMessageHandler.errorMsg.set(content + randMsgIndex());
+        //SnackBarMessageHandler.errorMsg = new ObservableField<String>();
+    }
 
+    private String randMsgIndex()
+    {
+        return ((Integer)(int)(Math.random() * 50000 + 10000)).toString();
+    }
     //endregion Methods
 }

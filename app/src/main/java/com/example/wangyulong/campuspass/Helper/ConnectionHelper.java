@@ -57,7 +57,7 @@ public class ConnectionHelper
 
     private boolean testVerification(String matricN, String passW)
     {
-        return matricN.equals("Wang Yulong") && passW.equals("2enXm?83");
+        return matricN.equals("a0127603") && passW.equals("2enXm?83");
     }
     //endregion Methods
 }

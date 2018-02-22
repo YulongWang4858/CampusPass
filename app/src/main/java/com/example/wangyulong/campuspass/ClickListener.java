@@ -6,4 +6,5 @@ package com.example.wangyulong.campuspass;
 
 public interface ClickListener
 {
+    public void onClick();
 }
