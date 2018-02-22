@@ -18,10 +18,8 @@ public class LoginViewModel extends BasicViewModel
     private static LoginViewModel _instance = null;
     public DisplayMsgHelper displayMsgHelper = DisplayMsgHelper.getInstance();
     public ConnectionHelper connectionHelper = ConnectionHelper.connectionHelper();
-
-    public String _user_pass;
-    public String _user_matric;
-
+    public ObservableField<String> user_pass = new ObservableField<String>("");
+    public ObservableField<String> user_matric = new ObservableField<String>("");
     //endregion Fields and Consts
 
     //region Properties
@@ -34,46 +32,26 @@ public class LoginViewModel extends BasicViewModel
 
         return _instance;
     }
-//
-//    public String get_user_pass()
-//    {
-//        return _user_pass;
-//    }
-//
-//    public void set_user_pass(String _user_pass)
-//    {
-//        this._user_pass = _user_pass;
-//    }
-//
-//    public String get_user_matric()
-//    {
-//        return _user_matric;
-//    }
-//
-//    public void set_user_matric(String _user_matric)
-//    {
-//        this._user_matric = _user_matric;
-//    }
     //endregion Properties
 
     //region Override
     private LoginViewModel()
     {
         //Implement if necessary
-        _user_matric = null;
-        _user_pass = null;
     }
     //endregion Override
 
-    //region Button Events
-    public void onLoginButtonClicked()
+    //region Methods
+    public boolean userLogin()
     {
         //connect and verify info
-        if (_user_matric != null && _user_pass != null)
+        if (user_matric.get().length() != 0 && user_pass.get().length() != 0)
         {
-            if (connectionHelper.ConnectUser(_user_matric, _user_pass)) //Connection and Info correct
+            if (connectionHelper.ConnectUser(user_matric.get(), user_pass.get())) //Connection and Info correct
             {
                 this.showOnSnackBar(SnackBarMsg.LOGIN_SUCCESS);
+
+                return true;
             } else
             {
                 this.showOnSnackBar(SnackBarMsg.LOGIN_FAILED_WRONG_INFO);
@@ -82,19 +60,8 @@ public class LoginViewModel extends BasicViewModel
         {
             this.showOnSnackBar(SnackBarMsg.LOGIN_FAILED_EMPTY_INFO);
         }
-    }
-    //endregion Button Events
 
-    //region Methods
-    private void showOnSnackBar(String content)
-    {
-        SnackBarMessageHandler.errorMsg.set(content + randMsgIndex());
-        //SnackBarMessageHandler.errorMsg = new ObservableField<String>();
-    }
-
-    private String randMsgIndex()
-    {
-        return ((Integer)(int)(Math.random() * 50000 + 10000)).toString();
+        return false;
     }
     //endregion Methods
 }

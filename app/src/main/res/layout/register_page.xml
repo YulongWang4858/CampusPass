@@ -2,31 +2,128 @@
 <layout>
 
     <data>
-s-->
+        <variable
+            name="DoneButtonClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+        <variable
+            name="RegisterVM"
+            type="com.example.wangyulong.campuspass.ViewModel.RegisterViewModel"/>
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false">
 
         <TextView
+            android:id="@+id/emailtxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="50dp"
-            android:text=""/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:text="Email:"
+            android:textColor="@android:color/background_dark"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/studentNameTxt"
-            android:text="Student Name:"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:text="Student Name:"
+            android:textColor="@android:color/background_dark"/>
+
+        <TextView
+            android:id="@+id/phoneTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="95dp"
+            android:text="Phone:"
+            android:textColor="@android:color/background_dark"/>
+
+        <TextView
+            android:id="@+id/studentInfoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="125dp"
+            android:text="Student Info:"
+            android:textColor="@android:color/background_dark"/>
+
+        <TextView
+            android:id="@+id/careerInfoTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="250dp"
+            android:text="Career Info:"
+            android:textColor="@android:color/background_dark"/>
+
+        <TextView
+            android:id="@+id/addressTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="380dp"
+            android:text="Address:"
+            android:textColor="@android:color/background_dark"/>
 
         <EditText
             android:id="@+id/studentNameETxt"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="5dp"
+            android:text="@={RegisterVM.student_name.get()}"/>
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/emailETxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="40dp"
+            android:text="@={RegisterVM.email.get()}"/>
+
+        <EditText
+            android:id="@+id/phoneETxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="75dp"
+            android:text="@={RegisterVM.phone.get()}"/>
+
+        <EditText
+            android:id="@+id/studentInfoETxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="105dp"
+            android:text="@={RegisterVM.student_info.get()}"/>
+
+        <EditText
+            android:id="@+id/careerInfoETxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="230dp"
+            android:text="@={RegisterVM.career_info.get()}"/>
+
+        <EditText
+            android:id="@+id/addressETxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="360dp"
+            android:text="@={RegisterVM.address.get()}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="450dp"
+            android:layout_marginLeft="270dp"
+            android:text="Done"
+            android:onClick="@{(v) -> DoneButtonClickListener.onClick()}"/>
+
+    </RelativeLayout>
 </layout>

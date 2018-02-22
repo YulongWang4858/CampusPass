@@ -1,13 +1,17 @@
 package com.example.wangyulong.campuspass;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.wangyulong.campuspass.Activity.MenuActivity;
+import com.example.wangyulong.campuspass.Activity.RegisterActivity;
 import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 import com.example.wangyulong.campuspass.ViewModel.LoginViewModel;
+import com.example.wangyulong.campuspass.ViewModel.RegisterViewModel;
 import com.example.wangyulong.campuspass.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
@@ -34,31 +38,58 @@ public class MainActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLoginVM(LoginViewModel.loginViewModel());
 
-        //Button Events
-        binding.setClickListener(new ClickListener() {
-            public void onClick() {
-                setContentView(R.layout.register_page); //switch to register page
-
-            }
-        });
+        bindingButtons();
     }
 
-    protected void toastEventListener() {
+    protected void toastEventListener()
+    {
         android.databinding.Observable.OnPropertyChangedCallback callback = new android.databinding.Observable.OnPropertyChangedCallback()
         {
             @Override
             public void onPropertyChanged(android.databinding.Observable sender, int propertyId)
             {
-                String toastMsg = ((ObservableField<String>) sender).get();
-                toastMsg = toastMsg.substring(0, toastMsg.length() - 5);
+                String snackBarMsg = ((ObservableField<String>) sender).get();
+                snackBarMsg = snackBarMsg.substring(0, snackBarMsg.length() - 5);
 
-                //Toast.makeText(MainActivity.this, "" + toastMsg, Toast.LENGTH_LONG).show();
-                Snackbar.make(findViewById(android.R.id.content), toastMsg, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(findViewById(android.R.id.content), snackBarMsg, Snackbar.LENGTH_LONG).show();
 
             }
         };
 
         SnackBarMessageHandler.errorMsg.addOnPropertyChangedCallback(callback);
     }
+
+    protected void bindingButtons()
+    {
+        binding.setLoginButtonClickListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                if (LoginViewModel.loginViewModel().userLogin()) //upon successful login only
+                {
+                    Intent toMenu = new Intent(getApplicationContext(), MenuActivity.class);
+                    MainActivity.this.startActivity(toMenu);
+                }
+            }
+        });
+
+        binding.setRegisterButtonClickListener(new ClickListener()
+        {
+            public void onClick()
+            {
+                //showSnackBar("reached!");
+                Intent toRegister = new Intent(getApplicationContext(), RegisterActivity.class);
+                MainActivity.this.startActivity(toRegister);
+            }
+        });
+    }
     //endregion Initialization
+
+    //region SnackBar
+    protected void showSnackBar(String txt)
+    {
+        Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
+    }
+    //endregion SnackBar
 }

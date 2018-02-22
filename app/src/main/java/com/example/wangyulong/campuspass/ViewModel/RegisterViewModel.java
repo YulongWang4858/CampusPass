@@ -1,5 +1,7 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
+import android.databinding.ObservableField;
+
 import com.example.wangyulong.campuspass.Model.UserModel;
 
 /**
@@ -10,9 +12,16 @@ public class RegisterViewModel extends BasicViewModel
 {
     //region Fields and Consts
     private static RegisterViewModel _instance = null;
-    private UserModel _user = null;
-    //endregion Fields and Consts
+    private UserModel _user;
 
+    public ObservableField<String> student_name = new ObservableField<String>();
+    public ObservableField<String> email = new ObservableField<String>();
+    public ObservableField<String> phone = new ObservableField<String>();
+    public ObservableField<String> student_info = new ObservableField<String>();
+    public ObservableField<String> career_info = new ObservableField<String>();
+    public ObservableField<String> address = new ObservableField<String>();
+
+    //endregion Fields and Consts
 
     //region Properties
     public static RegisterViewModel registerViewModel()
@@ -34,7 +43,7 @@ public class RegisterViewModel extends BasicViewModel
     //endregion Constructor
 
     //region Methods
-    public boolean CreateUser(String name, String email, String hpNum, String studentInfo)
+    private boolean CreateUser(String name, String email, String hpNum, String studentInfo)
     {
         return true;
     }
