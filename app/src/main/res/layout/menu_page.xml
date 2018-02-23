@@ -1,9 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="MenuVM"
+            type="com.example.wangyulong.campuspass.ViewModel.MenuViewModel"/>
+        <variable
+            name="EasyGetButtonClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+        <variable
+            name="NeedAHandButtonClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+        <variable
+            name="CareerReadyButtonClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+        <variable
+            name="BuyingButtonClickListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+        <TabHost
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="3"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Easy n Get"
+                    android:textColor="@{MenuVM.tab1Color.get()}"
+                    android:onClick="@{(v) -> EasyGetButtonClickListener.onClick()}"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Need a Hand"
+                    android:textColor="@{MenuVM.tab2Color.get()}"
+                    android:onClick="@{(v) -> NeedAHandButtonClickListener.onClick()}"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Career Ready"
+                    android:textColor="@{MenuVM.tab3Color.get()}"
+                    android:onClick="@{(v) -> CareerReadyButtonClickListener.onClick()}"/>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Buying"
+                    android:layout_marginTop="200dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:onClick="@{(v) -> BuyingButtonClickListener.onClick()}"/>
+
+                <Button
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Selling"
+                    android:layout_marginTop="300dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="25dp"/>
+
+                <Button
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Request"
+                    android:layout_marginTop="400dp"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:textSize="25dp"/>
+
+            </RelativeLayout>
+        </TabHost>
     </RelativeLayout>
 </layout>

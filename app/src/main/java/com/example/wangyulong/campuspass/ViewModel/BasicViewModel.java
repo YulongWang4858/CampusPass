@@ -18,14 +18,13 @@ public class BasicViewModel
 
     //region Inheritance
     protected void showOnSnackBar(String content)
-    {
-        SnackBarMessageHandler.errorMsg.set(content + randMsgIndex());
-    }
+{
+    SnackBarMessageHandler.errorMsg.set(content + randMsgIndex());
+}
 
     protected String randMsgIndex()
     {
         return ((Integer)(int)(Math.random() * 50000 + 10000)).toString();
     }
-
     //endregion Inheritance
 }
