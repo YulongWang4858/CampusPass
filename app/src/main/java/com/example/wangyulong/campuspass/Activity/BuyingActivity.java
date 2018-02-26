@@ -19,7 +19,7 @@ public class BuyingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu_page);
+        //setContentView(R.layout.menu_page);
 
         //initialize binding
         onCreateBinding();
@@ -27,7 +27,7 @@ public class BuyingActivity extends AppCompatActivity
 
     protected void onCreateBinding()
     {
-        binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
+        //binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
     }
 }
 

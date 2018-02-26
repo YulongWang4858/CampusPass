@@ -38,7 +38,7 @@ public class MenuViewModel extends BasicViewModel
     //region Constructor
     private MenuViewModel()
     {
-        setInitialColor();
+        //setInitialColor();
     }
     //endregion Constructor
 

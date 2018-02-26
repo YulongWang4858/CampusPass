@@ -7,11 +7,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.wangyulong.campuspass.Activity.MenuActivity;
-import com.example.wangyulong.campuspass.Activity.RegisterActivity;
+import com.example.wangyulong.campuspass.Activity.MainMenuActivity;
 import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 import com.example.wangyulong.campuspass.ViewModel.LoginViewModel;
-import com.example.wangyulong.campuspass.ViewModel.RegisterViewModel;
 import com.example.wangyulong.campuspass.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
@@ -68,8 +66,7 @@ public class MainActivity extends AppCompatActivity
             {
                 if (LoginViewModel.loginViewModel().userLogin()) //upon successful login only
                 {
-                    Intent toMenu = new Intent(getApplicationContext(), MenuActivity.class);
-                    MainActivity.this.startActivity(toMenu);
+                    //TODO: Link to MainMenuActivity
                 }
             }
         });
@@ -78,9 +75,13 @@ public class MainActivity extends AppCompatActivity
         {
             public void onClick()
             {
-                //showSnackBar("reached!");
-                Intent toRegister = new Intent(getApplicationContext(), RegisterActivity.class);
-                MainActivity.this.startActivity(toRegister);
+
+                //TODO: Uncomment when tested
+//                Intent toRegister = new Intent(getApplicationContext(), RegisterActivity.class);
+//                MainActivity.this.startActivity(toRegister);
+
+                Intent toMainMenu = new Intent(getApplicationContext(), MainMenuActivity.class);
+                MainActivity.this.startActivity(toMainMenu);
             }
         });
     }
