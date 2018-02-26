@@ -29,13 +29,13 @@
         <TabHost
             android:id="@+id/tabHost"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TabWidget
@@ -47,61 +47,61 @@
                 <FrameLayout
                     android:id="@android:id/tabcontent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:id="@+id/tab1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@android:color/white"
                         android:orientation="vertical">
 
-                        <!--<include layout="@layout/register_page"/>-->
+                        <include layout="@layout/easy_get_mainpage"/>
 
-                        <Button
-                            android:id="@+id/buyingButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="90dp"
-                            android:width="250dp"
-                            android:background="#ff68bd"
-                            android:text="Buying"
-                            android:textColor="@color/colorPureWhite"
-                            android:textSize="25dp"
-                            android:textStyle="bold"/>
+                        <!--<Button-->
+                        <!--android:id="@+id/buyingButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginTop="90dp"-->
+                        <!--android:width="250dp"-->
+                        <!--android:background="#ff68bd"-->
+                        <!--android:text="Buying"-->
+                        <!--android:textColor="@color/colorPureWhite"-->
+                        <!--android:textSize="25dp"-->
+                        <!--android:textStyle="bold"/>-->
 
-                        <Button
-                            android:id="@+id/requestingButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="180dp"
-                            android:width="250dp"
-                            android:background="#ff68bd"
-                            android:text="Requesting"
-                            android:textColor="@color/colorPureWhite"
-                            android:textSize="25dp"
-                            android:textStyle="bold"/>
+                        <!--<Button-->
+                        <!--android:id="@+id/requestingButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginTop="180dp"-->
+                        <!--android:width="250dp"-->
+                        <!--android:background="#ff68bd"-->
+                        <!--android:text="Requesting"-->
+                        <!--android:textColor="@color/colorPureWhite"-->
+                        <!--android:textSize="25dp"-->
+                        <!--android:textStyle="bold"/>-->
 
-                        <Button
-                            android:id="@+id/sellingButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentTop="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="270dp"
-                            android:width="250dp"
-                            android:background="#ff68bd"
-                            android:text="Selling"
-                            android:textColor="@color/colorPureWhite"
-                            android:textSize="25dp"
-                            android:textStyle="bold"/>
+                        <!--<Button-->
+                        <!--android:id="@+id/sellingButton"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_centerVertical="true"-->
+                        <!--android:layout_marginTop="270dp"-->
+                        <!--android:width="250dp"-->
+                        <!--android:background="#ff68bd"-->
+                        <!--android:text="Selling"-->
+                        <!--android:textColor="@color/colorPureWhite"-->
+                        <!--android:textSize="25dp"-->
+                        <!--android:textStyle="bold"/>-->
 
                     </RelativeLayout>
 
@@ -121,17 +121,29 @@
                     <LinearLayout
                         android:id="@+id/tab3"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="#5b89ff"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:text="This is tab 3"/>
                     </LinearLayout>
                 </FrameLayout>
             </LinearLayout>
         </TabHost>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:width="25dp"
+                android:text="Notification"
+                android:textSize="7dp"/>
+        </RelativeLayout>
     </LinearLayout>
 </layout>
