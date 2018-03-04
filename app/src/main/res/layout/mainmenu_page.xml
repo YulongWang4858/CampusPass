@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
-
     <data>
 
         <variable
             name="MainMenuVM"
             type="com.example.wangyulong.campuspass.ViewModel.MainMenuViewModel"/>
 
-        <variable
-            name="BuyingButtonClickListener"
-            type="com.example.wangyulong.campuspass.ClickListener"/>
-
-        <variable
-            name="RequestingButtonClickListener"
-            type="com.example.wangyulong.campuspass.ClickListener"/>
-
-        <variable
-            name="SellingButtonClickListener"
-            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +17,8 @@
         <TabHost
             android:id="@+id/tabHost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true">
 
@@ -56,53 +45,6 @@
                         android:background="@android:color/white"
                         android:orientation="vertical">
 
-                        <include layout="@layout/easy_get_mainpage"/>
-
-                        <!--<Button-->
-                        <!--android:id="@+id/buyingButton"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_marginTop="90dp"-->
-                        <!--android:width="250dp"-->
-                        <!--android:background="#ff68bd"-->
-                        <!--android:text="Buying"-->
-                        <!--android:textColor="@color/colorPureWhite"-->
-                        <!--android:textSize="25dp"-->
-                        <!--android:textStyle="bold"/>-->
-
-                        <!--<Button-->
-                        <!--android:id="@+id/requestingButton"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_marginTop="180dp"-->
-                        <!--android:width="250dp"-->
-                        <!--android:background="#ff68bd"-->
-                        <!--android:text="Requesting"-->
-                        <!--android:textColor="@color/colorPureWhite"-->
-                        <!--android:textSize="25dp"-->
-                        <!--android:textStyle="bold"/>-->
-
-                        <!--<Button-->
-                        <!--android:id="@+id/sellingButton"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_centerVertical="true"-->
-                        <!--android:layout_marginTop="270dp"-->
-                        <!--android:width="250dp"-->
-                        <!--android:background="#ff68bd"-->
-                        <!--android:text="Selling"-->
-                        <!--android:textColor="@color/colorPureWhite"-->
-                        <!--android:textSize="25dp"-->
-                        <!--android:textStyle="bold"/>-->
-
                     </RelativeLayout>
 
                     <LinearLayout
@@ -116,6 +58,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="This is tab 21"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 21"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 21"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 21"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="This is tab 21"/>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -136,7 +95,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
             <Button
                 android:id="@+id/notificationButton"

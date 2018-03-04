@@ -17,9 +17,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.RegisterActivity"/>
-        <activity android:name=".Activity.MenuActivity"/>
         <activity android:name=".Activity.BuyingActivity"/>
-        <activity android:name=".Activity.MainMenuActivity"/>
+        <activity android:name=".Activity.MainMenuActivity"
+                  android:theme="@style/Widget.AppCompat.ActionBar.Solid"/>
+        <activity android:name=".Activity.EasyGetActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

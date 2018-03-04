@@ -3,6 +3,7 @@ package com.example.wangyulong.campuspass.Activity;
 import android.os.Bundle;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
+
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.databinding.BuyingPageBinding;
 
@@ -19,7 +20,6 @@ public class BuyingActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.menu_page);
 
         //initialize binding
         onCreateBinding();
@@ -27,7 +27,14 @@ public class BuyingActivity extends AppCompatActivity
 
     protected void onCreateBinding()
     {
-        //binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
+        binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
+
+        bindButton();
+    }
+
+    protected void bindButton()
+    {
+        
     }
 }
 

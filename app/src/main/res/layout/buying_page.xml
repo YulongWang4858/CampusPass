@@ -16,11 +16,11 @@
             android:text="Buying!"/>
 
 
-        <ListView
-            android:id="@+id/buyingList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<ListView-->
+            <!--android:id="@+id/buyingList"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
-        </ListView>
+        <!--</ListView>-->
     </RelativeLayout>
 </layout>
