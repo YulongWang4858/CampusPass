@@ -37,14 +37,6 @@ public class BuyingActivity extends ListActivity
 
         //initialize item list
         loadBuyingList();
-//        WindowManager.LayoutParams params = getWindow().getAttributes();
-//
-//        params.x = 0;
-//        params.height = 650;
-//        params.width = 100;
-//        params.y = 700;
-//
-//        this.getWindow().setAttributes(params);
     }
 
     protected void onCreateBinding()
@@ -56,10 +48,6 @@ public class BuyingActivity extends ListActivity
 
     protected void bindButton()
     {
-        String[] itemname = {"kimchi", "book", "aircon"};
-        int[] itemimage = {R.drawable.kimchi_img, R.drawable.book_img, R.drawable.air_conidtioner_img};
-        String[] itemdescr = {"1", "2", "3"};
-
         //customize adpater
         ListView buyingItemList = getListView();
         BuyingListViewAdapter buyingListViewAdapter = new BuyingListViewAdapter(this, R.layout.buying_page_items_brief, this.buyingListVM.get_buying_elements());

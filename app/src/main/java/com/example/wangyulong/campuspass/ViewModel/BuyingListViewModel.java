@@ -47,10 +47,13 @@ public class BuyingListViewModel extends BasicViewModel
                 Category.BuyingItemCondition.SECOND_HAND, 21.5, 1, 1);
         BuyingItemModel aircon = new BuyingItemModel(R.drawable.air_conidtioner_img, "Air Conditioner", "Second hand air conditioner, in perfect condition", Category.BuyingItemTag.ELECTRONICS,
                 Category.BuyingItemCondition.SECOND_HAND, 100, 1, 1);
+        BuyingItemModel table = new BuyingItemModel(R.drawable.table_img, "Large Desk", "80 * 40 long desk for sale, free shipping, negotiable price", Category.BuyingItemTag.HOME_EQUIPEMENTS,
+                Category.BuyingItemCondition.SECOND_HAND, 50.5, 1, 1);
 
         this.itemsCollectionHelper.add_item_to_collection(kimchi);
         this.itemsCollectionHelper.add_item_to_collection(javabook);
         this.itemsCollectionHelper.add_item_to_collection(aircon);
+        this.itemsCollectionHelper.add_item_to_collection(table);
     }
 
     public ArrayList<BuyingItemModel> get_buying_elements()

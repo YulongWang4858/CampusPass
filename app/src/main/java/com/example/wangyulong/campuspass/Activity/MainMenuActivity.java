@@ -91,60 +91,60 @@ public class MainMenuActivity extends ActivityGroup
 
     protected void initialVisibilitySettings()
     {
-        mainmenuPageBinding.goBackTxtButton.setVisibility(View.INVISIBLE);
-        mainmenuPageBinding.goBackImg.setVisibility(View.INVISIBLE);
-
-        ViewLogicManager.viewLogicManager()._tab1_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-        {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId)
-            {
-                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-                {
-                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        ViewLogicManager.viewLogicManager()._tab2_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-        {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId)
-            {
-                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-                {
-                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        ViewLogicManager.viewLogicManager()._tab3_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-        {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId)
-            {
-                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-                {
-                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+//        mainmenuPageBinding.goBackTxtButton.setVisibility(View.INVISIBLE);
+//        mainmenuPageBinding.goBackImg.setVisibility(View.INVISIBLE);
+//
+//        ViewLogicManager.viewLogicManager()._tab1_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+//        {
+//            @Override
+//            public void onPropertyChanged(Observable sender, int propertyId)
+//            {
+//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+//                {
+//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+//
+//        ViewLogicManager.viewLogicManager()._tab2_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+//        {
+//            @Override
+//            public void onPropertyChanged(Observable sender, int propertyId)
+//            {
+//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+//                {
+//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+//
+//        ViewLogicManager.viewLogicManager()._tab3_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+//        {
+//            @Override
+//            public void onPropertyChanged(Observable sender, int propertyId)
+//            {
+//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+//                {
+//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
     }
 
     protected void buttonBinding()
     {
         //TODO: Implement when ready
-        mainmenuPageBinding.setGoBackButtonClickedListener(new ClickListener()
-        {
-            @Override
-            public void onClick()
-            {
-                backToPrevious();
-            }
-        });
+//        mainmenuPageBinding.setGoBackButtonClickedListener(new ClickListener()
+//        {
+//            @Override
+//            public void onClick()
+//            {
+//                backToPrevious();
+//            }
+//        });
     }
 
     protected void backToPrevious()

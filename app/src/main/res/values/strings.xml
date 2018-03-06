@@ -14,5 +14,6 @@
         <item>@drawable/kimchi_img</item>
         <item>@drawable/air_conidtioner_img</item>
         <item>@drawable/book_img</item>
+        <item>@drawable/table_img</item>
     </array>
 </resources>

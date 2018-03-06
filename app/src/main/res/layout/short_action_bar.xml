@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/backArrow">
+
+        <ImageView
+            android:id="@+id/goBackImg"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:rotation="315"
+            android:src="@drawable/shape_triangle"/>
+
+        <TextView
+            android:id="@+id/goBackTxtButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sellingButton"
+            android:text="Back"
+            android:textAllCaps="false"
+            android:textColor="@color/colorLightPink"
+            android:textSize="14dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/notificationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Notification"
+        android:layout_below="@+id/backArrow"
+        android:textAllCaps="false"
+        android:textSize="10dp"/>
+
+    <Button
+        android:id="@+id/updateInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/notificationButton"
+        android:layout_below="@+id/backArrow"
+        android:text="Update Info"
+        android:textAllCaps="false"
+        android:textSize="10dp"/>
+
+    <Button
+        android:id="@+id/chatBoxButotn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@id/updateInfoButton"
+        android:layout_below="@+id/backArrow"
+        android:text="Chat Box"
+        android:textAllCaps="false"
+        android:textSize="10dp"/>
+
+</RelativeLayout>

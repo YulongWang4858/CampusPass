@@ -8,8 +8,8 @@
 
         <ImageView
             android:id="@+id/listItemImg"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -19,22 +19,47 @@
             android:id="@+id/listItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="15dp"
             android:textAllCaps="false"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorLightPink"/>
+            android:textColor="@color/colorLightPink"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/listItemShortDescr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="70dp"
             android:textAllCaps="false"
-            android:textSize="10dp"
+            android:textSize="15dp"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/listItemPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listItemShortDescr"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="300dp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorVeryLightPink"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/listItemCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textColor="@color/colorVeryLightPink"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/listItemShortDescr"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginBottom="20dp"/>
 
     </RelativeLayout>
 </layout>
