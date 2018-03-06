@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="BuyingButtonClickListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
@@ -13,13 +14,17 @@
         <variable
             name="SellingButtonClickListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="EasyGetVM"
+            type="com.example.wangyulong.campuspass.ViewModel.EasyGetViewModel"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-        android:layout_marginBottom="80dp">
+                    android:layout_marginBottom="80dp"
+                    android:orientation="vertical">
 
         <Button
             android:id="@+id/buyingButton"
@@ -31,12 +36,12 @@
             android:layout_marginTop="90dp"
             android:width="250dp"
             android:background="#ff68bd"
+            android:onClick="@{(v) -> BuyingButtonClickListener.onClick()}"
             android:text="Buying"
+            android:textAllCaps="false"
             android:textColor="@color/colorPureWhite"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:onClick="@{(v) -> BuyingButtonClickListener.onClick()}"/>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/requestingButton"
@@ -48,12 +53,12 @@
             android:layout_marginTop="180dp"
             android:width="250dp"
             android:background="#ff68bd"
+            android:onClick="@{(v) -> RequestingButtonClickListener.onClick()}"
             android:text="Requesting"
+            android:textAllCaps="false"
             android:textColor="@color/colorPureWhite"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:onClick="@{(v) -> RequestingButtonClickListener.onClick()}"/>
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/sellingButton"
@@ -65,12 +70,12 @@
             android:layout_marginTop="270dp"
             android:width="250dp"
             android:background="#ff68bd"
+            android:onClick="@{(v) -> SellingButtonClickListener.onClick()}"
             android:text="Selling"
+            android:textAllCaps="false"
             android:textColor="@color/colorPureWhite"
             android:textSize="25dp"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:onClick="@{(v) -> SellingButtonClickListener.onClick()}"/>
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 </layout>

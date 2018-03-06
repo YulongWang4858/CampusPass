@@ -1,18 +1,22 @@
 package com.example.wangyulong.campuspass.Activity;
 
+import android.app.Activity;
 import android.app.ActivityGroup;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
+import android.databinding.ObservableField;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 
+import com.example.wangyulong.campuspass.ClickListener;
+import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.R;
-import com.example.wangyulong.campuspass.databinding.BuyingPageBinding;
+import com.example.wangyulong.campuspass.ViewLogicManager;
 import com.example.wangyulong.campuspass.databinding.MainmenuPageBinding;
 
+import android.view.View;
 import android.widget.TabHost;
 
 /**
@@ -35,14 +39,11 @@ public class MainMenuActivity extends ActivityGroup
         //initialize binding
         onCreateBinding();
 
-        //intialize UI
-        tabHostInitalization();
-
-        colorSettings();
+        //initialize UI elements
+        initUIElements();
     }
     //endregion Init
 
-    //region Methods
     protected void onCreateBinding()
     {
         mainmenuPageBinding = DataBindingUtil.setContentView(this, R.layout.mainmenu_page);
@@ -50,7 +51,16 @@ public class MainMenuActivity extends ActivityGroup
         buttonBinding();
     }
 
-    protected void tabHostInitalization()
+    protected void initUIElements()
+    {
+        initialTabSettings();
+        initialColorolorSettings();
+        initialVisibilitySettings();
+    }
+
+    //region Methods
+
+    protected void initialTabSettings()
     {
         mainmenuPageBinding.tabHost.setup(this.getLocalActivityManager());
 
@@ -73,15 +83,90 @@ public class MainMenuActivity extends ActivityGroup
         mainmenuPageBinding.tabHost.addTab(spec);
     }
 
-    protected void buttonBinding()
-    {
-
-    }
-
-    protected void colorSettings()
+    protected void initialColorolorSettings()
     {
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#3F51B5"));
         getActionBar().setBackgroundDrawable(colorDrawable);
+    }
+
+    protected void initialVisibilitySettings()
+    {
+        mainmenuPageBinding.goBackTxtButton.setVisibility(View.INVISIBLE);
+        mainmenuPageBinding.goBackImg.setVisibility(View.INVISIBLE);
+
+        ViewLogicManager.viewLogicManager()._tab1_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+        {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId)
+            {
+                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+                {
+                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        ViewLogicManager.viewLogicManager()._tab2_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+        {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId)
+            {
+                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+                {
+                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        ViewLogicManager.viewLogicManager()._tab3_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
+        {
+            @Override
+            public void onPropertyChanged(Observable sender, int propertyId)
+            {
+                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
+                {
+                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
+                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    protected void buttonBinding()
+    {
+        //TODO: Implement when ready
+        mainmenuPageBinding.setGoBackButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                backToPrevious();
+            }
+        });
+    }
+
+    protected void backToPrevious()
+    {
+        //check for previous page
+        switch (mainmenuPageBinding.tabHost.getCurrentTab())
+        {
+            case 0: easyGetTabLogic(ViewLogicManager.viewLogicManager().get_tab1_currentState());
+            case 1:
+            default:
+        }
+    }
+
+    protected void easyGetTabLogic(Category.ActivityState state)
+    {
+        switch (state)
+        {
+            case INITIAL:
+            default: {
+
+            }
+        }
     }
 
     //endregion Methods

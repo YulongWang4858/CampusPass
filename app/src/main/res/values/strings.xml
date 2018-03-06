@@ -3,4 +3,16 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <!--Test Item Names-->
+    <string-array name="item_names">
+        <item>Fresh Kimchi</item>
+        <item>Air Conditioner</item>
+    </string-array>
+
+    <array name="item_img">
+        <item>@drawable/kimchi_img</item>
+        <item>@drawable/air_conidtioner_img</item>
+        <item>@drawable/book_img</item>
+    </array>
 </resources>

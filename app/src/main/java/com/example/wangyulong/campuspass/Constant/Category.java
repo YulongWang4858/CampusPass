@@ -9,6 +9,28 @@ public class Category
     public enum UserTYpe
     {
         STUDENT,
-        CCMPANY
-    };
+        COMPANY
+    }
+
+    public enum ActivityState
+    {
+        INITIAL,
+        DEEP
+    }
+
+    public enum BuyingItemTag
+    {
+        FOOD,
+        CLOTHING,
+        ELECTRONICS,
+        BOOKS,
+        HOME_EQUIPEMENTS
+    }
+
+    public enum BuyingItemCondition
+    {
+        NEW,
+        SECOND_HAND,
+        DISPOSE
+    }
 }
