@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="SmallImageClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,8 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/listItemShortDescr"
-            android:layout_marginTop="12dp"
             android:layout_marginLeft="300dp"
+            android:layout_marginTop="12dp"
             android:textAllCaps="false"
             android:textColor="@color/colorVeryLightPink"
             android:textSize="20dp"
@@ -52,14 +59,14 @@
             android:id="@+id/listItemCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/listItemShortDescr"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="16dp"
             android:textAllCaps="false"
             android:textColor="@color/colorVeryLightPink"
             android:textSize="12dp"
-            android:textStyle="bold"
-            android:layout_below="@+id/listItemShortDescr"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginBottom="20dp"/>
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 </layout>

@@ -50,5 +50,10 @@ public class BuyingItemsCollectionHelper extends BasicCollectionHelper
     {
         return this.buying_item_collection.get();
     }
+
+    public BuyingItemModel get_item_at_position(int position)
+    {
+        return this.item_list.get(position);
+    }
     //endregion CRUD
 }

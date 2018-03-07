@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass.Helper;
 
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.UserModel;
 
 /**
@@ -36,6 +37,7 @@ public class ConnectionHelper
     //endregion Constructor
 
     //region Methods
+
     public boolean ConnectUser(String matricN, String passW)
     {
         if (Connect(matricN, passW))
@@ -58,6 +60,16 @@ public class ConnectionHelper
     private boolean testVerification(String matricN, String passW)
     {
         return matricN.equals("a0127603") && passW.equals("2enXm?83");
+    }
+
+    public boolean isUserConnected()
+    {
+        return true;
+    }
+
+    public void loadFromServer()
+    {
+        ComplexDataLoader.complexDataLoader().loadFromServer();
     }
     //endregion Methods
 }

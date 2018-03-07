@@ -2,7 +2,13 @@
 <layout>
 
     <data>
+        <variable
+            name="BuyingPageVM"
+            type="com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel"/>
 
+        <variable
+            name="BuyingListItemClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

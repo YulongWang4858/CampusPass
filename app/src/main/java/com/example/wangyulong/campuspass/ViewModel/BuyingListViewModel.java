@@ -1,7 +1,10 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
+import android.databinding.ObservableField;
+
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.ConnectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.R;
 
@@ -16,6 +19,7 @@ public class BuyingListViewModel extends BasicViewModel
     //region Fields and Const
     private static BuyingListViewModel _instance = null;
     private BuyingItemsCollectionHelper itemsCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
+    public ObservableField<BuyingItemModel> _currentlySelectedItem = new ObservableField<>(new BuyingItemModel());
     //endregion Fields and Const
 
     //region Properties
@@ -41,24 +45,55 @@ public class BuyingListViewModel extends BasicViewModel
     //region Methods
     private void loadFromServer()
     {
-        BuyingItemModel kimchi = new BuyingItemModel(R.drawable.kimchi_img, "Korean Kimchi", "Fresh homeade kimchi by exchange student", Category.BuyingItemTag.FOOD,
-                Category.BuyingItemCondition.NEW, 5, 7, 1);
-        BuyingItemModel javabook = new BuyingItemModel(R.drawable.book_img, "Java Book", "Old book from graduating Computing student", Category.BuyingItemTag.BOOKS,
-                Category.BuyingItemCondition.SECOND_HAND, 21.5, 1, 1);
-        BuyingItemModel aircon = new BuyingItemModel(R.drawable.air_conidtioner_img, "Air Conditioner", "Second hand air conditioner, in perfect condition", Category.BuyingItemTag.ELECTRONICS,
-                Category.BuyingItemCondition.SECOND_HAND, 100, 1, 1);
-        BuyingItemModel table = new BuyingItemModel(R.drawable.table_img, "Large Desk", "80 * 40 long desk for sale, free shipping, negotiable price", Category.BuyingItemTag.HOME_EQUIPEMENTS,
-                Category.BuyingItemCondition.SECOND_HAND, 50.5, 1, 1);
-
-        this.itemsCollectionHelper.add_item_to_collection(kimchi);
-        this.itemsCollectionHelper.add_item_to_collection(javabook);
-        this.itemsCollectionHelper.add_item_to_collection(aircon);
-        this.itemsCollectionHelper.add_item_to_collection(table);
+        ConnectionHelper.connectionHelper().loadFromServer();
     }
 
     public ArrayList<BuyingItemModel> get_buying_elements()
     {
         return this.itemsCollectionHelper.get_full_item_list();
+    }
+
+    public void set_new_item_selected(int position)
+    {
+        this._currentlySelectedItem.set(this.itemsCollectionHelper.get_item_at_position(position));
+    }
+
+    public BuyingItemModel get_selected_item()
+    {
+        return this._currentlySelectedItem.get();
+    }
+
+    public int get_selected_item_img_rsc()
+    {
+        return this._currentlySelectedItem.get().get_item_image_id();
+    }
+
+    public String get_selected_item_short_descr()
+    {
+        return this._currentlySelectedItem.get().get_item_short_description();
+    }
+
+    public String get_selected_item_title()
+    {
+        return this._currentlySelectedItem.get().get_item_title();
+    }
+
+    public String get_selected_item_price()
+    {
+        return Double.toString(this._currentlySelectedItem.get().get_item_price());
+    }
+
+    public String get_selected_item_condition()
+    {
+        switch (this._currentlySelectedItem.get().get_item_condition())
+        {
+            case NEW:
+                return "New";
+            case SECOND_HAND:
+                return "Second Hand";
+            default:
+                return "Dispose";
+        }
     }
     //endregion Methods
 }
