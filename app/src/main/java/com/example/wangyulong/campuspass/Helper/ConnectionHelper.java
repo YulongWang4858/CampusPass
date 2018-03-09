@@ -1,7 +1,10 @@
 package com.example.wangyulong.campuspass.Helper;
 
+import android.databinding.ObservableField;
+
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by wangyulong on 20/02/18.
@@ -11,10 +14,12 @@ public class ConnectionHelper
 {
     //region Fields and Consts
     private UserModel _user;
+    private ObservableField<Boolean> isUserConnected;
     //endregion Fields and Consts
 
     //region Properties
     private static ConnectionHelper _connectionHelper_instance;
+    private FirebaseAuth firebaseAuth;
 
     public static ConnectionHelper connectionHelper()
     {
@@ -32,7 +37,10 @@ public class ConnectionHelper
     //Default
     private ConnectionHelper()
     {
+        firebaseAuth = FirebaseAuth.getInstance();
 
+        isUserConnected = new ObservableField<Boolean>();
+        isUserConnected.set(false);
     }
     //endregion Constructor
 
@@ -54,22 +62,27 @@ public class ConnectionHelper
     {
         //TODO: Implement Web Server Methods
 
-        return testVerification(matricN, passW);
+        return verify(matricN, passW);
     }
 
-    private boolean testVerification(String matricN, String passW)
-    {
-        return matricN.equals("a0127603") && passW.equals("2enXm?83");
-    }
-
-    public boolean isUserConnected()
+    private boolean verify(String email, String passW)
     {
         return true;
+    }
+
+    public boolean get_connection_stauts()
+    {
+        return this.isUserConnected.get();
     }
 
     public void loadFromServer()
     {
         ComplexDataLoader.complexDataLoader().loadFromServer();
+    }
+
+    public void set_connection_status(boolean status)
+    {
+        this.isUserConnected.set(status);
     }
     //endregion Methods
 }

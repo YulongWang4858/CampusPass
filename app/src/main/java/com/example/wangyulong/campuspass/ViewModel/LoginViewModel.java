@@ -63,5 +63,15 @@ public class LoginViewModel extends BasicViewModel
 
         return false;
     }
+
+    public void set_user_connection_status(boolean status)
+    {
+        this.connectionHelper.set_connection_status(status);
+    }
+
+    public boolean get_user_connection_status()
+    {
+        return this.connectionHelper.get_connection_stauts();
+    }
     //endregion Methods
 }

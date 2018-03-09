@@ -64,6 +64,8 @@ public class EasyGetActivity extends AppCompatActivity
             public void onClick()
             {
                 //TODO: Implement
+                Intent toSelling = new Intent(getApplicationContext(), SellingActivity.class);
+                EasyGetActivity.this.startActivity(toSelling);
             }
         });
     }

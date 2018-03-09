@@ -2,12 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPureWhite"
                 android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/backArrow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/backArrow">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/goBackImg"
@@ -33,9 +35,9 @@
         android:id="@+id/notificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/backArrow"
         android:layout_marginLeft="20dp"
         android:text="Notification"
-        android:layout_below="@+id/backArrow"
         android:textAllCaps="false"
         android:textSize="10dp"/>
 
@@ -43,9 +45,9 @@
         android:id="@+id/updateInfoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/backArrow"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/notificationButton"
-        android:layout_below="@+id/backArrow"
         android:text="Update Info"
         android:textAllCaps="false"
         android:textSize="10dp"/>
@@ -54,9 +56,9 @@
         android:id="@+id/chatBoxButotn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/backArrow"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/updateInfoButton"
-        android:layout_below="@+id/backArrow"
         android:text="Chat Box"
         android:textAllCaps="false"
         android:textSize="10dp"/>

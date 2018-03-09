@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "271680163080",
+    "firebase_url": "https://campuspass-5d6a6.firebaseio.com",
+    "project_id": "campuspass-5d6a6",
+    "storage_bucket": "campuspass-5d6a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271680163080:android:c5fd4681f71d529a",
+        "android_client_info": {
+          "package_name": "com.example.wangyulong.campuspass"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271680163080-8vpl5raem18cjdg45te721h8qhlsdtsn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wangyulong.campuspass",
+            "certificate_hash": "beeeec348bfc6fa7678506c113d816c3f2610999"
+          }
+        },
+        {
+          "client_id": "271680163080-k2gn59rem18317kr1g41kqghc5o5nb3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjAynhpPs1TAZ-MUkxHoy1Q2z1Wyw2bgU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271680163080-k2gn59rem18317kr1g41kqghc5o5nb3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

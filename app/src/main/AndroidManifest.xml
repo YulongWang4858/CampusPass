@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".Activity.BuyingItemDetailedActivity">
         </activity>
+        <activity android:name=".Activity.SellingActivity">
+        </activity>
     </application>
 
 </manifest>

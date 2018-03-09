@@ -47,5 +47,15 @@ public class RegisterViewModel extends BasicViewModel
     {
         return true;
     }
+
+    public boolean VerifyUserInfoFormat()
+    {
+        if (email.get() != null && student_name.get() != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
     //endregion Methods
 }
