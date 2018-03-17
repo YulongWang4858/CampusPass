@@ -4,9 +4,23 @@
 
     <data>
 
+        <import type="android.view.View"></import>
+
         <variable
             name="SellingVM"
             type="com.example.wangyulong.campuspass.ViewModel.SellingViewModel"/>
+
+        <variable
+            name="SelectPhotoButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="UploadPhotoButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="UploadSellingItemButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -30,19 +44,153 @@
                     android:layout_marginTop="40dp"
                     android:text="Item Title: "
                     android:textAllCaps="false"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textStyle="bold"/>
 
                 <EditText
+                    android:id="@+id/itemTitleETxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/askForTitleTxt"
                     android:text="@={SellingVM.itemModel.item_title}"/>
+
+                <TextView
+                    android:id="@+id/askForDescrTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForTitleTxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="40dp"
+                    android:text="Short Item Description: "
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/askForDescrETxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForDescrTxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@={SellingVM.itemModel.item_short_descr}"/>
+
+                <TextView
+                    android:id="@+id/askForPriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForDescrETxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Price: "
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/askForPriceETxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForDescrETxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/askForPriceTxt"
+                    android:text="@={SellingVM.itemModel.price}"/>
+
+                <TextView
+                    android:id="@+id/askForStockTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForPriceTxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Stock Left: "
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/askForStockETxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForPriceETxt"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_toRightOf="@+id/askForStockTxt"
+                    android:text="@={SellingVM.itemModel.stock}"/>
+
+                <Spinner
+                    android:id="@+id/itemConditionSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForStockETxt"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#d11f08"
+                    android:entries="@array/item_condition_selection_dropdown"
+                    android:padding="5dp"/>
+
+                <Spinner
+                    android:id="@+id/itemCategorySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/askForStockETxt"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/itemConditionSpinner"
+                    android:backgroundTint="#d11f08"
+                    android:entries="@array/item_tag_selection_dropdown"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:id="@+id/uploadSellingItemImg"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@+id/itemCategorySpinner"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"/>
+
+                <Button
+                    android:id="@+id/selectPhotoButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/uploadSellingItemImg"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{(v) -> SelectPhotoButtonClickedListener.onClick()}"
+                    android:text="Selection Photo"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"/>
+
+                <Button
+                    android:id="@+id/uploadButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/uploadSellingItemImg"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/selectPhotoButton"
+                    android:onClick="@{(v) -> UploadPhotoButtonClickedListener.onClick()}"
+                    android:text="Upload Photo"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:visibility="@{SellingVM.isImageSelected.get() ? View.VISIBLE : View.INVISIBLE}"/>
+
+                <Button
+                    android:id="@+id/sellingItemDoneButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/uploadSellingItemImg"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/uploadButton"
+                    android:onClick="@{(v) -> UploadSellingItemButtonClickedListener.onClick()}"
+                    android:text="Done"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"/>
+
             </RelativeLayout>
-
         </ScrollView>
-
     </RelativeLayout>
 </layout>

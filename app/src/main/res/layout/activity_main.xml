@@ -14,6 +14,10 @@
         <variable
             name="LoginButtonClickListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="ByPassButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -58,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="180dp"
             android:layout_marginTop="270dp"
-            android:text="@={LoginVM.user_matric.get()}"/>
+            android:text="@={LoginVM.user_matric}"/>
 
         <EditText
             android:id="@+id/passwordETxt"
@@ -66,7 +70,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="180dp"
             android:layout_marginTop="315dp"
-            android:text="@={LoginVM.user_pass.get()}"/>
+            android:text="@={LoginVM.user_pass}"/>
 
         <TextView
             android:id="@+id/matricTxt"
@@ -108,6 +112,12 @@
             android:onClick="@{(v) -> RegisterButtonClickListener.onClick()}"
             android:text="@{LoginVM.displayMsgHelper.getRegisterButtonTxt()}"
             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(v) -> ByPassButtonClickedListener.onClick()}"
+            android:text="By Pass"/>
 
 
     </RelativeLayout>

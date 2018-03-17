@@ -1,6 +1,7 @@
 package com.example.wangyulong.campuspass.Model;
 
 import android.databinding.ObservableField;
+
 import com.example.wangyulong.campuspass.Constant.Category;
 
 /**
@@ -10,8 +11,8 @@ import com.example.wangyulong.campuspass.Constant.Category;
 public class SellingItemModel
 {
     //region Fields and Const
-    public ObservableField<Double> price = new ObservableField<>(0.00);
-    public ObservableField<Integer> stock = new ObservableField<Integer>(0);
+    public ObservableField<String> price = new ObservableField<>("");
+    public ObservableField<String> stock = new ObservableField<>("");
     public ObservableField<String> item_title = new ObservableField<>("");
     public ObservableField<String> item_short_descr = new ObservableField<>("");
     public ObservableField<Category.BuyingItemCondition> item_condition = new ObservableField<>(Category.BuyingItemCondition.NEW);

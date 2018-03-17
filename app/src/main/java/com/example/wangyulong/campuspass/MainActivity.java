@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableField;
@@ -12,6 +13,7 @@ import android.util.Log;
 
 import com.example.wangyulong.campuspass.Activity.MainMenuActivity;
 import com.example.wangyulong.campuspass.Activity.RegisterActivity;
+import com.example.wangyulong.campuspass.Activity.SellingActivity;
 import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 import com.example.wangyulong.campuspass.ViewModel.LoginViewModel;
 import com.example.wangyulong.campuspass.databinding.ActivityMainBinding;
@@ -118,13 +120,6 @@ public class MainActivity extends AppCompatActivity
             public void onClick()
             {
                 verify_user_info();
-
-//                if (loginVM.get_user_connection_status())
-//                {
-//                    Intent toMainMenu = new Intent(getApplicationContext(), MainMenuActivity.class);
-//                    MainActivity.this.startActivity(toMainMenu);
-//                }
-
             }
         });
 
@@ -136,6 +131,18 @@ public class MainActivity extends AppCompatActivity
                 //TODO: Uncomment when tested
                 Intent toRegister = new Intent(getApplicationContext(), RegisterActivity.class);
                 MainActivity.this.startActivity(toRegister);
+            }
+        });
+
+
+        //TODO: Remove after testing
+        binding.setByPassButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                Intent toTestActivity = new Intent(getApplicationContext(), SellingActivity.class);
+                MainActivity.this.startActivity(toTestActivity);
             }
         });
     }
@@ -159,6 +166,7 @@ public class MainActivity extends AppCompatActivity
 
                             Intent toMainMenu = new Intent(getApplicationContext(), MainMenuActivity.class);
                             MainActivity.this.startActivity(toMainMenu);
+
                         }
                     }
                 });

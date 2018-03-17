@@ -4,6 +4,8 @@ import android.databinding.ObservableField;
 
 import com.example.wangyulong.campuspass.Model.UserModel;
 
+import java.util.UUID;
+
 /**
  * Created by wangyulong on 22/02/18.
  */
@@ -12,15 +14,16 @@ public class RegisterViewModel extends BasicViewModel
 {
     //region Fields and Consts
     private static RegisterViewModel _instance = null;
-    private UserModel _user;
+    private UserModel _new_user = new UserModel();
 
-    public ObservableField<String> student_name = new ObservableField<String>();
-    public ObservableField<String> email = new ObservableField<String>();
-    public ObservableField<String> phone = new ObservableField<String>();
-    public ObservableField<String> student_info = new ObservableField<String>();
-    public ObservableField<String> career_info = new ObservableField<String>();
-    public ObservableField<String> address = new ObservableField<String>();
-
+    public ObservableField<String> user_name = _new_user.user_name;
+    public ObservableField<String> user_email = _new_user.user_email;
+    public ObservableField<String> user_contact_info = _new_user.user_contact_info;
+    public ObservableField<String> user_course_info = _new_user.user_course_info;
+    public ObservableField<String> user_pickup_address = _new_user.user_pickup_address;
+    public ObservableField<String> user_password = _new_user.user_password;
+    public ObservableField<String> user_career_info = _new_user.user_career_info;
+    public ObservableField<UUID> user_unique_id = _new_user.user_id;
     //endregion Fields and Consts
 
     //region Properties
@@ -38,7 +41,7 @@ public class RegisterViewModel extends BasicViewModel
     //region Constructor
     private RegisterViewModel()
     {
-        _user = new UserModel();
+
     }
     //endregion Constructor
 
@@ -50,12 +53,17 @@ public class RegisterViewModel extends BasicViewModel
 
     public boolean VerifyUserInfoFormat()
     {
-        if (email.get() != null && student_name.get() != null)
-        {
-            return true;
-        }
+//        if (email.get() != null && student_name.get() != null)
+//        {
+//            return true;
+//        }
 
-        return false;
+        return true;
+    }
+
+    public void init_new_user()
+    {
+        this._new_user = new UserModel();
     }
     //endregion Methods
 }

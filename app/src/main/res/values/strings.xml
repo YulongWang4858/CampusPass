@@ -16,4 +16,21 @@
         <item>@drawable/book_img</item>
         <item>@drawable/table_img</item>
     </array>
+
+
+    <string-array name="item_condition_selection_dropdown">
+        <item>Item Condition</item>
+        <item>New</item>
+        <item>Dispose</item>
+        <item>Second Hand</item>
+    </string-array>
+
+
+    <string-array name="item_tag_selection_dropdown">
+        <item>Item Category</item>
+        <item>Books</item>
+        <item>Electronics</item>
+        <item>Food</item>
+        <item>Home Equipments</item>
+    </string-array>
 </resources>
