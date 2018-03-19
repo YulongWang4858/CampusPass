@@ -1,16 +1,14 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
 import android.databinding.ObservableField;
-import android.util.Log;
 
-import com.example.wangyulong.campuspass.Activity.DatabaseUserModel;
+import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -64,11 +62,6 @@ public class RegisterViewModel extends BasicViewModel
 
     public boolean VerifyUserInfoFormat()
     {
-//        if (email.get() != null && student_name.get() != null)
-//        {
-//            return true;
-//        }
-
         return true;
     }
 

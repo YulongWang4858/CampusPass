@@ -9,8 +9,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -20,16 +23,25 @@ import com.example.wangyulong.campuspass.Constant.RequestCode;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.SellingViewModel;
 import com.example.wangyulong.campuspass.databinding.SellingPageBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 public class SellingActivity extends AppCompatActivity
 {
 
     SellingPageBinding binding;
     SellingViewModel sellingViewModel;
+    private StorageReference storageRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +51,7 @@ public class SellingActivity extends AppCompatActivity
 
         //init
         sellingViewModel = SellingViewModel.sellingViewModel();
+        storageRef = FirebaseStorage.getInstance().getReference();
 
         onCreateBinding();
     }
@@ -91,6 +104,8 @@ public class SellingActivity extends AppCompatActivity
         });
     }
 
+
+    //parse and stores condition tag
     protected void setSellingItemCondition(String condition)
     {
 
@@ -109,6 +124,7 @@ public class SellingActivity extends AppCompatActivity
         sellingViewModel.set_item_condition(item_condition);
     }
 
+    //parse and store category tag
     protected void setSellingItemCategory(String tag)
     {
         Category.BuyingItemTag item_tag;
@@ -148,7 +164,56 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                //
+                final String temp_img_id = "images/" + UUID.randomUUID().toString();
+
+                StorageReference ref = storageRef.child(temp_img_id);
+                ref.putFile(sellingViewModel.get_photo_to_upload())
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                        {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
+                            {
+                                Log.d("Uploading photo -> ", "Successfully uploaded!");
+                                showSnackBar("Upload photo success!");
+
+                                //obtain a fresh download link
+                                StorageReference fresh_img_ref = FirebaseStorage.getInstance().getReference().child(temp_img_id);
+                                fresh_img_ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                                {
+                                    @Override
+                                    public void onSuccess(Uri uri)
+                                    {
+                                        Log.d("Obtain download link ->", "download url obtianed -> " + uri);
+
+                                        sellingViewModel.set_photo_to_upload(uri);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener()
+                                {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception)
+                                    {
+                                        Log.d("Obtain download link ->", "failed with " + exception.getMessage());
+                                    }
+                                });
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() //trace upload error
+                        {
+                            @Override
+                            public void onFailure(@NonNull Exception e)
+                            {
+                                Log.d("Uploading photo -> ", e.getMessage());
+                                showSnackBar("upload photo failed -> " + e.getMessage());
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() //trace upload progress
+                        {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot)
+                            {
+                                Log.d("uploading -> ", "100%");
+                            }
+                        });
             }
         });
 
@@ -159,6 +224,8 @@ public class SellingActivity extends AppCompatActivity
             {
                 //TODO: Upload and link to mainmenupage
                 sellingViewModel.is_selling_item_upload_complete();
+
+                sellingViewModel.create_selling_item_on_database();
             }
         });
     }
@@ -173,7 +240,8 @@ public class SellingActivity extends AppCompatActivity
         {
             try
             {
-                final Uri imageUri = data.getData();
+                final Uri imageUri = data.getData(); // obtaining uri from galllery
+                sellingViewModel.set_photo_to_upload(imageUri);
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
 
@@ -186,5 +254,10 @@ public class SellingActivity extends AppCompatActivity
                 e.printStackTrace();
             }
         }
+    }
+
+    protected void showSnackBar(String txt)
+    {
+        Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
     }
 }
