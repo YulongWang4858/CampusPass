@@ -164,9 +164,9 @@ public class MainActivity extends AppCompatActivity
                         {
                             showSnackBar("Login: Success! ");
 
+                            //start mainmenu activity
                             Intent toMainMenu = new Intent(getApplicationContext(), MainMenuActivity.class);
                             MainActivity.this.startActivity(toMainMenu);
-
                         }
                     }
                 });

@@ -34,68 +34,16 @@
                     android:text="Email:"
                     android:textColor="@android:color/background_dark"/>
 
-                <TextView
-                    android:id="@+id/studentNameTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="25dp"
-                    android:text="Student Name:"
-                    android:textColor="@android:color/background_dark"/>
-
-                <TextView
-                    android:id="@+id/phoneTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="95dp"
-                    android:text="Phone:"
-                    android:textColor="@android:color/background_dark"/>
-
-                <TextView
-                    android:id="@+id/studentInfoTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="125dp"
-                    android:text="Student Info:"
-                    android:textColor="@android:color/background_dark"/>
-
-                <TextView
-                    android:id="@+id/careerInfoTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="250dp"
-                    android:text="Career Info:"
-                    android:textColor="@android:color/background_dark"/>
-
-                <TextView
-                    android:id="@+id/addressTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="380dp"
-                    android:text="Address:"
-                    android:textColor="@android:color/background_dark"/>
 
                 <TextView
                     android:id="@+id/passwordTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="420dp"
+                    android:layout_marginTop="120dp"
                     android:text="Password:"
                     android:textColor="@android:color/background_dark"/>
 
-
-                <EditText
-                    android:id="@+id/studentNameETxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="5dp"
-                    android:text="@={RegisterVM.user_name}"/>
 
                 <EditText
                     android:id="@+id/emailETxt"
@@ -106,43 +54,11 @@
                     android:text="@={RegisterVM.user_email}"/>
 
                 <EditText
-                    android:id="@+id/phoneETxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="75dp"
-                    android:text="@={RegisterVM.user_contact_info}"/>
-
-                <EditText
-                    android:id="@+id/studentInfoETxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="105dp"
-                    android:text="@={RegisterVM.user_course_info}"/>
-
-                <EditText
-                    android:id="@+id/careerInfoETxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="230dp"
-                    android:text="@={RegisterVM.user_career_info}"/>
-
-                <EditText
-                    android:id="@+id/addressETxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:layout_marginTop="360dp"
-                    android:text="@={RegisterVM.user_pickup_address}"/>
-
-                <EditText
                     android:id="@+id/passwordETxt"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="120dp"
-                    android:layout_marginTop="400dp"
+                    android:layout_marginTop="100dp"
                     android:text="@={RegisterVM.user_password}"/>
 
                 <Button

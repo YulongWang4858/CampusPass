@@ -6,6 +6,7 @@ import android.renderscript.Double2;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.R;
@@ -33,8 +34,8 @@ public class RegisterActivity extends AppCompatActivity
 {
     //region Fields and Consts
     private RegisterPageBinding binding;
-    private FirebaseAuth firebaseAuth;
     private RegisterViewModel registerVM;
+    private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseRef = database.getReference("user");
     private boolean _is_registration_success = false;
@@ -48,22 +49,6 @@ public class RegisterActivity extends AppCompatActivity
         setContentView(R.layout.register_page);
         firebaseAuth = FirebaseAuth.getInstance();
         registerVM = RegisterViewModel.registerViewModel();
-
-        databaseRef.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                //TODO:
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
-        });
-
 
         //initialize binding
         onCreateBinding();
@@ -82,8 +67,16 @@ public class RegisterActivity extends AppCompatActivity
             {
                 if (RegisterViewModel.registerViewModel().VerifyUserInfoFormat())
                 {
-
                     createUser();
+
+                    if (_is_registration_success)
+                    {
+                        Log.d("Registration: ", "new user registration success, moving on to login page");
+                        _is_registration_success = false;
+
+                        //revert to login page
+                        finish();
+                    }
                 }
             }
         });
@@ -96,9 +89,9 @@ public class RegisterActivity extends AppCompatActivity
 
     protected void createUser()
     {
-
         firebaseAuth.createUserWithEmailAndPassword(registerVM.user_email.get(), registerVM.user_password.get())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>()
+                {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
@@ -109,29 +102,14 @@ public class RegisterActivity extends AppCompatActivity
                         {
                             showSnackBar("Register: registration failed");
                             showSnackBar(task.getException().getMessage());
+                        } else
+                        {
+                            _is_registration_success = true; //update view
+
+                            //update data base
+                            registerVM.init_database();
                         }
                     }
                 });
-
-        //update data base
-        Random seed = new Random();
-        String _database_user_identifier = "user->" + UUID.randomUUID().toString() + seed.nextInt(10000) + 1;
-
-        databaseRef.child(_database_user_identifier).child("user_name: ")
-                .setValue(registerVM.user_name.get());
-        databaseRef.child(_database_user_identifier).child("user_email: ")
-                .setValue(registerVM.user_email.get());
-        databaseRef.child(_database_user_identifier).child("user_contact: ")
-                .setValue(registerVM.user_contact_info.get());
-        databaseRef.child(_database_user_identifier).child("user_student_info: ")
-                .setValue(registerVM.user_course_info.get());
-        databaseRef.child(_database_user_identifier).child("user_career_info: ")
-                .setValue(registerVM.user_career_info.get());
-        databaseRef.child(_database_user_identifier).child("user_pickup_address: ")
-                .setValue(registerVM.user_pickup_address.get());
-        databaseRef.child(_database_user_identifier).child("user_password: ")
-                .setValue(registerVM.user_password.get());
-
-        registerVM.init_new_user();
     }
 }

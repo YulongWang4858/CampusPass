@@ -36,6 +36,8 @@
         </activity>
         <activity android:name=".Activity.SellingActivity">
         </activity>
+        <activity android:name=".Activity.UpdateInfoActivity">
+        </activity>
     </application>
 
 </manifest>

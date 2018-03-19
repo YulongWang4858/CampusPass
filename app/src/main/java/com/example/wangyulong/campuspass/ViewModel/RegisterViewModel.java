@@ -1,9 +1,16 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
 import android.databinding.ObservableField;
+import android.util.Log;
 
+import com.example.wangyulong.campuspass.Activity.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.UserModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -24,6 +31,10 @@ public class RegisterViewModel extends BasicViewModel
     public ObservableField<String> user_password = _new_user.user_password;
     public ObservableField<String> user_career_info = _new_user.user_career_info;
     public ObservableField<UUID> user_unique_id = _new_user.user_id;
+
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseRef = database.getReference("user");
     //endregion Fields and Consts
 
     //region Properties
@@ -64,6 +75,62 @@ public class RegisterViewModel extends BasicViewModel
     public void init_new_user()
     {
         this._new_user = new UserModel();
+    }
+
+    public void fill_cur_user_info(DataSnapshot dataSnapshot)
+    {
+        for (DataSnapshot ds : dataSnapshot.getChildren())
+        {
+            String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
+            DatabaseUserModel user = new DatabaseUserModel();
+            this._new_user.user_name.set(ds.getValue(DatabaseUserModel.class).getUser_name());
+            this._new_user.user_email.set(ds.getValue(DatabaseUserModel.class).getUser_email());
+            this._new_user.user_contact_info.set(ds.getValue(DatabaseUserModel.class).getUser_contact());
+            this._new_user.user_career_info.set(ds.getValue(DatabaseUserModel.class).getUser_career_info());
+            this._new_user.user_pickup_address.set(ds.getValue(DatabaseUserModel.class).getUser_pickup_address());
+            this._new_user.user_password.set(ds.getValue(DatabaseUserModel.class).getUser_password());
+            this._new_user.user_course_info.set(ds.getValue(DatabaseUserModel.class).getUser_student_info());
+        }
+    }
+
+    public void upload_to_database()
+    {
+        String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
+
+        databaseRef.child(_database_user_identifier).child("user_name")
+                .setValue(this._new_user.user_name.get());
+        databaseRef.child(_database_user_identifier).child("user_email")
+                .setValue(this._new_user.user_email.get());
+        databaseRef.child(_database_user_identifier).child("user_contact")
+                .setValue(this.user_contact_info.get());
+        databaseRef.child(_database_user_identifier).child("user_student_info")
+                .setValue(this.user_course_info.get());
+        databaseRef.child(_database_user_identifier).child("user_career_info")
+                .setValue(this.user_career_info.get());
+        databaseRef.child(_database_user_identifier).child("user_pickup_address")
+                .setValue(this.user_pickup_address.get());
+        databaseRef.child(_database_user_identifier).child("user_password")
+                .setValue(this.user_password.get());
+    }
+
+    public void init_database()
+    {
+        String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
+
+        databaseRef.child(_database_user_identifier).child("user_name")
+                .setValue("");
+        databaseRef.child(_database_user_identifier).child("user_email")
+                .setValue(this.firebaseAuth.getCurrentUser().getEmail());
+        databaseRef.child(_database_user_identifier).child("user_contact")
+                .setValue("");
+        databaseRef.child(_database_user_identifier).child("user_student_info")
+                .setValue("");
+        databaseRef.child(_database_user_identifier).child("user_career_info")
+                .setValue("");
+        databaseRef.child(_database_user_identifier).child("user_pickup_address")
+                .setValue("");
+        databaseRef.child(_database_user_identifier).child("user_password")
+                .setValue("*******");
     }
     //endregion Methods
 }

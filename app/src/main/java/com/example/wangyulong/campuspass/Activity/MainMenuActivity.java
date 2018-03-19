@@ -91,60 +91,38 @@ public class MainMenuActivity extends ActivityGroup
 
     protected void initialVisibilitySettings()
     {
-//        mainmenuPageBinding.goBackTxtButton.setVisibility(View.INVISIBLE);
-//        mainmenuPageBinding.goBackImg.setVisibility(View.INVISIBLE);
-//
-//        ViewLogicManager.viewLogicManager()._tab1_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-//        {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId)
-//            {
-//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-//                {
-//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-//
-//        ViewLogicManager.viewLogicManager()._tab2_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-//        {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId)
-//            {
-//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-//                {
-//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
-//
-//        ViewLogicManager.viewLogicManager()._tab3_currentState.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback()
-//        {
-//            @Override
-//            public void onPropertyChanged(Observable sender, int propertyId)
-//            {
-//                if (((ObservableField<Category.ActivityState>) sender).get() != Category.ActivityState.INITIAL)
-//                {
-//                    mainmenuPageBinding.goBackTxtButton.setVisibility(View.VISIBLE);
-//                    mainmenuPageBinding.goBackImg.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
     }
 
     protected void buttonBinding()
     {
         //TODO: Implement when ready
-//        mainmenuPageBinding.setGoBackButtonClickedListener(new ClickListener()
-//        {
-//            @Override
-//            public void onClick()
-//            {
-//                backToPrevious();
-//            }
-//        });
+        mainmenuPageBinding.setNotificationButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                //TODO: Attach notification here
+            }
+        });
+
+        mainmenuPageBinding.setUpdateInfoButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                Intent toUpdateInfoPage = new Intent(getApplicationContext(), UpdateInfoActivity.class);
+                MainMenuActivity.this.startActivity(toUpdateInfoPage);
+            }
+        });
+
+        mainmenuPageBinding.setChatBoxButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                //TODO: Attach Chatbox here
+            }
+        });
     }
 
     protected void backToPrevious()
@@ -152,7 +130,8 @@ public class MainMenuActivity extends ActivityGroup
         //check for previous page
         switch (mainmenuPageBinding.tabHost.getCurrentTab())
         {
-            case 0: easyGetTabLogic(ViewLogicManager.viewLogicManager().get_tab1_currentState());
+            case 0:
+                easyGetTabLogic(ViewLogicManager.viewLogicManager().get_tab1_currentState());
             case 1:
             default:
         }
@@ -163,7 +142,8 @@ public class MainMenuActivity extends ActivityGroup
         switch (state)
         {
             case INITIAL:
-            default: {
+            default:
+            {
 
             }
         }
