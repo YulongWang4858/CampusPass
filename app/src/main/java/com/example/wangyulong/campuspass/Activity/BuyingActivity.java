@@ -69,7 +69,6 @@ public class BuyingActivity extends ListActivity
 //                adapterView.getItemAtPosition(i)
                 Intent toDetailedPage = new Intent(getApplicationContext(), BuyingItemDetailedActivity.class);
                 BuyingListViewModel.buyingListViewModel().set_new_item_selected(i);
-
                 BuyingActivity.this.startActivity(toDetailedPage);
             }
         });

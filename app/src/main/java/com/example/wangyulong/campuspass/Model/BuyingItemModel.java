@@ -20,6 +20,23 @@ public class BuyingItemModel
     private Category.BuyingItemCondition _item_condition;
     private int _item_stock_left;
     private int _item_num_imgs;
+
+    public String get_item_img_uri()
+    {
+        return _item_img_uri;
+    }
+
+    public void set_item_img_uri(String _item_img_uri)
+    {
+        this._item_img_uri = _item_img_uri;
+    }
+
+    public void set_item_id(String _item_id)
+    {
+        this._item_id = _item_id;
+    }
+
+    private String _item_img_uri;
     private String _item_id;
     //endregion Fields and Const
 
@@ -42,12 +59,54 @@ public class BuyingItemModel
         this._item_price = _item_price;
         this._item_stock_left = _item_stock_left;
         this._item_num_imgs = _item_num_imgs;
-
         this._item_id = UUID.randomUUID().toString(); // unique item id
+    }
+
+    public BuyingItemModel(String uri, String _item_title, String _item_short_description, String category, String condition, String _item_price,
+                           String _item_stock_left, String _owner_id)
+    {
+        this._item_title = _item_title;
+        this._item_img_uri = uri;
+        this._item_condition = parseConditionString(condition);
+        this._item_tag = parseCategoryString(category);
+        this._item_id = _owner_id;
+        this._item_stock_left = Integer.valueOf(_item_stock_left);
+        this._item_short_description = _item_short_description;
+        this._item_price = Double.valueOf(_item_price);
     }
     //endregion Constructor
 
     //region Methods
+
+    private Category.BuyingItemCondition parseConditionString(String condition)
+    {
+        switch (condition)
+        {
+            case "NEW":
+                return Category.BuyingItemCondition.NEW;
+            case "DISPOSE":
+                return Category.BuyingItemCondition.DISPOSE;
+            default:
+                return Category.BuyingItemCondition.SECOND_HAND;
+        }
+    }
+
+    private Category.BuyingItemTag parseCategoryString(String category)
+    {
+        switch (category)
+        {
+            case "ELECTRONICS":
+                return Category.BuyingItemTag.ELECTRONICS;
+            case "BOOKS":
+                return Category.BuyingItemTag.BOOKS;
+            case "FOOD":
+                return Category.BuyingItemTag.FOOD;
+            case "CLOTHING":
+                return Category.BuyingItemTag.CLOTHING;
+            default:
+                return Category.BuyingItemTag.HOME_EQUIPEMENTS;
+        }
+    }
 
     public int get_item_image_id()
     {

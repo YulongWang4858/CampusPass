@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.Constant.Category;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewLogicManager;
 import com.example.wangyulong.campuspass.ViewModel.EasyGetViewModel;

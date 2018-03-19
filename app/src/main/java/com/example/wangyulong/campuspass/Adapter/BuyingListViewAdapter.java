@@ -1,6 +1,8 @@
 package com.example.wangyulong.campuspass.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.R;
@@ -66,6 +69,8 @@ public class BuyingListViewAdapter extends ArrayAdapter<BuyingItemModel>
             if (item_title != null)
             {
                 item_title.setText(itemModel.get_item_title());
+
+                Log.d("adapter -> ", "setting title to " + itemModel.get_item_title());
             }
 
             if (item_short_descr != null)
@@ -75,7 +80,8 @@ public class BuyingListViewAdapter extends ArrayAdapter<BuyingItemModel>
 
             if (item_icon_img != null)
             {
-                item_icon_img.setImageResource(itemModel.get_item_image_id());
+                Glide.with(getContext()).load(itemModel.get_item_img_uri()).into(item_icon_img);
+                Log.d("adapter -> ", "setting image to " + itemModel.get_item_img_uri());
             }
 
             if (item_price != null)

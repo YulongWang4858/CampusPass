@@ -211,6 +211,7 @@ public class SellingActivity extends AppCompatActivity
                             @Override
                             public void onProgress(UploadTask.TaskSnapshot taskSnapshot)
                             {
+                                //TODO: Show progress bar in future
                                 Log.d("uploading -> ", "100%");
                             }
                         });
@@ -224,12 +225,12 @@ public class SellingActivity extends AppCompatActivity
             {
                 //TODO: Upload and link to mainmenupage
                 sellingViewModel.is_selling_item_upload_complete();
-
                 sellingViewModel.create_selling_item_on_database();
             }
         });
     }
 
+    //Result of accessing Gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {

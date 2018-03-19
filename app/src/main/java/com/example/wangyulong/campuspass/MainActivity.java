@@ -14,6 +14,7 @@ import android.util.Log;
 import com.example.wangyulong.campuspass.Activity.MainMenuActivity;
 import com.example.wangyulong.campuspass.Activity.RegisterActivity;
 import com.example.wangyulong.campuspass.Activity.SellingActivity;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 import com.example.wangyulong.campuspass.ViewModel.LoginViewModel;
 import com.example.wangyulong.campuspass.databinding.ActivityMainBinding;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         loginVM = LoginViewModel.loginViewModel();
+        ComplexDataLoader.complexDataLoader(); //prepare data1004858369@qq.
 
         //initialize Firebase
         initFirebaseSettings();
