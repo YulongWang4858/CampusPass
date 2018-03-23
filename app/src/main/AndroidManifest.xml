@@ -38,6 +38,12 @@
         </activity>
         <activity android:name=".Activity.UpdateInfoActivity">
         </activity>
+        <activity android:name=".Activity.RequestActivity">
+        </activity>
+        <activity android:name=".Activity.NewRequestActivity">
+        </activity>
+        <activity android:name=".Activity.MyRequestActivity">
+        </activity>
     </application>
 
 </manifest>

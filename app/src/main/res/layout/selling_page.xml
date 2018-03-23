@@ -188,7 +188,8 @@
                     android:onClick="@{(v) -> UploadSellingItemButtonClickedListener.onClick()}"
                     android:text="Done"
                     android:textAllCaps="false"
-                    android:textSize="10dp"/>
+                    android:textSize="10dp"
+                    android:visibility="@{SellingVM.isUploadFinished.get() ? View.VISIBLE : View.INVISIBLE}"/>
 
             </RelativeLayout>
         </ScrollView>

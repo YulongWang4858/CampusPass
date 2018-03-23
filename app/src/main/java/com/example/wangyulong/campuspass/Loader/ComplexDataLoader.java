@@ -28,6 +28,7 @@ public class ComplexDataLoader extends BasicLoader
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseRef = database.getReference("items_for_sale");
     BuyingItemsCollectionHelper _itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
+    private String new_item_title = "";
     //endregion Fields and Const
 
     //region Properties
@@ -45,14 +46,15 @@ public class ComplexDataLoader extends BasicLoader
     //region Constructor
     private ComplexDataLoader()
     {
-        //init
-        //this._itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
-
         databaseRef.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                //refresh item list
+                //_itemCollectionHelper.refresh_collection();
+
+                //construct item model for each item in database, them stores in collectionHelper
                 for (DataSnapshot ds : dataSnapshot.getChildren())
                 {
                     DatabaseSellingModel item_model = new DatabaseSellingModel();
@@ -75,8 +77,16 @@ public class ComplexDataLoader extends BasicLoader
                     Log.d("download from database", "stock -> " + item_model.getItem_stock_left());
                     Log.d("download from database", "download link -> " + item_model.getItem_img_uri());
 
-                    _itemCollectionHelper.add_item_to_collection(new BuyingItemModel(item_model.getItem_img_uri(), item_model.getItem_title(), item_model.getItem_short_decr(), item_model.getItem_category_tag(),
-                            item_model.getItem_condition_tag(), item_model.getItem_price(), item_model.getItem_stock_left(), item_model.getItem_owner()));
+                    if (item_model.getItem_title() != null && item_model.getItem_owner() != null && item_model.getItem_stock_left() != null
+                            && item_model.getItem_short_decr() != null && item_model.getItem_price() != null && item_model.getItem_img_uri() != null &&
+                            item_model.getItem_category_tag() != null && item_model.getItem_condition_tag() != null && (new_item_title.equals("") || new_item_title.equals(item_model.getItem_title())))
+                    {
+                        _itemCollectionHelper.add_item_to_collection(new BuyingItemModel(item_model.getItem_img_uri(), item_model.getItem_title(), item_model.getItem_short_decr(), item_model.getItem_category_tag(),
+                                item_model.getItem_condition_tag(), item_model.getItem_price(), item_model.getItem_stock_left(), item_model.getItem_owner()));
+                    } else
+                    {
+                        Log.d("download from database", "null item creation");
+                    }
                 }
             }
 
@@ -93,6 +103,11 @@ public class ComplexDataLoader extends BasicLoader
     public void loadFromServer()
     {
 
+    }
+
+    public void set_new_item_title(String title)
+    {
+        this.new_item_title = title;
     }
     //endregion Methods
 }

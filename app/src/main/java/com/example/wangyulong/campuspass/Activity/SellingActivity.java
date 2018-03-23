@@ -3,12 +3,9 @@ package com.example.wangyulong.campuspass.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -25,14 +22,12 @@ import com.example.wangyulong.campuspass.ViewModel.SellingViewModel;
 import com.example.wangyulong.campuspass.databinding.SellingPageBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -77,7 +72,7 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                setSellingItemCondition(String.valueOf(binding.itemConditionSpinner.getSelectedItem()));
+                setSellingItemCondition(adapterView.getItemAtPosition(i).toString());
             }
 
             @Override
@@ -93,7 +88,7 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                setSellingItemCategory(String.valueOf(binding.itemConditionSpinner.getSelectedItem()));
+                setSellingItemCategory(adapterView.getItemAtPosition(i).toString());
             }
 
             @Override
@@ -186,6 +181,7 @@ public class SellingActivity extends AppCompatActivity
                                         Log.d("Obtain download link ->", "download url obtianed -> " + uri);
 
                                         sellingViewModel.set_photo_to_upload(uri);
+                                        sellingViewModel.upload_complete();
                                     }
                                 }).addOnFailureListener(new OnFailureListener()
                                 {
@@ -213,6 +209,8 @@ public class SellingActivity extends AppCompatActivity
                             {
                                 //TODO: Show progress bar in future
                                 Log.d("uploading -> ", "100%");
+
+                                showSnackBar("Uploading, please wait");
                             }
                         });
             }
@@ -229,6 +227,8 @@ public class SellingActivity extends AppCompatActivity
             }
         });
     }
+
+    //region Methods
 
     //Result of accessing Gallery
     @Override
@@ -261,4 +261,6 @@ public class SellingActivity extends AppCompatActivity
     {
         Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
     }
+
+    //endregion Methods
 }

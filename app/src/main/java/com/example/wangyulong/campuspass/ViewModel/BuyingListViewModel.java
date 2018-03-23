@@ -1,7 +1,9 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
+import android.app.Activity;
 import android.databinding.ObservableField;
 
+import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.ConnectionHelper;
@@ -58,6 +60,11 @@ public class BuyingListViewModel extends BasicViewModel
         this._currentlySelectedItem.set(this.itemsCollectionHelper.get_item_at_position(position));
     }
 
+    public String get_new_item_selected_img_uri()
+    {
+        return this._currentlySelectedItem.get().get_item_img_uri();
+    }
+
     public BuyingItemModel get_selected_item()
     {
         return this._currentlySelectedItem.get();
@@ -88,11 +95,28 @@ public class BuyingListViewModel extends BasicViewModel
         switch (this._currentlySelectedItem.get().get_item_condition())
         {
             case NEW:
-                return "New";
+            return "New";
             case SECOND_HAND:
                 return "Second Hand";
             default:
                 return "Dispose";
+        }
+    }
+
+    public String get_selected_item_category()
+    {
+        switch (this._currentlySelectedItem.get().get_item_tag())
+        {
+            case ELECTRONICS:
+                return "Electronics";
+            case HOME_EQUIPEMENTS:
+                return "Home equipments";
+            case BOOKS:
+                return "Books";
+            case FOOD:
+                return "Food";
+            default:
+                return "Tool";
         }
     }
     //endregion Methods

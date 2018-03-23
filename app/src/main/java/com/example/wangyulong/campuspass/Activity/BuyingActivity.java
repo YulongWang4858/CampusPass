@@ -32,7 +32,6 @@ public class BuyingActivity extends ListActivity
 {
 
     BuyingPageBinding binding;
-    BuyingPageItemsBriefBinding briefBinding;
 
     protected void onCreate(Bundle savedInstanceState)
     {

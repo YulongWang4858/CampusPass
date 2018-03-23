@@ -76,6 +76,8 @@ public class BuyingListViewAdapter extends ArrayAdapter<BuyingItemModel>
             if (item_short_descr != null)
             {
                 item_short_descr.setText(itemModel.get_item_short_description());
+
+                Log.d("adapter -> ", "setting short description to " + itemModel.get_item_short_description());
             }
 
             if (item_icon_img != null)
@@ -87,11 +89,15 @@ public class BuyingListViewAdapter extends ArrayAdapter<BuyingItemModel>
             if (item_price != null)
             {
                 item_price.setText("$" + Double.toString(itemModel.get_item_price()));
+
+                Log.d("adapter -> ", "setting price to " + itemModel.get_item_price());
             }
 
             if (item_condition != null)
             {
                 item_condition.setText(convert_condition(itemModel.get_item_condition()));
+
+                Log.d("adapter -> ", "setting conditon to " + itemModel.get_item_condition());
             }
         }
 

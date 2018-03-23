@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/requestTitleTxt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:textAllCaps="false"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/requestCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/requestTitleTxt"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:textAllCaps="false"
+            android:textSize="10dp"/>
+
+        <TextView
+            android:id="@+id/requestPriceRange"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/requestTitleTxt"
+            android:layout_marginLeft="150dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:textAllCaps="false"
+            android:textSize="10dp"/>
+
+    </RelativeLayout>
+</layout>

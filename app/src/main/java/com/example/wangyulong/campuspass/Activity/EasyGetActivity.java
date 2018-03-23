@@ -55,7 +55,8 @@ public class EasyGetActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                //TODO: Implement
+                Intent toRequestPage = new Intent(EasyGetActivity.this, RequestActivity.class);
+                EasyGetActivity.this.startActivity(toRequestPage);
             }
         });
 
@@ -64,7 +65,6 @@ public class EasyGetActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                //TODO: Implement
                 Intent toSelling = new Intent(getApplicationContext(), SellingActivity.class);
                 EasyGetActivity.this.startActivity(toSelling);
             }

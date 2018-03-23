@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.inputmethod.BaseInputConnection;
 
 import com.example.wangyulong.campuspass.Constant.Category;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.SellingItemModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,7 @@ public class SellingViewModel extends BasicViewModel
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseRef = database.getReference("items_for_sale");
+    public ObservableField<Boolean> isUploadFinished = new ObservableField<>(false);
     //endregion Fields and Const
 
     //region Properties
@@ -82,6 +84,8 @@ public class SellingViewModel extends BasicViewModel
         String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
         String _database_item_identifier = UUID.randomUUID().toString();
 
+        ComplexDataLoader.complexDataLoader().set_new_item_title(this.itemModel.item_title.get());
+
         databaseRef.child(_database_item_identifier).child("item_owner")
                 .setValue(_database_user_identifier);
         databaseRef.child(_database_item_identifier).child("item_title")
@@ -98,6 +102,11 @@ public class SellingViewModel extends BasicViewModel
                 .setValue(this.itemModel.price.get());
         databaseRef.child(_database_item_identifier).child("item_img_uri")
                 .setValue(this.itemModel.item_img_download_uri.get().toString());
+    }
+
+    public void upload_complete()
+    {
+        this.isUploadFinished.set(true);
     }
     //endregion Methods
 }

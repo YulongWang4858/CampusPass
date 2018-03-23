@@ -42,7 +42,11 @@ public class BuyingItemsCollectionHelper extends BasicCollectionHelper
     public void add_item_to_collection(BuyingItemModel new_item)
     {
         ArrayList<BuyingItemModel> inter_arr = buying_item_collection.get();
-        inter_arr.add(new_item);
+
+//        if (new_item.get_item_img_uri().equals(buying_item_collection.get().get(buying_item_collection.get().size() - 2)))
+//        {
+            inter_arr.add(new_item);
+//        }
         buying_item_collection.set(inter_arr);
     }
 
@@ -54,6 +58,11 @@ public class BuyingItemsCollectionHelper extends BasicCollectionHelper
     public BuyingItemModel get_item_at_position(int position)
     {
         return this.item_list.get(position);
+    }
+
+    public void refresh_collection()
+    {
+        this.buying_item_collection.set(new ArrayList<BuyingItemModel>());
     }
     //endregion CRUD
 }

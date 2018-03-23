@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="NewRequestButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="MyRequestButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="RequestVM"
+            type="com.example.wangyulong.campuspass.ViewModel.RequestViewModel"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.wangyulong.campuspass.Activity.RequestActivity">
+
+        <ScrollView
+            android:id="@+id/requestScrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="400dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:id="@android:id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp">
+                </ListView>
+            </RelativeLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/requestActionBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/requestScrollView">
+
+            <Button
+                android:id="@+id/newRequestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{(v) -> NewRequestButtonClickedListener.onClick()}"
+                android:text="New Request"/>
+
+            <Button
+                android:id="@+id/myRequestButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/newRequestButton"
+                android:onClick="@{(v) -> MyRequestButtonClickedListener.onClick()}"
+                android:text="My Requests"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/requestActionBar"
+            android:layout_marginTop="20dp">
+
+            <include layout="@layout/short_action_bar"/>
+
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
