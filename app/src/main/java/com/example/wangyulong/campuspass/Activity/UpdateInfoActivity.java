@@ -32,6 +32,7 @@ public class UpdateInfoActivity extends AppCompatActivity
         databaseRef.addValueEventListener(new ValueEventListener()
         {
             @Override
+
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 registerVM.fill_cur_user_info(dataSnapshot);

@@ -17,12 +17,18 @@ import com.example.wangyulong.campuspass.Activity.SellingActivity;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Message.SnackBarMessageHandler;
 import com.example.wangyulong.campuspass.ViewModel.LoginViewModel;
+import com.example.wangyulong.campuspass.ViewModel.RegisterViewModel;
 import com.example.wangyulong.campuspass.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
     private LoginViewModel loginVM;
+    private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("user");
 
     protected void onCreate(Bundle savedInstanceState)
     {

@@ -1,6 +1,7 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
 import android.databinding.ObservableField;
+import android.util.Log;
 
 import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.UserModel;
@@ -30,6 +31,7 @@ public class RegisterViewModel extends BasicViewModel
     public ObservableField<String> user_career_info = _new_user.user_career_info;
     public ObservableField<UUID> user_unique_id = _new_user.user_id;
 
+    private String cur_user_name = new String("");
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseRef = database.getReference("user");
@@ -74,15 +76,24 @@ public class RegisterViewModel extends BasicViewModel
     {
         for (DataSnapshot ds : dataSnapshot.getChildren())
         {
-            String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
-            DatabaseUserModel user = new DatabaseUserModel();
-            this._new_user.user_name.set(ds.getValue(DatabaseUserModel.class).getUser_name());
-            this._new_user.user_email.set(ds.getValue(DatabaseUserModel.class).getUser_email());
-            this._new_user.user_contact_info.set(ds.getValue(DatabaseUserModel.class).getUser_contact());
-            this._new_user.user_career_info.set(ds.getValue(DatabaseUserModel.class).getUser_career_info());
-            this._new_user.user_pickup_address.set(ds.getValue(DatabaseUserModel.class).getUser_pickup_address());
-            this._new_user.user_password.set(ds.getValue(DatabaseUserModel.class).getUser_password());
-            this._new_user.user_course_info.set(ds.getValue(DatabaseUserModel.class).getUser_student_info());
+
+            if (ds.getKey().equals(firebaseAuth.getCurrentUser().getUid()))
+            {
+                String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
+                DatabaseUserModel user = new DatabaseUserModel();
+                this._new_user.user_name.set(ds.getValue(DatabaseUserModel.class).getUser_name());
+                this._new_user.user_email.set(ds.getValue(DatabaseUserModel.class).getUser_email());
+                this._new_user.user_contact_info.set(ds.getValue(DatabaseUserModel.class).getUser_contact());
+                this._new_user.user_career_info.set(ds.getValue(DatabaseUserModel.class).getUser_career_info());
+                this._new_user.user_pickup_address.set(ds.getValue(DatabaseUserModel.class).getUser_pickup_address());
+                this._new_user.user_password.set(ds.getValue(DatabaseUserModel.class).getUser_password());
+                this._new_user.user_course_info.set(ds.getValue(DatabaseUserModel.class).getUser_student_info());
+
+                Log.d("Filling user name: ", this._new_user.user_name.get());
+                Log.d("Filling user email: ", this._new_user.user_email.get());
+
+                this.cur_user_name = this._new_user.user_name.get();
+            }
         }
     }
 
@@ -124,6 +135,11 @@ public class RegisterViewModel extends BasicViewModel
                 .setValue("");
         databaseRef.child(_database_user_identifier).child("user_password")
                 .setValue("*******");
+    }
+
+    public String get_login_user_name()
+    {
+        return this.cur_user_name;
     }
     //endregion Methods
 }

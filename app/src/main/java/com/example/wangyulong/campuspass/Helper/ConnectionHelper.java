@@ -75,11 +75,6 @@ public class ConnectionHelper
         return this.isUserConnected.get();
     }
 
-    public void loadFromServer()
-    {
-        ComplexDataLoader.complexDataLoader().loadFromServer();
-    }
-
     public void set_connection_status(boolean status)
     {
         this.isUserConnected.set(status);

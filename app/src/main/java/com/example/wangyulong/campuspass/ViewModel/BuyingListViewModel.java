@@ -5,8 +5,10 @@ import android.databinding.ObservableField;
 
 import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.Constant.Category;
+import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.ConnectionHelper;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.R;
 
@@ -39,17 +41,10 @@ public class BuyingListViewModel extends BasicViewModel
     //region Constructor
     private BuyingListViewModel()
     {
-        //TODO: Remove after testing
-        loadFromServer();
     }
     //endregion Constructor
 
     //region Methods
-    private void loadFromServer()
-    {
-        ConnectionHelper.connectionHelper().loadFromServer();
-    }
-
     public ArrayList<BuyingItemModel> get_buying_elements()
     {
         return this.itemsCollectionHelper.get_full_item_list();
@@ -95,7 +90,7 @@ public class BuyingListViewModel extends BasicViewModel
         switch (this._currentlySelectedItem.get().get_item_condition())
         {
             case NEW:
-            return "New";
+                return "New";
             case SECOND_HAND:
                 return "Second Hand";
             default:
@@ -118,6 +113,16 @@ public class BuyingListViewModel extends BasicViewModel
             default:
                 return "Tool";
         }
+    }
+
+    public void load_item_list()
+    {
+        ComplexDataLoader.complexDataLoader().load_items_from_database();
+    }
+
+    public void setBuyingPageRefreshEvent(BuyingListRefreshEventListener buyingPageRefreshEvent)
+    {
+        ComplexDataLoader.complexDataLoader().setBuyingListRefreshEventListener(buyingPageRefreshEvent);
     }
     //endregion Methods
 }

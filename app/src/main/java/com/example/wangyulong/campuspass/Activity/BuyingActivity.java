@@ -17,6 +17,7 @@ import android.widget.SimpleCursorAdapter;
 
 import com.example.wangyulong.campuspass.Adapter.BuyingListViewAdapter;
 import com.example.wangyulong.campuspass.ClickListener;
+import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel;
 import com.example.wangyulong.campuspass.databinding.BuyingPageBinding;
@@ -32,6 +33,7 @@ public class BuyingActivity extends ListActivity
 {
 
     BuyingPageBinding binding;
+    BuyingListViewModel buyingListViewModel;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -47,6 +49,7 @@ public class BuyingActivity extends ListActivity
 
     protected void onCreateBinding()
     {
+        buyingListViewModel = BuyingListViewModel.buyingListViewModel();
         binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
 
         bindButton();
@@ -71,9 +74,20 @@ public class BuyingActivity extends ListActivity
                 BuyingActivity.this.startActivity(toDetailedPage);
             }
         });
-        BuyingListViewAdapter buyingListViewAdapter =
+        final BuyingListViewAdapter buyingListViewAdapter =
                 new BuyingListViewAdapter(this, R.layout.buying_page_items_brief, BuyingListViewModel.buyingListViewModel().get_buying_elements());
         buyingItemList.setAdapter(buyingListViewAdapter);
+
+        
+        this.buyingListViewModel.load_item_list();
+        this.buyingListViewModel.setBuyingPageRefreshEvent(new BuyingListRefreshEventListener()
+        {
+            @Override
+            public void onBuyingListRefreshEventTriggered()
+            {
+                buyingListViewAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
 

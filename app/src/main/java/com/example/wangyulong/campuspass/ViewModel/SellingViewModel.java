@@ -8,7 +8,10 @@ import android.view.inputmethod.BaseInputConnection;
 
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
+import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
+import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.SellingItemModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -86,22 +89,26 @@ public class SellingViewModel extends BasicViewModel
 
         ComplexDataLoader.complexDataLoader().set_new_item_title(this.itemModel.item_title.get());
 
-        databaseRef.child(_database_item_identifier).child("item_owner")
-                .setValue(_database_user_identifier);
-        databaseRef.child(_database_item_identifier).child("item_title")
-                .setValue(this.itemModel.item_title.get());
-        databaseRef.child(_database_item_identifier).child("item_short_descr")
-                .setValue(this.itemModel.item_short_descr.get());
-        databaseRef.child(_database_item_identifier).child("item_condition_tag")
-                .setValue(this.itemModel.item_condition.get());
-        databaseRef.child(_database_item_identifier).child("item_category_tag")
-                .setValue(this.itemModel.item_tag.get());
-        databaseRef.child(_database_item_identifier).child("item_stock_left")
-                .setValue(this.itemModel.stock.get());
-        databaseRef.child(_database_item_identifier).child("item_price")
-                .setValue(this.itemModel.price.get());
-        databaseRef.child(_database_item_identifier).child("item_img_uri")
-                .setValue(this.itemModel.item_img_download_uri.get().toString());
+        //fill database object
+        DatabaseSellingModel selling_model = new DatabaseSellingModel();
+        selling_model.setItem_id(_database_item_identifier);
+        selling_model.setItem_owner(_database_user_identifier);
+        selling_model.setItem_title(this.itemModel.item_title.get());
+        selling_model.setItem_short_descr(this.itemModel.item_short_descr.get());
+        selling_model.setItem_price(this.itemModel.price.get());
+        selling_model.setItem_category_tag(this.itemModel.item_tag.get().toString());
+        selling_model.setItem_condition_tag(this.itemModel.item_condition.get().toString());
+        selling_model.setItem_stock_left(this.itemModel.stock.get());
+        selling_model.setItem_img_uri(this.itemModel.item_img_download_uri.get().toString());
+
+        databaseRef.child(_database_item_identifier).setValue(selling_model).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                showOnSnackBar("Selling item uploaded successfully");
+            }
+        });
     }
 
     public void upload_complete()

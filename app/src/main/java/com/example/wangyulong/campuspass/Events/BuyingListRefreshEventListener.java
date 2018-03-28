@@ -6,4 +6,5 @@ package com.example.wangyulong.campuspass.Events;
 
 public interface BuyingListRefreshEventListener
 {
+    public void onBuyingListRefreshEventTriggered();
 }

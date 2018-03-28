@@ -1,10 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.wangyulong.campuspass.Activity.NewRequestActivity">
 
-</android.support.constraint.ConstraintLayout>
+<layout>
+
+    <data>
+
+        <variable
+            name="RequestVM"
+            type="com.example.wangyulong.campuspass.ViewModel.RequestViewModel"/>
+
+        <variable
+            name="UploadNewRequestButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.wangyulong.campuspass.Activity.NewRequestActivity">
+
+
+        <TextView
+            android:id="@+id/askForRequestTitleTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Request Title: "
+            android:textAllCaps="true"
+            android:textColor="@color/colorPureBlack"
+            android:textSize="12dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/askForRequestDescriptionTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/askForRequestTitleTxt"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:text="Request Description: "
+            android:textAllCaps="true"
+            android:textColor="@color/colorPureBlack"
+            android:textSize="12dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/askForRequestPriceTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/askForRequestDescriptionTxt"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:text="Request Maximum Price: "
+            android:textAllCaps="true"
+            android:textColor="@color/colorPureBlack"
+            android:textSize="12dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/askForRequestTitleETxt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/askForRequestTitleTxt"
+            android:layout_toRightOf="@+id/askForRequestTitleTxt"
+            android:paddingBottom="5dp"
+            android:text="@={RequestVM.request_name}"/>
+
+        <EditText
+            android:id="@+id/askForRequestDescriptionETxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/askForRequestDescriptionTxt"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingBottom="5dp"
+            android:text="@={RequestVM.request_descr}"/>
+
+        <EditText
+            android:id="@+id/askForRequestPriceETxt"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/askForRequestPriceTxt"
+            android:layout_below="@+id/askForRequestDescriptionETxt"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/askForRequestPriceTxt"
+            android:paddingBottom="5dp"
+            android:text="@={RequestVM.request_price}"/>
+
+        <Spinner
+            android:id="@+id/requestCategorySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/askForRequestPriceETxt"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#d11f08"
+            android:entries="@array/item_tag_selection_dropdown"
+            android:padding="5dp"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/requestCategorySpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:onClick="@{(v) -> UploadNewRequestButtonClickedListener.onClick()}"
+            android:text="Done"/>
+
+    </RelativeLayout>
+</layout>

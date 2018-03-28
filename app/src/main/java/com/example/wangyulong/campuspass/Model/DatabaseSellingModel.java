@@ -8,6 +8,19 @@ import android.util.Log;
 
 public class DatabaseSellingModel
 {
+    //region Fields and Const
+    public String item_condition_tag;
+    public String item_title;
+    public String item_category_tag;
+    public String item_short_descr;
+    public String item_stock_left;
+    public String item_img_uri;
+    public String item_owner;
+    public String item_price;
+    public String item_id;
+    //endregion Fields and Const
+
+    //region Properties
     public String getItem_condition_tag()
     {
         return item_condition_tag;
@@ -38,14 +51,24 @@ public class DatabaseSellingModel
         this.item_category_tag = item_category_tag;
     }
 
-    public String getItem_short_decr()
+    public String getItem_short_descr()
     {
         return item_short_descr;
     }
 
-    public void setItem_short_decr(String item_short_decr)
+    public void setItem_short_descr(String item_short_descr)
     {
-        this.item_short_descr = item_short_decr;
+        this.item_short_descr = item_short_descr;
+    }
+
+    public String getItem_id()
+    {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id)
+    {
+        this.item_id = item_id;
     }
 
     public String getItem_stock_left()
@@ -87,18 +110,12 @@ public class DatabaseSellingModel
     {
         this.item_price = item_price;
     }
+    //endregion Properties
 
-    public String item_condition_tag;
-    public String item_title;
-    public String item_category_tag;
-    public String item_short_descr;
-    public String item_stock_left;
-    public String item_img_uri;
-    public String item_owner;
-    public String item_price;
-
+    //region Constructor
     public DatabaseSellingModel()
     {
 
     }
+    //endregion Constructor
 }

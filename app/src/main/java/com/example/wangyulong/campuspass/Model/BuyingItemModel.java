@@ -20,6 +20,17 @@ public class BuyingItemModel
     private Category.BuyingItemCondition _item_condition;
     private int _item_stock_left;
     private int _item_num_imgs;
+    private String item_id;
+
+    public String getItem_id()
+    {
+        return item_id;
+    }
+
+    public void setItem_id(String item_id)
+    {
+        this.item_id = item_id;
+    }
 
     public String get_item_img_uri()
     {
@@ -49,7 +60,7 @@ public class BuyingItemModel
     }
 
     public BuyingItemModel(int _item_image_id, String _item_title, String _item_short_description, Category.BuyingItemTag _item_tag,
-                           Category.BuyingItemCondition _item_condition, double _item_price, int _item_stock_left, int _item_num_imgs)
+                           Category.BuyingItemCondition _item_condition, double _item_price, int _item_stock_left, int _item_num_imgs, String item_id)
     {
         this._item_image_id = _item_image_id;
         this._item_title = new String(_item_title);
@@ -60,10 +71,11 @@ public class BuyingItemModel
         this._item_stock_left = _item_stock_left;
         this._item_num_imgs = _item_num_imgs;
         this._item_id = UUID.randomUUID().toString(); // unique item id
+        this.item_id = item_id;
     }
 
     public BuyingItemModel(String uri, String _item_title, String _item_short_description, String category, String condition, String _item_price,
-                           String _item_stock_left, String _owner_id)
+                           String _item_stock_left, String _owner_id, String item_id)
     {
         this._item_title = _item_title;
         this._item_img_uri = uri;
@@ -73,6 +85,7 @@ public class BuyingItemModel
         this._item_stock_left = Integer.valueOf(_item_stock_left);
         this._item_short_description = _item_short_description;
         this._item_price = Double.valueOf(_item_price);
+        this.item_id = item_id;
     }
     //endregion Constructor
 

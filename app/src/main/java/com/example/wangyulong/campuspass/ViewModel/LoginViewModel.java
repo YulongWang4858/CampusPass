@@ -45,6 +45,9 @@ public class LoginViewModel extends BasicViewModel
     private LoginViewModel()
     {
         //Implement if necessary
+
+        this.user_pass.set("2enXm?83");
+        this.user_matric.set("1004858369@qq.com");
     }
     //endregion Override
 

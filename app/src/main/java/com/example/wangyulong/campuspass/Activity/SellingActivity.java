@@ -94,7 +94,7 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onNothingSelected(AdapterView<?> adapterView)
             {
-
+                //TODO: Show snack bar msg to notify
             }
         });
     }
@@ -241,7 +241,7 @@ public class SellingActivity extends AppCompatActivity
         {
             try
             {
-                final Uri imageUri = data.getData(); // obtaining uri from galllery
+                final Uri imageUri = data.getData(); // obtaining uri from gallery
                 sellingViewModel.set_photo_to_upload(imageUri);
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
@@ -261,6 +261,5 @@ public class SellingActivity extends AppCompatActivity
     {
         Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
     }
-
     //endregion Methods
 }

@@ -1,4 +1,4 @@
-package com.example.wangyulong.campuspass;
+package com.example.wangyulong.campuspass.Events;
 
 /**
  * Created by wangyulong on 25/3/18.

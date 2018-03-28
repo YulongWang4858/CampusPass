@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
+import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class BuyingItemsCollectionHelper extends BasicCollectionHelper
 
 //        if (new_item.get_item_img_uri().equals(buying_item_collection.get().get(buying_item_collection.get().size() - 2)))
 //        {
-            inter_arr.add(new_item);
+        inter_arr.add(new_item);
 //        }
         buying_item_collection.set(inter_arr);
     }
@@ -63,6 +64,21 @@ public class BuyingItemsCollectionHelper extends BasicCollectionHelper
     public void refresh_collection()
     {
         this.buying_item_collection.set(new ArrayList<BuyingItemModel>());
+    }
+
+    public boolean check_existance(DatabaseSellingModel item_model)
+    {
+        //TODO: Implement Mutex
+        item_list = this.buying_item_collection.get();
+        for (BuyingItemModel item : item_list)
+        {
+            if (item.getItem_id().equals(item_model.getItem_id()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     //endregion CRUD
 }

@@ -24,10 +24,24 @@
         android:layout_height="match_parent"
         tools:context="com.example.wangyulong.campuspass.Activity.RequestActivity">
 
+        <TextView
+            android:id="@+id/requestPageWelcomeMsg"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/colorLightPink"
+            android:gravity="center_horizontal"
+            android:padding="12dp"
+            android:text="Ask For Anything You Need!"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPureWhite"
+            android:textSize="25dp"
+            android:textStyle="bold"/>
+
         <ScrollView
             android:id="@+id/requestScrollView"
             android:layout_width="wrap_content"
-            android:layout_height="400dp">
+            android:layout_height="400dp"
+            android:layout_below="@+id/requestPageWelcomeMsg">
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -14,7 +14,13 @@ import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewLogicManager;
+import com.example.wangyulong.campuspass.ViewModel.RegisterViewModel;
 import com.example.wangyulong.campuspass.databinding.MainmenuPageBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.view.View;
 import android.widget.TabHost;
@@ -28,6 +34,7 @@ public class MainMenuActivity extends ActivityGroup
 
     //region Fields and Const
     protected MainmenuPageBinding mainmenuPageBinding;
+    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("user");
     //endregion Fields and Const
 
     //region Init
@@ -56,9 +63,27 @@ public class MainMenuActivity extends ActivityGroup
         initialTabSettings();
         initialColorolorSettings();
         initialVisibilitySettings();
+        initialDBSettings();
     }
 
     //region Methods
+    protected void initialDBSettings()
+    {
+        databaseRef.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                RegisterViewModel.registerViewModel().fill_cur_user_info(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
 
     protected void initialTabSettings()
     {

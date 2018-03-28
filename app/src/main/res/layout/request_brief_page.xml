@@ -20,7 +20,9 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:textAllCaps="false"
-            android:textSize="16dp"/>
+            android:textColor="@color/colorPureBlack"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/requestCategory"
@@ -32,7 +34,8 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:textAllCaps="false"
-            android:textSize="10dp"/>
+            android:textSize="10dp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/requestPriceRange"
@@ -44,7 +47,8 @@
             android:paddingLeft="5dp"
             android:paddingTop="5dp"
             android:textAllCaps="false"
-            android:textSize="10dp"/>
+            android:textSize="10dp"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 </layout>
