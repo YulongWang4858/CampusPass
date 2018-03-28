@@ -89,10 +89,13 @@ public class RegisterViewModel extends BasicViewModel
                 this._new_user.user_password.set(ds.getValue(DatabaseUserModel.class).getUser_password());
                 this._new_user.user_course_info.set(ds.getValue(DatabaseUserModel.class).getUser_student_info());
 
-                Log.d("Filling user name: ", this._new_user.user_name.get());
-                Log.d("Filling user email: ", this._new_user.user_email.get());
+                if (this._new_user.user_name.equals(null))
+                {
+                    Log.d("Filling user name: ", this._new_user.user_name.get());
+                    Log.d("Filling user email: ", this._new_user.user_email.get());
 
-                this.cur_user_name = this._new_user.user_name.get();
+                    this.cur_user_name = this._new_user.user_name.get();
+                }
             }
         }
     }
@@ -117,6 +120,7 @@ public class RegisterViewModel extends BasicViewModel
                 .setValue(this.user_password.get());
     }
 
+    //This method is to create a user template and store in database
     public void init_database()
     {
         String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
@@ -139,7 +143,13 @@ public class RegisterViewModel extends BasicViewModel
 
     public String get_login_user_name()
     {
-        return this.cur_user_name;
+        if (this.cur_user_name.equals(""))
+        {
+            return "";
+        } else
+        {
+            return this._new_user.user_name.get();
+        }
     }
     //endregion Methods
 }

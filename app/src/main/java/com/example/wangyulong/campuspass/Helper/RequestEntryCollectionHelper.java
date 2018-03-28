@@ -19,6 +19,7 @@ public class RequestEntryCollectionHelper extends BasicCollectionHelper
     private static RequestEntryCollectionHelper _instance = null;
     private ArrayList<RequestModel> _request_model_list = new ArrayList<>();
     private ObservableField<ArrayList<RequestModel>> _request_entry_list = new ObservableField<>(_request_model_list);
+    private ArrayList<RequestModel> _my_request_list = new ArrayList<>();
     //endregion Fields and Const
 
     //region Properties
@@ -93,6 +94,34 @@ public class RequestEntryCollectionHelper extends BasicCollectionHelper
     public void remove_duplicate()
     {
         this._request_model_list = this._request_entry_list.get(); //TODO: Continue if needed
+    }
+
+    public ArrayList<RequestModel> get_myrequest_full_list()
+    {
+        return this._my_request_list;
+    }
+
+    public void add_to_myrequest_collection(RequestModel new_myrequest)
+    {
+        this._my_request_list.add(new_myrequest);
+    }
+
+    public void reset_myrequest_list()
+    {
+        this._my_request_list = new ArrayList<RequestModel>();
+    }
+
+    public void initialize_myrequests(String cur_uid)
+    {
+        reset_myrequest_list();
+
+        for (RequestModel request : this._request_entry_list.get())
+        {
+            if (request.request_owner_id.equals(cur_uid))
+            {
+                this._my_request_list.add(request);
+            }
+        }
     }
     //endregion CRUD
 }

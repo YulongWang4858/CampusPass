@@ -8,6 +8,7 @@ import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.RequestModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -75,7 +76,14 @@ public class RequestViewModel extends BasicViewModel
         this._currently_selected_request.set(new_request);
 
         //push to database
-        databaseRef.child(request_id).setValue(new_request); //TODO: Mutex?
+        databaseRef.child(request_id).setValue(new_request).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                showOnSnackBar("New request successfully uploaded");
+            }
+        });
     }
 
     public void setRequestPageRefreshEvents(RequestListRefreshEventListener listener)
@@ -91,6 +99,16 @@ public class RequestViewModel extends BasicViewModel
     public void read_requests()
     {
         ComplexDataLoader.complexDataLoader().load_request_from_database();
+    }
+
+    public ArrayList<RequestModel> get_myrequest_list_entry()
+    {
+        return this._request_entry_collection_helper.get_myrequest_full_list();
+    }
+
+    public void read_myrequests()
+    {
+        this._request_entry_collection_helper.initialize_myrequests(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
     }
     //endregion Methods
 }
