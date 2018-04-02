@@ -46,6 +46,10 @@
         </activity>
         <activity android:name=".Activity.RequestDetailActivity">
         </activity>
+        <activity
+            android:name=".Activity.EasyEarnActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

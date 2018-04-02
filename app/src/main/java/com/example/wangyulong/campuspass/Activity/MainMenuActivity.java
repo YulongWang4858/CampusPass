@@ -97,7 +97,7 @@ public class MainMenuActivity extends ActivityGroup
 
         //Tab 2
         spec = mainmenuPageBinding.tabHost.newTabSpec("Easy&Earn");
-        spec.setContent(R.id.tab2);
+        spec.setContent(new Intent(getApplicationContext(), EasyEarnActivity.class));
         spec.setIndicator("Easy&Earn");
         mainmenuPageBinding.tabHost.addTab(spec);
 

@@ -14,10 +14,6 @@
         <variable
             name="LoginButtonClickListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
-
-        <variable
-            name="ByPassButtonClickedListener"
-            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -112,13 +108,6 @@
             android:onClick="@{(v) -> RegisterButtonClickListener.onClick()}"
             android:text="@{LoginVM.displayMsgHelper.getRegisterButtonTxt()}"
             />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{(v) -> ByPassButtonClickedListener.onClick()}"
-            android:text="By Pass"/>
-
 
     </RelativeLayout>
 </layout>

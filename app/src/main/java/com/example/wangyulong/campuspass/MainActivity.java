@@ -142,18 +142,6 @@ public class MainActivity extends AppCompatActivity
                 MainActivity.this.startActivity(toRegister);
             }
         });
-
-
-        //TODO: Remove after testing
-        binding.setByPassButtonClickedListener(new ClickListener()
-        {
-            @Override
-            public void onClick()
-            {
-                Intent toTestActivity = new Intent(getApplicationContext(), SellingActivity.class);
-                MainActivity.this.startActivity(toTestActivity);
-            }
-        });
     }
 
     protected void verify_user_info()
