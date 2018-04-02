@@ -20,6 +20,8 @@ public class RequestEntryCollectionHelper extends BasicCollectionHelper
     private ArrayList<RequestModel> _request_model_list = new ArrayList<>();
     private ObservableField<ArrayList<RequestModel>> _request_entry_list = new ObservableField<>(_request_model_list);
     private ArrayList<RequestModel> _my_request_list = new ArrayList<>();
+    private int _selection_index = 0;
+    private int _overall_selection_index = 0;
     //endregion Fields and Const
 
     //region Properties
@@ -122,6 +124,41 @@ public class RequestEntryCollectionHelper extends BasicCollectionHelper
                 this._my_request_list.add(request);
             }
         }
+    }
+
+    public RequestModel retrieve_entry_at_position(int index)
+    {
+        return this._request_entry_list.get().get(index);
+    }
+
+    public RequestModel retrieve_my_entry_at_position(int index)
+    {
+        this._selection_index = index;
+
+        for (int cur = 0; cur < this._request_entry_list.get().size(); cur++)
+        {
+            if (this._request_entry_list.get().get(cur).getRequest_entry_id().equals(this._my_request_list.get(index).getRequest_entry_id()))
+            {
+                this._overall_selection_index = cur;
+            }
+        }
+
+        return this._my_request_list.get(index);
+    }
+
+    public void update_my_request_entry(RequestModel request)
+    {
+        this._my_request_list.set(this._selection_index, request);
+    }
+
+    public void update_request_entry(RequestModel request)
+    {
+        this._my_request_list.set(this._selection_index, request);
+
+        ArrayList<RequestModel> entries = this._request_entry_list.get();
+        entries.set(this._overall_selection_index, request);
+        this._request_model_list = entries;
+        this._request_entry_list.set(entries);
     }
     //endregion CRUD
 }

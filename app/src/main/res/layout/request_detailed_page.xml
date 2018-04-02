@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="RequestVM"
+            type="com.example.wangyulong.campuspass.ViewModel.RequestViewModel"/>
+
+        <variable
+            name="UpdateButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/requestDetailedTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:hint="Title"
+                    android:text="@={RequestVM.request_name}"
+                    android:textAllCaps="false"
+                    android:textColorHint="@color/common_google_signin_btn_text_light"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/requestDetailedDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/requestDetailedTitle"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:hint="Description"
+                    android:text="@={RequestVM.request_descr}"
+                    android:textAllCaps="false"
+                    android:textColorHint="@color/common_google_signin_btn_text_light"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/requestDetailedPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/requestDetailedDescription"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="60dp"
+                    android:hint="Price"
+                    android:text="@={RequestVM.request_price}"
+                    android:textAllCaps="false"
+                    android:textColorHint="@color/common_google_signin_btn_text_light"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/requestChangesDoneButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/requestDetailedPrice"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{(v) -> UpdateButtonClickedListener.onClick()}"
+                    android:text="Update"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

@@ -44,6 +44,8 @@
         </activity>
         <activity android:name=".Activity.MyRequestActivity">
         </activity>
+        <activity android:name=".Activity.RequestDetailActivity">
+        </activity>
     </application>
 
 </manifest>

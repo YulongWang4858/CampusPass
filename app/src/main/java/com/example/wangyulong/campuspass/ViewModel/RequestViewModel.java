@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.util.Log;
 
 import com.example.wangyulong.campuspass.Adapter.RequestListViewAdapter;
+import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
@@ -91,6 +92,11 @@ public class RequestViewModel extends BasicViewModel
         ComplexDataLoader.complexDataLoader().setRequestListRefreshEventListener(listener);
     }
 
+    public void setMyRequestPageRefreshEvents(MyRequestListRefreshEventListener myRequestPageRefreshEvents)
+    {
+        ComplexDataLoader.complexDataLoader().setMyRequestListRefreshEventListener(myRequestPageRefreshEvents);
+    }
+
     public void allow_database_read()
     {
         ComplexDataLoader.complexDataLoader().is_request_read_allowed = true;
@@ -109,6 +115,40 @@ public class RequestViewModel extends BasicViewModel
     public void read_myrequests()
     {
         this._request_entry_collection_helper.initialize_myrequests(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+    }
+
+    public void set_new_item_selected(int index)
+    {
+        RequestModel request = this._request_entry_collection_helper.retrieve_my_entry_at_position(index);
+        this._currently_selected_request.set(request);
+        this.request_name.set(request.getRequest_name());
+        this.request_descr.set(request.getRequest_descrip());
+        this.request_price.set(request.getRequest_price());
+    }
+
+    public void update_request_entry()
+    {
+        RequestModel request = this._currently_selected_request.get();
+        request.setRequest_name(this.request_name.get());
+        request.setRequest_descrip(this.request_descr.get());
+        request.setRequest_price(this.request_price.get());
+
+        this._currently_selected_request.set(request);
+        this._request_entry_collection_helper.update_my_request_entry(request);
+
+        String entry_id = request.getRequest_entry_id();
+        Log.d("debug -> ", entry_id);
+        this._request_entry_collection_helper.update_request_entry(request);
+
+        //push to database
+        databaseRef.child(entry_id).setValue(request).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                showOnSnackBar("New request successfully uploaded");
+            }
+        });
     }
     //endregion Methods
 }

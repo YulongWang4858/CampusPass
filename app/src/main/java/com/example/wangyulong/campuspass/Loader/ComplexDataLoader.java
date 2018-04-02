@@ -5,6 +5,7 @@ import android.widget.ExpandableListView;
 
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
@@ -46,6 +47,7 @@ public class ComplexDataLoader extends BasicLoader
     private ChildEventListener itemChildEventListener;
     private RequestListRefreshEventListener requestListRefreshEventListener;
     private BuyingListRefreshEventListener buyingListRefreshEventListener;
+    private MyRequestListRefreshEventListener myRequestListRefreshEventListener;
     //endregion Fields and Const
 
     //region Properties
@@ -102,6 +104,18 @@ public class ComplexDataLoader extends BasicLoader
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
             {
                 //TODO: Implement later
+
+                Log.d("debug -> ", "reached child changed");
+
+                //invoke refresh action
+                if (requestListRefreshEventListener != null)
+                {
+                    requestListRefreshEventListener.onRequestListRefreshEventTrigger();
+                }
+                if (myRequestListRefreshEventListener != null)
+                {
+                    myRequestListRefreshEventListener.onMyRequestListRefreshEventTrigger();
+                }
             }
 
             @Override
@@ -223,6 +237,11 @@ public class ComplexDataLoader extends BasicLoader
     public void setBuyingListRefreshEventListener(BuyingListRefreshEventListener buyingListRefreshEventListener)
     {
         this.buyingListRefreshEventListener = buyingListRefreshEventListener;
+    }
+
+    public void setMyRequestListRefreshEventListener(MyRequestListRefreshEventListener myRequestListRefreshEventListener)
+    {
+        this.myRequestListRefreshEventListener = myRequestListRefreshEventListener;
     }
     //endregion Methods
 }
