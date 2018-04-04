@@ -1,5 +1,7 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
+import android.util.Log;
+
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
@@ -17,6 +19,7 @@ public class EasyEarnViewModel extends BasicViewModel
     private static EasyEarnViewModel _instance = null;
     private HobbyCollectionHelper _hobby_collection_helper;
     private ComplexDataLoader _dataLoader;
+    private HobbyModel _current_hobby;
     //endregion Fields and Const
 
     //region Properties
@@ -39,7 +42,6 @@ public class EasyEarnViewModel extends BasicViewModel
         this._dataLoader = ComplexDataLoader.complexDataLoader();
 
         this._dataLoader.load_hobbies_from_database();
-
     }
     //endregion Constructors
 
@@ -52,6 +54,13 @@ public class EasyEarnViewModel extends BasicViewModel
     public ArrayList<HobbyModel> get_complete_hobby_list()
     {
         return this._hobby_collection_helper.get_full_hobby_list();
+    }
+
+    public void set_current_hobby(HobbyModel hobbyModel)
+    {
+        this._current_hobby = hobbyModel;
+
+        Log.d("selected -> ", this._current_hobby.getHobby_category());
     }
     //endregion Methods
 }

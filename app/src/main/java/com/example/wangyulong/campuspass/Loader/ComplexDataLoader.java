@@ -224,11 +224,13 @@ public class ComplexDataLoader extends BasicLoader
                 HobbyModel hobby_model = new HobbyModel();
 
                 hobby_model = dataSnapshot.getValue(HobbyModel.class);
+                hobby_model.setHobby_category(dataSnapshot.getKey().toString());
 
                 if (!_hobbyCollectionHelper.check_existance(hobby_model))
                 {
                     Log.d("downloading name ->", hobby_model.getHobby_name());
                     Log.d("downloading partic. ->", Integer.toString(hobby_model.getParticipants()));
+                    Log.d("downloading cat. ->", hobby_model.getHobby_category());
 
                     _hobbyCollectionHelper.add_item_to_collection(hobby_model);
 

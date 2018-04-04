@@ -19,7 +19,7 @@
             android:id="@+id/buyingPageWelcomeTxt"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/colorLightPink"
+            android:background="#99449C"
             android:gravity="center_horizontal"
             android:padding="12dp"
             android:text="Get Everything You Need!"

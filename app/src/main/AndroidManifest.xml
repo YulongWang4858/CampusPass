@@ -50,6 +50,10 @@
             android:name=".Activity.EasyEarnActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".Activity.ParticipateHobbyActivity">
+        </activity>
+        <activity android:name=".Activity.HobbyBriefActivity">
+        </activity>
     </application>
 
 </manifest>

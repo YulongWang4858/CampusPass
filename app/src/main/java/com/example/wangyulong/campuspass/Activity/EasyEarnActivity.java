@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass.Activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
@@ -17,6 +18,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.Adapter.ThumbnailAdapter;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
+import com.example.wangyulong.campuspass.Events.ParticipateHobbyEventListener;
+import com.example.wangyulong.campuspass.Events.ViewHobbyEventListener;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.EasyEarnViewModel;
@@ -62,19 +65,30 @@ public class EasyEarnActivity extends AppCompatActivity
         hobbyModelList = new ArrayList<>();
         thumbnailAdapter = new ThumbnailAdapter(this, this.easyEarnViewModel.get_complete_hobby_list());
 
+        thumbnailAdapter.setViewHobbyEventListener(new ViewHobbyEventListener()
+        {
+            @Override
+            public void onViewHobbyEventTrigger()
+            {
+                Intent toHobbyBrefListPage = new Intent(getApplicationContext(), HobbyBriefActivity.class);
+                EasyEarnActivity.this.startActivity(toHobbyBrefListPage);
+            }
+        });
+        thumbnailAdapter.setParticipateHobbyEventListener(new ParticipateHobbyEventListener()
+        {
+            @Override
+            public void onParticipateMenuItemClicked()
+            {
+                Intent toParticipateHobbyPage = new Intent(getApplicationContext(), ParticipateHobbyActivity.class);
+                EasyEarnActivity.this.startActivity(toParticipateHobbyPage);
+            }
+        });
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, this.dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(thumbnailAdapter);
-
-//        HobbyModel hobby1 = new HobbyModel();
-//        hobby1.setIcon_pic(R.drawable.photography_icon_pic);
-//        hobby1.setParticipants(5);
-//        hobby1.setHobby_name("Photography");
-//        hobbyModelList.add(hobby1);
-//
-//        thumbnailAdapter.notifyDataSetChanged();
 
         easyEarnViewModel.setHobbyCardViewEvent(new HobbyCardViewRefreshListener()
         {
