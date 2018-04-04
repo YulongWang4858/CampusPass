@@ -6,13 +6,27 @@
 
     </data>
 
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.wangyulong.campuspass.Activity.EasyEarnActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/easyEarnMainPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"
+                    android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/easyEarnCoordLayout">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/easyEarnHobbyMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"/>
+
+        </android.support.design.widget.CoordinatorLayout>
 
     </RelativeLayout>
 </layout>

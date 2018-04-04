@@ -6,5 +6,6 @@ package com.example.wangyulong.campuspass.Helper;
 
 public class BasicCollectionHelper
 {
-
+    //TODO: Apply factory pattern
+    //public abstract void add_item_to_collection();
 }

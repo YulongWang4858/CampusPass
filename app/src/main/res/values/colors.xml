@@ -7,4 +7,6 @@
     <color name="colorLightPink">#ff68bd</color>
     <color name="colorVeryLightPink">#f087bd</color>
     <color name="colorPureBlack">#000000</color>
+    <color name="viewBg">#f1f5f8</color>
+    <color name="hobby_title">#4c4c4c</color>
 </resources>
