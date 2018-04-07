@@ -10,6 +10,10 @@
         <variable
             name="HobbyParticipateButtonClickedListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="ViewMyHobbyButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,7 +26,7 @@
             android:id="@+id/hobby_resume_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3.5"
+            android:layout_weight="3"
             android:clipToPadding="false"
             android:scrollbars="vertical"/>
 
@@ -30,23 +34,33 @@
             android:id="@+id/hobby_resume_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_weight="0.5">
+            android:layout_weight="1">
 
             <Button
                 android:id="@+id/participateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/logo_style_button"
+                android:onClick="@{(v) -> HobbyParticipateButtonClickedListener.onClick()}"
                 android:text="Participate"
                 android:textColor="#99449C"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/hobbyResumeManageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/participateBtn"
+                android:background="@drawable/logo_style_button"
+                android:text="Manage"
+                android:textColor="#99449C"
                 android:textStyle="bold"
-                android:onClick="@{(v) -> HobbyParticipateButtonClickedListener.onClick()}"/>
+                android:onClick="@{(v) -> ViewMyHobbyButtonClickedListener.onClick()}"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/participateBtn"
+                android:layout_below="@+id/hobbyResumeManageButton"
                 android:layout_marginTop="10dp">
 
                 <include

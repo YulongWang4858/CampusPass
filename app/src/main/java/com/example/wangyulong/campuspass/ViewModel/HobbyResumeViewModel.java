@@ -29,8 +29,10 @@ public class HobbyResumeViewModel extends BasicViewModel
     private static HobbyResumeViewModel _instance = null;
     private HobbyResumeCollectionHelper _hobbyResumeCollectionHelper;
     private HobbyResumeModel resume_model;
+    private HobbyResumeModel my_resume;
     private DetailHobbyModel detail_hobby_model;
     private String hobby_of_interest;
+    private boolean is_manage = false;
     private ComplexDataLoader _dataLoader;
     private Uri photo_uri;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("hobby_resumes");
@@ -118,12 +120,32 @@ public class HobbyResumeViewModel extends BasicViewModel
         return this._hobbyResumeCollectionHelper.get_full_resume_list();
     }
 
+    public boolean participation()
+    {
+        for (HobbyResumeModel resume : _hobbyResumeCollectionHelper.get_full_resume_list())
+        {
+            if (resume.getHobby_resume_owner_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+            {
+                this.my_resume = resume;
+
+                this.resume_descr.set(resume.getHobby_resume_descr());
+                this.resume_price.set(resume.getHobby_resume_price());
+                this.is_manage = true;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void push_to_database()
     {
         HobbyResumeModel resume = new HobbyResumeModel();
 
         String owner_id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
-        String resume_id = UUID.randomUUID().toString();
+        String resume_id = this.is_manage ? this.my_resume.getHobby_resume_entry_id() : UUID.randomUUID().toString();
+        this.is_manage = false;
 
         resume.setHobby_resume_title(this.resume_title.get());
         resume.setHobby_resume_descr(this.resume_descr.get());
