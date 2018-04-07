@@ -36,9 +36,6 @@ public class EasyEarnActivity extends AppCompatActivity
     private RecyclerView recyclerView;
     private ThumbnailAdapter thumbnailAdapter;
     public EasyEarnViewModel easyEarnViewModel;
-
-    //TODO: Move to VM after testing
-    private List<HobbyModel> hobbyModelList;
     //endregion Fields and Const
 
     //region Override
@@ -59,19 +56,18 @@ public class EasyEarnActivity extends AppCompatActivity
     {
         binding = DataBindingUtil.setContentView(this, R.layout.easy_earn_mianpage);
 
+        //init recyclerView
         recyclerView = binding.easyEarnHobbyMenu;
-
-        //TODO: Modify after testing
-        hobbyModelList = new ArrayList<>();
         thumbnailAdapter = new ThumbnailAdapter(this, this.easyEarnViewModel.get_complete_hobby_list());
 
+        //set icon clicked events
         thumbnailAdapter.setViewHobbyEventListener(new ViewHobbyEventListener()
         {
             @Override
             public void onViewHobbyEventTrigger()
             {
-                Intent toHobbyBrefListPage = new Intent(getApplicationContext(), HobbyBriefActivity.class);
-                EasyEarnActivity.this.startActivity(toHobbyBrefListPage);
+                Intent toHobbyBriefListPage = new Intent(getApplicationContext(), HobbyBriefActivity.class);
+                EasyEarnActivity.this.startActivity(toHobbyBriefListPage);
             }
         });
         thumbnailAdapter.setParticipateHobbyEventListener(new ParticipateHobbyEventListener()
@@ -84,12 +80,14 @@ public class EasyEarnActivity extends AppCompatActivity
             }
         });
 
+        //specify recyclerView presentation logic
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, this.dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(thumbnailAdapter);
 
+        //set refresh event
         easyEarnViewModel.setHobbyCardViewEvent(new HobbyCardViewRefreshListener()
         {
             @Override

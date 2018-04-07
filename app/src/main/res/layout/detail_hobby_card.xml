@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/detailHobbyCardView"
+        cardCornerRadius="@dimen/card_hobby_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/detailHobbyImg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/menu_cover_height"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/detailHobbyTitleTxt"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailHobbyImg"
+                android:paddingLeft="@dimen/hobby_title_padding"
+                android:paddingRight="@dimen/hobby_title_padding"
+                android:paddingTop="@dimen/hobby_title_padding"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPureBlack"
+                android:textSize="@dimen/hobby_title"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/detailHobbyParticipationCountTxt"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/detailHobbyTitleTxt"
+                android:layout_marginLeft="50dp"
+                android:layout_toRightOf="@id/detailHobbyTitleTxt"
+                android:paddingBottom="@dimen/participant_count_padding_bottom"
+                android:paddingLeft="@dimen/hobby_title_padding"
+                android:paddingRight="@dimen/hobby_title_padding"
+                android:textSize="@dimen/participant_count"/>
+
+            <TextView
+                android:id="@+id/detailHobbyDescrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detailHobbyTitleTxt"
+                android:paddingLeft="@dimen/hobby_title_padding"
+                android:paddingRight="@dimen/hobby_title_padding"
+                android:paddingTop="@dimen/hobby_title_padding"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPureBlack"
+                android:textSize="13dp"
+                android:textStyle="normal"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

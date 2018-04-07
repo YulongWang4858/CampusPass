@@ -22,6 +22,7 @@ import com.example.wangyulong.campuspass.Events.ViewHobbyEventListener;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.EasyEarnViewModel;
+import com.example.wangyulong.campuspass.ViewModel.HobbyBriefViewModel;
 
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class ThumbnailAdapter extends RecyclerView.Adapter<ThumbnailAdapter.MyVi
             {
                 //trigger event to view hobby list
                 Log.d("debug ->", " hobby icon image clicked");
+                HobbyBriefViewModel.hobbyBriefViewModel().set_current_category(hobbyModel.getHobby_category());
 
                 if (viewHobbyEventListener != null)
                 {

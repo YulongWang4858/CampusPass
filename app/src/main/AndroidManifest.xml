@@ -54,6 +54,8 @@
         </activity>
         <activity android:name=".Activity.HobbyBriefActivity">
         </activity>
+        <activity android:name=".Activity.DetailHobbyActivity">
+        </activity>
     </application>
 
 </manifest>

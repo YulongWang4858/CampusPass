@@ -5,15 +5,18 @@ import android.widget.ExpandableListView;
 
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
+import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.Model.RequestModel;
 import com.example.wangyulong.campuspass.R;
@@ -47,6 +50,7 @@ public class ComplexDataLoader extends BasicLoader
     private BuyingItemsCollectionHelper _itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
     private RequestEntryCollectionHelper _requestCollectionHelper = RequestEntryCollectionHelper.requestEntryCollectionHelper();
     private HobbyCollectionHelper _hobbyCollectionHelper = HobbyCollectionHelper.hobbyCollectionHelper();
+    private HobbyBriefCollectionHelper _hobbyBriefCollectionHelper = HobbyBriefCollectionHelper.hobbyBriefCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
@@ -56,6 +60,7 @@ public class ComplexDataLoader extends BasicLoader
     private ChildEventListener hobbyChildEventListener;
     private RequestListRefreshEventListener requestListRefreshEventListener;
     private BuyingListRefreshEventListener buyingListRefreshEventListener;
+    private HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener;
     private MyRequestListRefreshEventListener myRequestListRefreshEventListener;
     private HobbyCardViewRefreshListener hobbyCardViewRefreshListener;
     //endregion Fields and Const
@@ -284,6 +289,63 @@ public class ComplexDataLoader extends BasicLoader
         this.hobbyDatabaseRef.addChildEventListener(this.hobbyChildEventListener);
     }
 
+    public void load_detail_hobbies_from_database(String category_key)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("hobbies").child(category_key).child("detail_hobby");
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                //load hobby
+                DetailHobbyModel detail_hobby_model = dataSnapshot.getValue(DetailHobbyModel.class);
+
+                //for debug
+                Log.d("downloading name ->", detail_hobby_model.getDetail_hobby_name());
+                Log.d("downloading descr ->", detail_hobby_model.getDetail_hobby_descr());
+                Log.d("downloading part. ->", Integer.toString(detail_hobby_model.getDetail_participants()));
+                Log.d("downloading uri ->", detail_hobby_model.getDetail_hobby_icon_uri());
+
+                //add to collection
+                if (!_hobbyBriefCollectionHelper.check_existance(detail_hobby_model))
+                {
+                    _hobbyBriefCollectionHelper.add_new_item_to_collection(detail_hobby_model);
+                }
+
+                //trigger refresh
+                if (hobbyBriefListRefreshEventListener != null)
+                {
+                    hobbyBriefListRefreshEventListener.onHobbyBriefListRefreshEventTrigger();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
     public void unload_request_from_database()
     {
         this.requestDatabaseRef.removeEventListener(this.requestChildEventListener);
@@ -312,6 +374,11 @@ public class ComplexDataLoader extends BasicLoader
     public void setHobbyCardViewRefreshListener(HobbyCardViewRefreshListener hobbyCardViewRefreshListener)
     {
         this.hobbyCardViewRefreshListener = hobbyCardViewRefreshListener;
+    }
+
+    public void setHobbyBriefListRefreshEventListener(HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener)
+    {
+        this.hobbyBriefListRefreshEventListener = hobbyBriefListRefreshEventListener;
     }
     //endregion Methods
 }
