@@ -7,17 +7,20 @@ import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
+import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.HobbyResumeCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
+import com.example.wangyulong.campuspass.Model.HobbyResumeModel;
 import com.example.wangyulong.campuspass.Model.RequestModel;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel;
@@ -42,15 +45,20 @@ public class ComplexDataLoader extends BasicLoader
 
     //region Fields and Const
     private static ComplexDataLoader _instance = null;
+
+    //database
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference itemDatabaseRef = database.getReference("items_for_sale");
     private DatabaseReference requestDatabaseRef = database.getReference("requests");
     private DatabaseReference hobbyDatabaseRef = database.getReference("hobbies");
     private StorageReference hobbyIconsStorage = FirebaseStorage.getInstance().getReference();
+
+    //helpers
     private BuyingItemsCollectionHelper _itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
     private RequestEntryCollectionHelper _requestCollectionHelper = RequestEntryCollectionHelper.requestEntryCollectionHelper();
     private HobbyCollectionHelper _hobbyCollectionHelper = HobbyCollectionHelper.hobbyCollectionHelper();
     private HobbyBriefCollectionHelper _hobbyBriefCollectionHelper = HobbyBriefCollectionHelper.hobbyBriefCollectionHelper();
+    private HobbyResumeCollectionHelper _hobbyResumeCollectionHelper = HobbyResumeCollectionHelper.hobbyResumeCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
@@ -58,11 +66,13 @@ public class ComplexDataLoader extends BasicLoader
     private ChildEventListener requestChildEventListener;
     private ChildEventListener itemChildEventListener;
     private ChildEventListener hobbyChildEventListener;
+    private ChildEventListener hobbyResumeChildEventListener;
     private RequestListRefreshEventListener requestListRefreshEventListener;
     private BuyingListRefreshEventListener buyingListRefreshEventListener;
     private HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener;
     private MyRequestListRefreshEventListener myRequestListRefreshEventListener;
     private HobbyCardViewRefreshListener hobbyCardViewRefreshListener;
+    private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener;
     //endregion Fields and Const
 
     //region Properties
@@ -346,6 +356,67 @@ public class ComplexDataLoader extends BasicLoader
         });
     }
 
+    public void load_hobby_resume_from_database(final String hobby_category)
+    {
+        //add child event
+        DatabaseReference hobbyResumeRef = database.getReference("hobby_resumes").child(hobby_category);
+
+        hobbyResumeRef.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                HobbyResumeModel resume_model = new HobbyResumeModel();
+
+                resume_model = dataSnapshot.getValue(HobbyResumeModel.class);
+
+                //debug
+                Log.d("downloading ", "from -> " + "hobby_resumes/" + hobby_category + "/");
+                Log.d("downloading ", "resume title -> " + resume_model.getHobby_resume_title());
+                Log.d("downloading ", "resume descr -> " + resume_model.getHobby_resume_descr());
+                Log.d("downloading ", "resume price -> " + resume_model.getHobby_resume_price());
+                Log.d("downloading ", "resume owner_id -> " + resume_model.getHobby_resume_owner_id());
+                Log.d("downloading ", "resume res_id -> " + resume_model.getHobby_resume_entry_id());
+                Log.d("downloading ", "resume photo_uri -> " + resume_model.getHobby_resume_photo_uri());
+
+                //add to list and trigger refresh event
+                if (!_hobbyResumeCollectionHelper.check_existance(resume_model))
+                {
+                    _hobbyResumeCollectionHelper.add_item_to_collection(resume_model);
+
+                    if (hobbyResumeListRefreshEventListener != null)
+                    {
+                        hobbyResumeListRefreshEventListener.onHobbyResumeListRefreshEventTrigger();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
     public void unload_request_from_database()
     {
         this.requestDatabaseRef.removeEventListener(this.requestChildEventListener);
@@ -379,6 +450,11 @@ public class ComplexDataLoader extends BasicLoader
     public void setHobbyBriefListRefreshEventListener(HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener)
     {
         this.hobbyBriefListRefreshEventListener = hobbyBriefListRefreshEventListener;
+    }
+
+    public void setHobbyResumeListRefreshEventListener(HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener)
+    {
+        this.hobbyResumeListRefreshEventListener = hobbyResumeListRefreshEventListener;
     }
     //endregion Methods
 }

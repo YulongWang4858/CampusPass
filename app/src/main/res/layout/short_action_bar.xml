@@ -16,6 +16,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="30dp"
+            android:paddingBottom="5dp"
             android:rotation="315"
             android:src="@drawable/shape_triangle"/>
 
@@ -24,9 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sellingButton"
+            android:paddingTop="2dp"
             android:text="Back"
             android:textAllCaps="false"
-            android:textColor="@color/colorLightPink"
+            android:textColor="#825987"
             android:textSize="14dp"
             android:textStyle="bold"/>
     </LinearLayout>
@@ -37,9 +39,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/backArrow"
         android:layout_marginLeft="20dp"
+        android:background="@drawable/logo_style_short_button"
         android:text="Notification"
         android:textAllCaps="false"
-        android:textSize="10dp"/>
+        android:textColor="#825987"
+        android:textSize="12dp"/>
 
     <Button
         android:id="@+id/updateInfoButton"
@@ -48,9 +52,11 @@
         android:layout_below="@+id/backArrow"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@+id/notificationButton"
+        android:background="@drawable/logo_style_short_button"
         android:text="Update Info"
         android:textAllCaps="false"
-        android:textSize="10dp"/>
+        android:textColor="#825987"
+        android:textSize="12dp"/>
 
     <Button
         android:id="@+id/chatBoxButotn"
@@ -59,8 +65,10 @@
         android:layout_below="@+id/backArrow"
         android:layout_marginLeft="40dp"
         android:layout_toRightOf="@id/updateInfoButton"
+        android:background="@drawable/logo_style_short_button"
         android:text="Chat Box"
         android:textAllCaps="false"
-        android:textSize="10dp"/>
+        android:textColor="#825987"
+        android:textSize="12dp"/>
 
 </RelativeLayout>

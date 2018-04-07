@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass.Activity;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
@@ -15,6 +16,7 @@ import android.view.View;
 import com.example.wangyulong.campuspass.Adapter.DetailHobbyThumbnailAdapter;
 import com.example.wangyulong.campuspass.Adapter.ThumbnailAdapter;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ViewResumeListEventListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.HobbyBriefViewModel;
 import com.example.wangyulong.campuspass.databinding.HobbyBriefActivityBinding;
@@ -68,6 +70,16 @@ public class HobbyBriefActivity extends AppCompatActivity
         recyclerView.addItemDecoration(new HobbyBriefActivity.GridSpacingItemDecoration(2, this.dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(this.detailHobbyThumbnailAdapter);
+
+        this.detailHobbyThumbnailAdapter.setViewResumeListEventListener(new ViewResumeListEventListener()
+        {
+            @Override
+            public void onViewResumeListEventTrigger()
+            {
+                Intent toDetailHobbyActivity = new Intent(getApplicationContext(), DetailHobbyActivity.class);
+                HobbyBriefActivity.this.startActivity(toDetailHobbyActivity);
+            }
+        });
 
         //prepare list
         hobbyBriefViewModel.load_brief_list();

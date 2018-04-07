@@ -6,13 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.wangyulong.campuspass.Events.ViewResumeListEventListener;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.R;
+import com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel;
 
 import java.util.List;
 
@@ -27,6 +31,8 @@ public class DetailHobbyThumbnailAdapter extends RecyclerView.Adapter<DetailHobb
     //region Fields and Const
     private Context _context;
     private List<DetailHobbyModel> detailHobbyModelList;
+    private ViewResumeListEventListener viewResumeListEventListener;
+    private int lastPosition = -1;
     //endregion Fields and Const
 
     //region Extend
@@ -68,7 +74,7 @@ public class DetailHobbyThumbnailAdapter extends RecyclerView.Adapter<DetailHobb
     @Override
     public void onBindViewHolder(final DetailHobbyViewHolder holder, int position)
     {
-        DetailHobbyModel detailHobbyModel = this.detailHobbyModelList.get(position);
+        final DetailHobbyModel detailHobbyModel = this.detailHobbyModelList.get(position);
 
         holder.title.setText(detailHobbyModel.getDetail_hobby_name());
         holder.participation.setText(detailHobbyModel.getDetail_participants() + " participants");
@@ -82,9 +88,17 @@ public class DetailHobbyThumbnailAdapter extends RecyclerView.Adapter<DetailHobb
             public void onClick(View view)
             {
                 //TODO: Open List
+                HobbyResumeViewModel.hobbyResumeViewModel().reset();
+                HobbyResumeViewModel.hobbyResumeViewModel().set_current_detail_hobby(detailHobbyModel);
 
+                if (viewResumeListEventListener != null)
+                {
+                    viewResumeListEventListener.onViewResumeListEventTrigger();
+                }
             }
         });
+
+        setAnimation(holder.itemView, position);
     }
 
     @Override
@@ -93,4 +107,22 @@ public class DetailHobbyThumbnailAdapter extends RecyclerView.Adapter<DetailHobb
         return this.detailHobbyModelList.size();
     }
     //endregion Override
+
+    //region Methods
+    public void setViewResumeListEventListener(ViewResumeListEventListener viewResumeListEventListener)
+    {
+        this.viewResumeListEventListener = viewResumeListEventListener;
+    }
+
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(_context, android.R.anim.slide_in_left);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+    //endregion Methods
 }

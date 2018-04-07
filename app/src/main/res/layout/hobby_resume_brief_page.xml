@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="HobbyResumeVM"
+            type="com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel"/>
+
+        <variable
+            name="HobbyParticipateButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:weightSum="4">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/hobby_resume_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"/>
+
+        <RelativeLayout
+            android:id="@+id/hobby_resume_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_weight="0.5">
+
+            <Button
+                android:id="@+id/participateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_style_button"
+                android:text="Participate"
+                android:textColor="#99449C"
+                android:textStyle="bold"
+                android:onClick="@{(v) -> HobbyParticipateButtonClickedListener.onClick()}"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/participateBtn"
+                android:layout_marginTop="10dp">
+
+                <include
+                    layout="@layout/short_action_bar"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

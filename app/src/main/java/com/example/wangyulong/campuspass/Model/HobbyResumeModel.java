@@ -82,7 +82,18 @@ public class HobbyResumeModel
     //region Constructor
     public HobbyResumeModel()
     {
-
+        //init
     }
+
+    public HobbyResumeModel(String hobby_resume_title, String hobby_resume_descr, String hobby_resume_price, String hobby_resume_entry_id, String hobby_resume_owner_id, String hobby_resume_photo_uri)
+    {
+        this.hobby_resume_title = hobby_resume_title;
+        this.hobby_resume_descr = hobby_resume_descr;
+        this.hobby_resume_price = hobby_resume_price;
+        this.hobby_resume_entry_id = hobby_resume_entry_id;
+        this.hobby_resume_owner_id = hobby_resume_owner_id;
+        this.hobby_resume_photo_uri = hobby_resume_photo_uri;
+    }
+
     //endregion Constructor
 }
