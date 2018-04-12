@@ -37,11 +37,15 @@ public class HobbyResumeViewModel extends BasicViewModel
     private Uri photo_uri;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("hobby_resumes");
 
+    //binding
     public ObservableField<String> resume_title = new ObservableField<>(new String(""));
     public ObservableField<String> resume_descr = new ObservableField<>(new String(""));
     public ObservableField<String> resume_price = new ObservableField<>(new String(""));
     public ObservableField<Boolean> upload_btn_visible = new ObservableField<>(false);
     public ObservableField<Boolean> done_btn_visible = new ObservableField<>(false);
+
+    //event
+    HobbyResumeListRefreshEventListener refreshEventListener;
     //endregion Fields and Const
 
     //region Properties
@@ -115,6 +119,15 @@ public class HobbyResumeViewModel extends BasicViewModel
         this.done_btn_visible.set(false);
     }
 
+    public void set_selected_resume(HobbyResumeModel resume)
+    {
+        this.resume_model = resume;
+
+        this.resume_title.set(resume.getHobby_resume_title());
+        this.resume_descr.set(resume.getHobby_resume_descr());
+        this.resume_price.set(resume.getHobby_resume_price());
+    }
+
     public ArrayList<HobbyResumeModel> get_full_list()
     {
         return this._hobbyResumeCollectionHelper.get_full_resume_list();
@@ -170,6 +183,14 @@ public class HobbyResumeViewModel extends BasicViewModel
     public void setHobbyResumeListRefreshListener(HobbyResumeListRefreshEventListener listener)
     {
         this._dataLoader.setHobbyResumeListRefreshEventListener(listener);
+        this.refreshEventListener = listener;
+    }
+
+    public Uri get_selected_resume_photo_uri()
+    {
+        String uri_string = this.resume_model.getHobby_resume_photo_uri();
+
+        return Uri.parse(uri_string);
     }
     //endregion Methods
 }

@@ -12,9 +12,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ShowHobbyResumeDetailsEventListener;
 import com.example.wangyulong.campuspass.Events.ViewResumeListEventListener;
 import com.example.wangyulong.campuspass.Model.HobbyResumeModel;
 import com.example.wangyulong.campuspass.R;
+import com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel;
 
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class HobbyResumeListViewAdapter extends RecyclerView.Adapter<HobbyResume
     private Context _context;
     private List<HobbyResumeModel> resumeList;
     private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener;
+    private ShowHobbyResumeDetailsEventListener showHobbyResumeDetailsEventListener;
     //endregion Fields and Const
 
     //region Extend
@@ -82,6 +85,12 @@ public class HobbyResumeListViewAdapter extends RecyclerView.Adapter<HobbyResume
                 //TODO: Implement
                 //debug
                 Log.d("debug -> ", "image clicked, to detail page");
+                HobbyResumeViewModel.hobbyResumeViewModel().set_selected_resume(resumeModel);
+
+                if (showHobbyResumeDetailsEventListener != null)
+                {
+                    showHobbyResumeDetailsEventListener.onShowHobbyResumeDetailsEventTrigger();
+                }
             }
         });
     }
@@ -94,5 +103,9 @@ public class HobbyResumeListViewAdapter extends RecyclerView.Adapter<HobbyResume
     //endregion Override
 
     //region Methods
+    public void setShowHobbyResumeDetailsEventListener(ShowHobbyResumeDetailsEventListener showHobbyResumeDetailsEventListener)
+    {
+        this.showHobbyResumeDetailsEventListener = showHobbyResumeDetailsEventListener;
+    }
     //endregion Methods
 }

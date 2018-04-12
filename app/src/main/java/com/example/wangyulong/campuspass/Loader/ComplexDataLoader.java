@@ -5,17 +5,23 @@ import android.widget.ExpandableListView;
 
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.CareerListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.CareerResumeListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.CareerCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.CareerResumeCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyResumeCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
+import com.example.wangyulong.campuspass.Model.CareerModel;
+import com.example.wangyulong.campuspass.Model.CareerResumeModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
@@ -59,6 +65,8 @@ public class ComplexDataLoader extends BasicLoader
     private HobbyCollectionHelper _hobbyCollectionHelper = HobbyCollectionHelper.hobbyCollectionHelper();
     private HobbyBriefCollectionHelper _hobbyBriefCollectionHelper = HobbyBriefCollectionHelper.hobbyBriefCollectionHelper();
     private HobbyResumeCollectionHelper _hobbyResumeCollectionHelper = HobbyResumeCollectionHelper.hobbyResumeCollectionHelper();
+    private CareerCollectionHelper _careerCollectionHelper = CareerCollectionHelper.careerCollectionHelper();
+    private CareerResumeCollectionHelper _careerResumeCollectionHelper = CareerResumeCollectionHelper.careerResumeCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
@@ -73,6 +81,8 @@ public class ComplexDataLoader extends BasicLoader
     private MyRequestListRefreshEventListener myRequestListRefreshEventListener;
     private HobbyCardViewRefreshListener hobbyCardViewRefreshListener;
     private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener;
+    private CareerListRefreshEventListener careerListRefreshEventListener;
+    private CareerResumeListRefreshEventListener careerResumeListRefreshEventListener;
     //endregion Fields and Const
 
     //region Properties
@@ -417,6 +427,122 @@ public class ComplexDataLoader extends BasicLoader
         });
     }
 
+    public void load_career_from_database()
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("careers").child("icons");
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                CareerModel career = dataSnapshot.getValue(CareerModel.class);
+
+                //debug
+                Log.d("downloading -> ", "title " + career.getCareer_title());
+                Log.d("downloading -> ", "descr" + career.getCareer_descr());
+                Log.d("downloading -> ", "uri" + career.getCareer_icon_photo_uri());
+                Log.d("downloading -> ", "participants" + career.getCareer_participants());
+
+                if (!_careerCollectionHelper.check_existance(career))
+                {
+                    _careerCollectionHelper.add_new_career_to_collection(career);
+
+                    //TODO: Notify adapter
+                    if (careerListRefreshEventListener != null)
+                    {
+                        careerListRefreshEventListener.onCareerListRefreshEventTrigger();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
+    public void load_career_resume_from_database(String category)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("careers").child(category);
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                CareerResumeModel resumeModel = new CareerResumeModel();
+
+                resumeModel = dataSnapshot.getValue(CareerResumeModel.class);
+
+                //debug
+                Log.d("debug ", "title -> " + resumeModel.getCareer_name());
+                Log.d("debug ", "category -> " + resumeModel.getCareer_category());
+                Log.d("debug ", "about self -> " + resumeModel.getCareer_about_self());
+                Log.d("debug ", "experience -> " + resumeModel.getCareer_experience());
+                Log.d("debug ", "gender -> " + resumeModel.getCareer_gender());
+                Log.d("debug ", "major -> " + resumeModel.getCareer_major());
+                Log.d("debug ", "owner name -> " + resumeModel.getCareer_owner_name());
+                Log.d("debug ", "owner id -> " + resumeModel.getCareer_owner_id());
+                Log.d("debug ", "resume id -> " + resumeModel.getCareer_resume_id());
+
+                if (!_careerResumeCollectionHelper.check_existance(resumeModel))
+                {
+                    _careerResumeCollectionHelper.add_career_resume_to_collection(resumeModel);
+                }
+
+                if (careerResumeListRefreshEventListener != null)
+                {
+                    careerResumeListRefreshEventListener.onCareerResumeListRefreshEventTrigger();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
     public void unload_request_from_database()
     {
         this.requestDatabaseRef.removeEventListener(this.requestChildEventListener);
@@ -455,6 +581,16 @@ public class ComplexDataLoader extends BasicLoader
     public void setHobbyResumeListRefreshEventListener(HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener)
     {
         this.hobbyResumeListRefreshEventListener = hobbyResumeListRefreshEventListener;
+    }
+
+    public void setCareerListRefreshEventListener(CareerListRefreshEventListener careerListRefreshEventListener)
+    {
+        this.careerListRefreshEventListener = careerListRefreshEventListener;
+    }
+
+    public void setCareerResumeListRefreshEventListener(CareerResumeListRefreshEventListener careerResumeListRefreshEventListener)
+    {
+        this.careerResumeListRefreshEventListener = careerResumeListRefreshEventListener;
     }
     //endregion Methods
 }

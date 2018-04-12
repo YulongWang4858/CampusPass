@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="android.view.View"></import>
+
+        <variable
+            name="CareerListVM"
+            type="com.example.wangyulong.campuspass.ViewModel.CareerListViewModel"/>
+
+        <variable
+            name="NewCareerResumeSelectPhotoButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewCareerResumeUploadPhotoButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewCareerResumeDoneButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.wangyulong.campuspass.Activity.NewCareerResumeActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp">
+
+                <EditText
+                    android:id="@+id/newCareerNameTxt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Career Title"
+                    android:text="@={CareerListVM.career_title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"
+                    android:textStyle="bold"/>
+
+                <Spinner
+                    android:id="@+id/newCareerGenderSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerNameTxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#d11f08"
+                    android:entries="@array/gender_dropdown"
+                    android:padding="5dp"/>
+
+                <EditText
+                    android:id="@+id/newCareerMajorTxt"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerNameTxt"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/newCareerGenderSpinner"
+                    android:hint="Major/Profession"
+                    android:text="@={CareerListVM.career_major}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/newCareerAboutSelfTxt"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerGenderSpinner"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Describe about your personality"
+                    android:text="@={CareerListVM.career_about_self}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/newCareerExperienceTxt"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerAboutSelfTxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Experiences/Achievements"
+                    android:lines="5"
+                    android:text="@={CareerListVM.career_experience}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/newCareerProductLinkTxt"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerExperienceTxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:hint="Provide link to any products"
+                    android:lines="2"
+                    android:text="@={CareerListVM.career_sample_product_link}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/newCareerImg"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/newCareerProductLinkTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"/>
+
+                <Button
+                    android:id="@+id/newCareerSetPhotoBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerImg"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{(v) -> NewCareerResumeSelectPhotoButtonClickedListener.onClick()}"
+                    android:text="Select Photo"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/newCareerUploadPhotoBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerImg"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/newCareerSetPhotoBtn"
+                    android:onClick="@{(v) -> NewCareerResumeUploadPhotoButtonClickedListener.onClick()}"
+                    android:text="Upload Photo"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="@{CareerListVM.is_uploadbtn_visible ? View.VISIBLE : View.INVISIBLE}"/>
+
+                <Button
+                    android:id="@+id/newCareerDoneBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerImg"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/newCareerUploadPhotoBtn"
+                    android:onClick="@{(v) -> NewCareerResumeDoneButtonClickedListener.onClick()}"
+                    android:text="Done"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    android:visibility="@{CareerListVM.is_donebtn_visible ? View.VISIBLE : View.INVISIBLE}"/>
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

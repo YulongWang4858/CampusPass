@@ -17,6 +17,7 @@ import com.example.wangyulong.campuspass.Adapter.HobbyResumeListViewAdapter;
 import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ShowHobbyResumeDetailsEventListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.HobbyBriefViewModel;
 import com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel;
@@ -56,6 +57,15 @@ public class DetailHobbyActivity extends AppCompatActivity
         //initialize RecyclerView
         this.recyclerView = binding.hobbyResumeRecyclerView;
         adapter = new HobbyResumeListViewAdapter(this, this.hobbyResumeViewModel.get_full_list());
+        adapter.setShowHobbyResumeDetailsEventListener(new ShowHobbyResumeDetailsEventListener()
+        {
+            @Override
+            public void onShowHobbyResumeDetailsEventTrigger()
+            {
+                Intent toDetailResumePage = new Intent(getApplicationContext(), DetailHobbyResumeActivity.class);
+                DetailHobbyActivity.this.startActivity(toDetailResumePage);
+            }
+        });
 
         //recyclerView presentation logic
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);

@@ -101,6 +101,7 @@
             android:id="@+id/registerBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/loginBtn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:background="@drawable/logo_style_button"
@@ -111,8 +112,7 @@
             android:shadowRadius="5"
             android:text="@{LoginVM.displayMsgHelper.getRegisterButtonTxt()}"
             android:textColor="#99449C"
-            android:textStyle="bold"
-            android:layout_below="@+id/loginBtn"/>
-
+            android:textStyle="bold"/>
     </RelativeLayout>
+
 </layout>

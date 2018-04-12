@@ -17,7 +17,6 @@ import com.example.wangyulong.campuspass.databinding.RequestPageBinding;
 
 public class RequestActivity extends ListActivity implements RequestListRefreshEventListener
 {
-
     //region Fields and Const
     RequestPageBinding binding;
     RequestViewModel requestViewModel;

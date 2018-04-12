@@ -103,7 +103,7 @@ public class MainMenuActivity extends ActivityGroup
 
         //Tab 3
         spec = mainmenuPageBinding.tabHost.newTabSpec("Easy&Excel");
-        spec.setContent(R.id.tab3);
+        spec.setContent(new Intent(getApplicationContext(), EasyExcelActivity.class));
         spec.setIndicator("Easy&Excel");
         mainmenuPageBinding.tabHost.addTab(spec);
     }

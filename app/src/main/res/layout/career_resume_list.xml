@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="CareerListVM"
+            type="com.example.wangyulong.campuspass.ViewModel.CareerListViewModel"/>
+
+        <variable
+            name="careerParticipateBtnClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="careerResumeManageBtnClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="4"
+        tools:context="com.example.wangyulong.campuspass.Activity.CareerResumeListActivity">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/career_resume_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"/>
+
+        <RelativeLayout
+            android:id="@+id/career_resume_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/career_resume_recycler_view"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/careerParticipateBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_style_button"
+                android:onClick="@{(v) -> careerParticipateBtnClickedListener.onClick()}"
+                android:text="Submit Resume"
+                android:textColor="#99449C"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/careerResumeManageButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/careerParticipateBtn"
+                android:background="@drawable/logo_style_button"
+                android:onClick="@{(v) -> careerResumeManageBtnClickedListener.onClick()}"
+                android:text="Manage Resume"
+                android:textColor="#99449C"
+                android:textStyle="bold"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/careerResumeManageButton"
+                android:layout_marginTop="10dp"
+                >
+
+                <include
+                    layout="@layout/short_action_bar"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

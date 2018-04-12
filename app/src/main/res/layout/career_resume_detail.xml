@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="CareerResumeDetailVM"
+            type="com.example.wangyulong.campuspass.ViewModel.CareerResumeDetailViewModel"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/careerResumeDetailTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="30dp"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg1"
+                    android:layout_width="350dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeDetailTitleTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailSectionInfoTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailDecoImg1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Information"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg0"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeDetailSectionInfoTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailInfoMajorTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailDecoImg0"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.major}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailInfoGenderTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailInfoMajorTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.gender}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeSectionAboutSelfTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailInfoGenderTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.section_about_self_name}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg2"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeSectionAboutSelfTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailAboutSelfTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailDecoImg2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.about_self}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailSectionExperienceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailAboutSelfTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Experience"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg3"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeDetailSectionExperienceTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerResumeExperienceTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailDecoImg3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.experience}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeSectionSampleImgTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeExperienceTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Sample"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg4"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeSectionSampleImgTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeSampleImg"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/careerResumeDetailDecoImg4"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"/>
+
+
+                <TextView
+                    android:id="@+id/careerResumeSectionLinkTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeSampleImg"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Links"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerResumeDetailDecoImg5"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeSectionLinkTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerResumeLinkTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailDecoImg5"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerResumeDetailVM.links}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

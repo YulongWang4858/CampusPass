@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="HobbyResumeVM"
+            type="com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.wangyulong.campuspass.Activity.DetailHobbyResumeActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detailHobbyResumeTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{HobbyResumeVM.resume_title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="25dp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/hobbyDecoImg1"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/detailHobbyResumeTitleTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/detailHobbyResumeDescrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/hobbyDecoImg1"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{HobbyResumeVM.resume_descr}"
+                    android:textColor="@color/colorPureBlack"
+                    android:textSize="17dp"/>
+
+                <ImageView
+                    android:id="@+id/hobbyDecoImg2"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/detailHobbyResumeDescrTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <ImageView
+                    android:id="@+id/detailHobbyResumeImg"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/hobbyDecoImg2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"/>
+
+                <!--<ImageView-->
+                <!--android:id="@+id/hobbyDecoImg3"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_below="@+id/detailHobbyResumeDescrTxt"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/vector_deco"/>-->
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

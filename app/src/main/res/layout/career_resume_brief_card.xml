@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="20dp"
+              android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/careerResumeBriefCardView"
+        cardCornerRadius="@dimen/card_hobby_radius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="3dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/careerResumeBriefImg"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/careerResumeBriefTitleTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/careerResumeBriefImg"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/careerResumeBriefImg"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPureBlack"
+                android:textSize="15dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/careerResumeBriefExperienceTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/careerResumeBriefTitleTxt"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/careerResumeBriefImg"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPureBlack"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

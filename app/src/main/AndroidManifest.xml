@@ -58,6 +58,27 @@
         </activity>
         <activity android:name=".Activity.HobbyParticipateActivity">
         </activity>
+        <activity
+            android:name=".Activity.EasyExcelActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            >
+        </activity>
+        <activity android:name=".Activity.DetailHobbyResumeActivity">
+        </activity>
+        <activity android:name=".Activity.CareerResumeListActivity">
+        </activity>
+        <activity
+            android:name=".Activity.CareerScreenChoiceActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Activity.NewCareerResumeActivity">
+        </activity>
+        <activity android:name=".Activity.DetailCareerResumeActivity">
+        </activity>
+        <activity android:name=".Activity.ManageCareerResumeActivity">
+        </activity>
+        <activity android:name=".Activity.CareerTeamListActivity">
+        </activity>
     </application>
 
 </manifest>
