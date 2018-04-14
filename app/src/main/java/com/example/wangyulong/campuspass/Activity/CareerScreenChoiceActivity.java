@@ -49,7 +49,15 @@ public class CareerScreenChoiceActivity extends AppCompatActivity
             }
         });
 
-        //TODO: add click listener for TeamUp
+        this.binding.setCareerTeamUpImgClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                Intent toCareerTeamUpListPage = new Intent(getApplicationContext(), CareerTeamListActivity.class);
+                CareerScreenChoiceActivity.this.startActivity(toCareerTeamUpListPage);
+            }
+        });
     }
     //endregion Methods
 }

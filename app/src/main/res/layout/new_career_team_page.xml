@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="NewTeamVM"
+            type="com.example.wangyulong.campuspass.ViewModel.NewTeamViewModel"/>
+
+        <variable
+            name="NewTeamCancelButtonClicked"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewTeamDoneButtonClicked"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        tools:context="com.example.wangyulong.campuspass.Activity.NewCareerTeamActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp">
+
+                <EditText
+                    android:id="@+id/newCareerTeamTitleETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Team yitle"
+                    android:text="@={NewTeamVM.team_title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamTypeETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamTitleETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Qualification and major required"
+                    android:text="@={NewTeamVM.team_type}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamDescETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamTypeETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Some descriptions on the project"
+                    android:lines="5"
+                    android:text="@={NewTeamVM.team_descr}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamParticipantsETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamDescETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Number of target teammates"
+                    android:text="@={NewTeamVM.team_participants}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/newCareerTeamWeeklyHoursTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamParticipantsETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Estimated weekly hours spent:"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamWeeklyHoursETxt"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamParticipantsETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/newCareerTeamWeeklyHoursTxt"
+                    android:hint="hours"
+                    android:text="@={NewTeamVM.team_weekly_hours}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamStartingDateETxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamWeeklyHoursTxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Starting date"
+                    android:text="@={NewTeamVM.team_starting_date}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamEndDateETxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamWeeklyHoursTxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/newCareerTeamStartingDateETxt"
+                    android:hint="Starting date"
+                    android:text="@={NewTeamVM.team_end_date}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamIncentiveTypeETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamStartingDateETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Incentive to participants"
+                    android:lines="3"
+                    android:text="@={NewTeamVM.team_incentive}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <EditText
+                    android:id="@+id/newCareerTeamRemarksETxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamIncentiveTypeETxt"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="30dp"
+                    android:hint="Additional information"
+                    android:lines="3"
+                    android:text="@={NewTeamVM.team_remarks}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <Button
+                    android:id="@+id/newCareerTeamCancelBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamRemarksETxt"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:onClick="@{(v) -> NewTeamCancelButtonClicked.onClick()}"
+                    android:text="Cancel"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/newCareerTeamDoneButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamRemarksETxt"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@+id/newCareerTeamCancelBtn"
+                    android:onClick="@{(v) -> NewTeamDoneButtonClicked.onClick()}"
+                    android:text="Done"
+                    android:textAllCaps="false"/>
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+</layout>

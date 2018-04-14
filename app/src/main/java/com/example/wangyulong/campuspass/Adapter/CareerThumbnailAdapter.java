@@ -17,6 +17,7 @@ import com.example.wangyulong.campuspass.Model.CareerModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.CareerListViewModel;
+import com.example.wangyulong.campuspass.ViewModel.CareerTeamListViewModel;
 import com.example.wangyulong.campuspass.ViewModel.HobbyResumeViewModel;
 
 import org.w3c.dom.Text;
@@ -87,7 +88,7 @@ public class CareerThumbnailAdapter extends RecyclerView.Adapter<CareerThumbnail
             public void onClick(View view)
             {
                 CareerListViewModel.careerListViewModel().set_selected_career(careerModel);
-
+                CareerTeamListViewModel.careerTeamListViewModel().set_current_category(careerModel);
                 if (showCareerResumeListEventListener != null)
                 {
                     showCareerResumeListEventListener.onShowCareerResumeListEventTrigger();

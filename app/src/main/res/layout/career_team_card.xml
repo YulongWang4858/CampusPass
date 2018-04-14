@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/teamTitleTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/logoPurple"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/teamTypeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamTitleTxt"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/teamParticipantsTxt"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamTypeTxt"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/teamWeeklyHoursTxt"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamTypeTxt"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/teamParticipantsTxt"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/teamIncentivesTxt"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/teamWeeklyHoursTxt"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:textSize="15dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:id="@+id/teamCardDecoImg"
+        android:layout_width="320dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/teamIncentivesTxt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/vector_deco"/>
+
+</RelativeLayout>

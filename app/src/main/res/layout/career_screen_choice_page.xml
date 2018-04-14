@@ -35,8 +35,8 @@
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:onClick="@{(v) -> CareerResumeImgClickedListener.onClick()}">
+                android:onClick="@{(v) -> CareerResumeImgClickedListener.onClick()}"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/careerChoiceImg1"
@@ -69,7 +69,8 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:onClick="@{(v) -> CareerTeamUpImgClickedListener.onClick()}">
 
                 <ImageView
                     android:layout_width="fill_parent"

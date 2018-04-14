@@ -79,6 +79,10 @@
         </activity>
         <activity android:name=".Activity.CareerTeamListActivity">
         </activity>
+        <activity android:name=".Activity.NewCareerTeamActivity">
+        </activity>
+        <activity android:name=".Activity.CareerTeamDetailActivity">
+        </activity>
     </application>
 
 </manifest>

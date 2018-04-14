@@ -7,6 +7,7 @@ import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerResumeListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.CareerTeamListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
@@ -15,6 +16,7 @@ import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.CareerCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.CareerResumeCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.CareerTeamCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyResumeCollectionHelper;
@@ -22,6 +24,7 @@ import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.Model.CareerModel;
 import com.example.wangyulong.campuspass.Model.CareerResumeModel;
+import com.example.wangyulong.campuspass.Model.CareerTeamModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
@@ -40,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -67,6 +71,7 @@ public class ComplexDataLoader extends BasicLoader
     private HobbyResumeCollectionHelper _hobbyResumeCollectionHelper = HobbyResumeCollectionHelper.hobbyResumeCollectionHelper();
     private CareerCollectionHelper _careerCollectionHelper = CareerCollectionHelper.careerCollectionHelper();
     private CareerResumeCollectionHelper _careerResumeCollectionHelper = CareerResumeCollectionHelper.careerResumeCollectionHelper();
+    private CareerTeamCollectionHelper _careerTeamCollectionHelper = CareerTeamCollectionHelper.careerTeamCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
@@ -83,6 +88,7 @@ public class ComplexDataLoader extends BasicLoader
     private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener;
     private CareerListRefreshEventListener careerListRefreshEventListener;
     private CareerResumeListRefreshEventListener careerResumeListRefreshEventListener;
+    private CareerTeamListRefreshEventListener careerTeamListRefreshEventListener = null;
     //endregion Fields and Const
 
     //region Properties
@@ -427,6 +433,73 @@ public class ComplexDataLoader extends BasicLoader
         });
     }
 
+    public void load_career_teams_from_database(String category)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("careers").child("teams").child(category);
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                CareerTeamModel teamModel = new CareerTeamModel();
+                teamModel = dataSnapshot.getValue(CareerTeamModel.class);
+
+                //debug
+                //Log.d("downloading ", "from category " + category);
+                Log.d("downloading ", "child key " + dataSnapshot.getKey().toString());
+                Log.d("downloading -> ", "title " + teamModel.getTeam_title());
+                Log.d("downloading -> ", "type " + teamModel.getTeam_type());
+                Log.d("downloading -> ", "id " + teamModel.getTeam_id());
+                Log.d("downloading -> ", "descr " + teamModel.getTeam_descr());
+                Log.d("downloading -> ", "participants " + teamModel.getTeam_participants());
+                Log.d("downloading -> ", "weekly hours " + teamModel.getTeam_weekly_hour());
+                Log.d("downloading -> ", "date start " + teamModel.getTeam_date_start());
+                Log.d("downloading -> ", "date end " + teamModel.getTeam_deadline());
+                Log.d("downloading -> ", "category " + teamModel.getTeam_category());
+                Log.d("downloading -> ", "leader " + teamModel.getTeam_leader_id());
+                Log.d("downloading -> ", "incentives " + teamModel.getTeam_incentive_type());
+                Log.d("downloading -> ", "remarks " + teamModel.getTeam_remarks());
+
+                //check for duplicate and trigger refresh
+                if (!_careerTeamCollectionHelper.check_existance(teamModel))
+                {
+                    _careerTeamCollectionHelper.add_team_to_collection(teamModel);
+
+                    if (careerTeamListRefreshEventListener != null)
+                    {
+                        careerTeamListRefreshEventListener.onCareerTeamListRefreshEventTrigger();
+                    }
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
     public void load_career_from_database()
     {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("careers").child("icons");
@@ -591,6 +664,11 @@ public class ComplexDataLoader extends BasicLoader
     public void setCareerResumeListRefreshEventListener(CareerResumeListRefreshEventListener careerResumeListRefreshEventListener)
     {
         this.careerResumeListRefreshEventListener = careerResumeListRefreshEventListener;
+    }
+
+    public void setCareerTeamListRefreshEventListener(CareerTeamListRefreshEventListener careerTeamListRefreshEventListener)
+    {
+        this.careerTeamListRefreshEventListener = careerTeamListRefreshEventListener;
     }
     //endregion Methods
 }
