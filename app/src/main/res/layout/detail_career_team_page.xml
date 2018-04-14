@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="CareerTeamListVM"
+            type="com.example.wangyulong.campuspass.ViewModel.CareerTeamListViewModel"/>
+    </data>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.wangyulong.campuspass.Activity.DetailCareerTeamActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/careerTeamDetailTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="30dp"/>
+
+                <ImageView
+                    android:id="@+id/careerTeamDetailDecoImg1"
+                    android:layout_width="350dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerTeamDetailTitleTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerTeamDetailDescrTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailDecoImg1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_descr}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerTeamDetailSectionInfoTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailDescrTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Information"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerTeamDetailDecoImg0"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerTeamDetailSectionInfoTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerTeamDetailInfoParticipantsTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailDecoImg0"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_participants}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerTeamDetailInfoTypeTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailInfoParticipantsTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_type}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailInfoWeeklyHoursTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailInfoTypeTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_weekly_hours}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailInfoStartDateTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailInfoWeeklyHoursTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_start_date}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailInfoEndDateTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailInfoStartDateTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_end_date}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerTeamSectionIncentivesTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailInfoEndDateTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Incentive"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+                <ImageView
+                    android:id="@+id/careerTeamDetailDecoImg2"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerTeamSectionIncentivesTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerTeamDetailIncentivesTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailDecoImg2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_incentive}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <TextView
+                    android:id="@+id/careerResumeDetailSectionRemarksTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailIncentivesTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="120dp"
+                    android:gravity="center_horizontal"
+                    android:text="Additional Info"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="20dp"/>
+
+
+                <ImageView
+                    android:id="@+id/careerTeamDetailDecoImg3"
+                    android:layout_width="150dp"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/careerResumeDetailSectionRemarksTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
+                <TextView
+                    android:id="@+id/careerTeamRemarksTxt"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerTeamDetailDecoImg3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{CareerTeamListVM.selected_team_remarks}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPureBlack"/>
+
+                <!--<TextView-->
+                <!--android:id="@+id/careerResumeSectionSampleImgTxt"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/careerResumeExperienceTxt"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="120dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Sample"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/logoPurple"-->
+                <!--android:textSize="20dp"/>-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/careerResumeDetailDecoImg4"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_below="@+id/careerResumeSectionSampleImgTxt"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/vector_deco"/>-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/careerResumeSampleImg"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="300dp"-->
+                <!--android:layout_below="@+id/careerResumeDetailDecoImg4"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:scaleType="centerCrop"/>-->
+
+
+                <!--<TextView-->
+                <!--android:id="@+id/careerResumeSectionLinkTxt"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/careerResumeSampleImg"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="120dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="Links"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/logoPurple"-->
+                <!--android:textSize="20dp"/>-->
+
+                <!--<ImageView-->
+                <!--android:id="@+id/careerResumeDetailDecoImg5"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_below="@+id/careerResumeSectionLinkTxt"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:src="@drawable/vector_deco"/>-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/careerResumeLinkTxt"-->
+                <!--android:layout_width="250dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/careerResumeDetailDecoImg5"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginBottom="40dp"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:text="@{CareerResumeDetailVM.links}"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorPureBlack"/>-->
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

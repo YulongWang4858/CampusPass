@@ -2,15 +2,19 @@ package com.example.wangyulong.campuspass.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.wangyulong.campuspass.Events.ShowCareerTeamDetailsEventListener;
 import com.example.wangyulong.campuspass.Model.CareerTeamModel;
 import com.example.wangyulong.campuspass.R;
+import com.example.wangyulong.campuspass.ViewModel.CareerTeamListViewModel;
 
 import org.w3c.dom.Text;
 
@@ -26,12 +30,14 @@ public class CareerTeamThumbnailAdapter extends RecyclerView.Adapter<CareerTeamT
     private Context _context;
     private List<CareerTeamModel> careerTeamModelList;
     private int lastPosition = -1;
+    private ShowCareerTeamDetailsEventListener showCareerTeamDetailsEventListener = null;
     //endregion Fields and Const
 
     //region Extend
     public class CareerTeamThumbnailViewHolder extends RecyclerView.ViewHolder
     {
         public TextView title, participants, weekly_hours, incentives, type;
+        public RelativeLayout selection;
 
         public CareerTeamThumbnailViewHolder(View view)
         {
@@ -43,6 +49,7 @@ public class CareerTeamThumbnailAdapter extends RecyclerView.Adapter<CareerTeamT
             weekly_hours = (TextView) view.findViewById(R.id.teamWeeklyHoursTxt);
             incentives = (TextView) view.findViewById(R.id.teamIncentivesTxt);
             type = (TextView) view.findViewById(R.id.teamTypeTxt);
+            selection = (RelativeLayout) view.findViewById(R.id.teamSelection);
         }
     }
     //endregion Extend
@@ -77,6 +84,22 @@ public class CareerTeamThumbnailAdapter extends RecyclerView.Adapter<CareerTeamT
         holder.incentives.setText("Incentive: " + careerTeamModel.getTeam_incentive_type());
         holder.type.setText("Qualification: " + careerTeamModel.getTeam_type());
 
+        holder.selection.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                //debug
+                Log.d("clicked -> ", careerTeamModel.getTeam_title());
+                CareerTeamListViewModel.careerTeamListViewModel().set_currently_selected_team(careerTeamModel);
+
+                if (showCareerTeamDetailsEventListener != null)
+                {
+                    showCareerTeamDetailsEventListener.onShowCareerTeamDetailsEventTriggered();
+                }
+            }
+        });
+
         setAnimation(holder.itemView, position);
     }
 
@@ -97,6 +120,11 @@ public class CareerTeamThumbnailAdapter extends RecyclerView.Adapter<CareerTeamT
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public void setShowCareerTeamDetailsEventListener(ShowCareerTeamDetailsEventListener showCareerTeamDetailsEventListener)
+    {
+        this.showCareerTeamDetailsEventListener = showCareerTeamDetailsEventListener;
     }
     //endregion Methods
 }

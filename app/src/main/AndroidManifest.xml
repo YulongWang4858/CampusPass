@@ -83,6 +83,10 @@
         </activity>
         <activity android:name=".Activity.CareerTeamDetailActivity">
         </activity>
+        <activity android:name=".Activity.DetailCareerTeamActivity">
+        </activity>
+        <activity android:name=".Activity.MyTeamActivity">
+        </activity>
     </application>
 
 </manifest>

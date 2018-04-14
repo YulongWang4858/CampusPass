@@ -14,7 +14,7 @@ public class NewCareerTeamActivity extends AppCompatActivity
 {
     //region Fields and Const
     private NewCareerTeamPageBinding binding;
-    private NewTeamViewModel newTeamViewModel;
+    private NewTeamViewModel newTeamViewModel = null;
     //endregion Fields and Const
 
     //region Override
@@ -26,6 +26,17 @@ public class NewCareerTeamActivity extends AppCompatActivity
         newTeamViewModel = NewTeamViewModel.newTeamViewModel();
 
         onCreateBinding();
+    }
+
+    protected void onResume()
+    {
+        super.onResume();
+
+        //toggle delete button visibility
+        if (this.newTeamViewModel != null)
+        {
+            this.newTeamViewModel.hide_delete_button();
+        }
     }
     //endregion Override
 

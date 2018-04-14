@@ -7,6 +7,10 @@
         <variable
             name="FormNewTeamButtonClickedListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="ManageExistingTeamInfoClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <LinearLayout
@@ -50,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/careerFormTeamBtn"
                 android:background="@drawable/logo_style_button"
+                android:onClick="@{(v) -> ManageExistingTeamInfoClickedListener.onClick()}"
                 android:text="Manage Team Info"
                 android:textColor="#99449C"
                 android:textStyle="bold"/>

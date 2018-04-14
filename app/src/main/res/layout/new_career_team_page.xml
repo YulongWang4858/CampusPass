@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View"></import>
+
         <variable
             name="NewTeamVM"
             type="com.example.wangyulong.campuspass.ViewModel.NewTeamViewModel"/>
@@ -162,20 +164,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newCareerTeamRemarksETxt"
-                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="20dp"
                     android:layout_marginTop="30dp"
+                    android:layout_toLeftOf="@+id/newCareerTeamDeleteButton"
                     android:onClick="@{(v) -> NewTeamCancelButtonClicked.onClick()}"
                     android:text="Cancel"
                     android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/newCareerTeamDeleteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerTeamRemarksETxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:onClick="@{(v) -> NewTeamDoneButtonClicked.onClick()}"
+                    android:text="Delete"
+                    android:textAllCaps="false"
+                    android:visibility="@{NewTeamVM.delet_button_visibility ? View.VISIBLE : View.INVISIBLE}"/>
 
                 <Button
                     android:id="@+id/newCareerTeamDoneButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/newCareerTeamRemarksETxt"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@+id/newCareerTeamCancelBtn"
+                    android:layout_toRightOf="@+id/newCareerTeamDeleteButton"
                     android:onClick="@{(v) -> NewTeamDoneButtonClicked.onClick()}"
                     android:text="Done"
                     android:textAllCaps="false"/>

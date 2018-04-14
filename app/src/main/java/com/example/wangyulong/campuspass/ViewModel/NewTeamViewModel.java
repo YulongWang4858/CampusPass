@@ -4,6 +4,7 @@ import android.databinding.ObservableField;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.wangyulong.campuspass.Helper.CareerTeamCollectionHelper;
 import com.example.wangyulong.campuspass.Model.CareerModel;
 import com.example.wangyulong.campuspass.Model.CareerTeamModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,10 +24,10 @@ public class NewTeamViewModel extends BasicViewModel
     //region Fields and Const
     private static NewTeamViewModel _instance = null;
     private String career_category;
-    private String team_id;
 
     //binding
     private CareerTeamModel new_team;
+    private String team_id;
     public ObservableField<String> team_title = new ObservableField<>(new String(""));
     public ObservableField<String> team_type = new ObservableField<>(new String(""));
     public ObservableField<String> team_descr = new ObservableField<>(new String(""));
@@ -36,6 +37,7 @@ public class NewTeamViewModel extends BasicViewModel
     public ObservableField<String> team_participants = new ObservableField<>(new String(""));
     public ObservableField<String> team_incentive = new ObservableField<>(new String(""));
     public ObservableField<String> team_remarks = new ObservableField<>(new String(""));
+    public ObservableField<Boolean> delet_button_visibility = new ObservableField<>(false);
     //endregion Fields and Const
 
     //region Properties
@@ -65,6 +67,9 @@ public class NewTeamViewModel extends BasicViewModel
         this.career_category = careerModel.getCareer_title();
         this.new_team.setTeam_category(this.career_category);
         this.new_team.setTeam_id(this.team_id);
+
+        //toggle visibility
+        this.delet_button_visibility.set(false);
     }
 
     public void upload_new_team()
@@ -74,7 +79,7 @@ public class NewTeamViewModel extends BasicViewModel
         this.new_team.setTeam_type(this.team_type.get());
         this.new_team.setTeam_descr(this.team_descr.get());
         this.new_team.setTeam_participants(this.team_participants.get());
-        this.new_team.setTeam_leader_id(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+        this.new_team.setTeam_leader_id(team_id);
         this.new_team.setTeam_deadline(this.team_end_date.get());
         this.new_team.setTeam_date_start(this.team_starting_date.get());
         this.new_team.setTeam_incentive_type(this.team_incentive.get());
@@ -92,6 +97,33 @@ public class NewTeamViewModel extends BasicViewModel
                 Log.d("upload success", "");
             }
         });
+    }
+
+    public void hide_delete_button()
+    {
+        this.delet_button_visibility.set(false);
+    }
+
+    public void load_my_team_into_VM()
+    {
+        this.new_team = CareerTeamCollectionHelper.careerTeamCollectionHelper().get_team_owned_by_user();
+
+        this.team_title.set(this.new_team.getTeam_title());
+        this.team_descr.set(this.new_team.getTeam_descr());
+        this.team_type.set(this.new_team.getTeam_type());
+        this.team_participants.set(this.new_team.getTeam_participants());
+        this.team_id = this.new_team.team_id;
+        this.team_end_date.set(this.new_team.getTeam_deadline());
+        this.team_starting_date.set(this.new_team.getTeam_date_start());
+        this.team_weekly_hours.set(this.new_team.getTeam_weekly_hour());
+        this.team_remarks.set(this.new_team.getTeam_remarks());
+        this.team_incentive.set(this.new_team.getTeam_incentive_type());
+
+        //debug
+        Log.d("manage -> title : ", this.team_title.get());
+
+        //toggle visibility
+        this.delet_button_visibility.set(true);
     }
     //endregion Methods
 

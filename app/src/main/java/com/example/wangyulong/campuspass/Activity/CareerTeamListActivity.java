@@ -10,14 +10,17 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.example.wangyulong.campuspass.Adapter.CareerTeamThumbnailAdapter;
 import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.Events.CareerTeamListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ShowCareerTeamDetailsEventListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.CareerTeamListViewModel;
+import com.example.wangyulong.campuspass.ViewModel.NewTeamViewModel;
 import com.example.wangyulong.campuspass.databinding.CareerTeamListPageBinding;
 
 public class CareerTeamListActivity extends AppCompatActivity
@@ -68,6 +71,17 @@ public class CareerTeamListActivity extends AppCompatActivity
             }
         });
 
+        adapter.setShowCareerTeamDetailsEventListener(new ShowCareerTeamDetailsEventListener()
+        {
+            @Override
+            public void onShowCareerTeamDetailsEventTriggered()
+            {
+                //TODO: Open new activity
+                Intent toCareerTeamDetailPage = new Intent(getApplicationContext(), CareerTeamDetailActivity.class);
+                CareerTeamListActivity.this.startActivity(toCareerTeamDetailPage);
+            }
+        });
+
         bindButtons();
     }
 
@@ -78,8 +92,33 @@ public class CareerTeamListActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                Intent toNewTeamFormationPage = new Intent(getApplicationContext(), NewCareerTeamActivity.class);
-                CareerTeamListActivity.this.startActivity(toNewTeamFormationPage);
+                if (!careerTeamListViewModel.check_if_user_owns_team())
+                {
+                    Intent toNewTeamFormationPage = new Intent(getApplicationContext(), NewCareerTeamActivity.class);
+                    CareerTeamListActivity.this.startActivity(toNewTeamFormationPage);
+                } else
+                {
+                    showSnackBar("You can only form one team");
+                }
+            }
+        });
+
+        this.binding.setManageExistingTeamInfoClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                if (careerTeamListViewModel.check_if_user_owns_team())
+                {
+                    NewTeamViewModel.newTeamViewModel().load_my_team_into_VM();
+
+                    Intent toMyTeamPage = new Intent(getApplicationContext(), MyTeamActivity.class);
+                    CareerTeamListActivity.this.startActivity(toMyTeamPage);
+                } else
+                {
+                    //user does not own any
+                    showSnackBar("You have not formed a team yet");
+                }
             }
         });
     }
