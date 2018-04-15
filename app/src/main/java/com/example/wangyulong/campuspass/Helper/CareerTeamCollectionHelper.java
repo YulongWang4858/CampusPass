@@ -2,6 +2,7 @@ package com.example.wangyulong.campuspass.Helper;
 
 import android.util.Log;
 
+import com.example.wangyulong.campuspass.Events.CareerTeamListRefreshEventListener;
 import com.example.wangyulong.campuspass.Model.CareerTeamModel;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class CareerTeamCollectionHelper extends BasicCollectionHelper
     private static CareerTeamCollectionHelper _instance = null;
     private ArrayList<CareerTeamModel> teamList;
     private CareerTeamModel team_owned_by_uer;
+    private CareerTeamListRefreshEventListener careerTeamListRefreshEventListener = null;
     //endregion Fields and Const
 
     //region Properties
@@ -94,6 +96,50 @@ public class CareerTeamCollectionHelper extends BasicCollectionHelper
     public CareerTeamModel get_team_owned_by_user()
     {
         return this.team_owned_by_uer;
+    }
+
+    public void change_team_info_in_collection(CareerTeamModel team)
+    {
+        for (CareerTeamModel teamModel : this.teamList)
+        {
+            if (teamModel.getTeam_id().equals(team.getTeam_id()))
+            {
+                teamModel = team;
+            }
+        }
+    }
+
+    public void remove_team_from_list(String team_id)
+    {
+        int index_to_remove = -1;
+
+        for (int cur = 0; cur < this.teamList.size(); cur++)
+        {
+            if (this.teamList.get(cur).getTeam_id().equals(team_id))
+            {
+                index_to_remove = cur;
+                break;
+            }
+        }
+
+        if (index_to_remove != -1)
+        {
+            this.teamList.remove(index_to_remove);
+
+            //debug
+            Log.d("collectionhelper -> ", "removing team with id -> " + team_id);
+
+            if (this.careerTeamListRefreshEventListener != null)
+            {
+                this.careerTeamListRefreshEventListener.onCareerTeamListRefreshEventTrigger();
+            }
+
+        }
+    }
+
+    public void setCareerTeamListEventListener(CareerTeamListRefreshEventListener listener)
+    {
+        this.careerTeamListRefreshEventListener = listener;
     }
     //endregion Methods
 }

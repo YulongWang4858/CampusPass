@@ -112,6 +112,15 @@ public class CareerTeamListActivity extends AppCompatActivity
                 {
                     NewTeamViewModel.newTeamViewModel().load_my_team_into_VM();
 
+                    careerTeamListViewModel.set_refresh_listener(new CareerTeamListRefreshEventListener()
+                    {
+                        @Override
+                        public void onCareerTeamListRefreshEventTrigger()
+                        {
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
+
                     Intent toMyTeamPage = new Intent(getApplicationContext(), MyTeamActivity.class);
                     CareerTeamListActivity.this.startActivity(toMyTeamPage);
                 } else

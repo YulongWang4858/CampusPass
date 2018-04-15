@@ -7,6 +7,8 @@ import android.os.Bundle;
 
 import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.R;
+import com.example.wangyulong.campuspass.ViewModel.CareerListViewModel;
+import com.example.wangyulong.campuspass.ViewModel.CareerTeamListViewModel;
 import com.example.wangyulong.campuspass.ViewModel.EasyExcelViewModel;
 import com.example.wangyulong.campuspass.databinding.CareerScreenChoicePageBinding;
 
@@ -44,6 +46,9 @@ public class CareerScreenChoiceActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
+
+                //reset list
+                CareerListViewModel.careerListViewModel().reset();
                 Intent toCareerResumeListPage = new Intent(getApplicationContext(), CareerResumeListActivity.class);
                 CareerScreenChoiceActivity.this.startActivity(toCareerResumeListPage);
             }
@@ -54,6 +59,7 @@ public class CareerScreenChoiceActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
+                CareerTeamListViewModel.careerTeamListViewModel().reset();
                 Intent toCareerTeamUpListPage = new Intent(getApplicationContext(), CareerTeamListActivity.class);
                 CareerScreenChoiceActivity.this.startActivity(toCareerTeamUpListPage);
             }

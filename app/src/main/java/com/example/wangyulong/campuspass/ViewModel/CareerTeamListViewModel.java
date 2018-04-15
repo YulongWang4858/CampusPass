@@ -102,5 +102,15 @@ public class CareerTeamListViewModel extends BasicViewModel
     {
         return this.collectionHelper.check_ownership(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
     }
+
+    public void reset()
+    {
+        this.collectionHelper.reset();
+    }
+
+    public void set_refresh_listener(CareerTeamListRefreshEventListener listener)
+    {
+        this.collectionHelper.setCareerTeamListEventListener(listener);
+    }
     //endregion Methods
 }

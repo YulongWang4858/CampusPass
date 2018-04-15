@@ -216,5 +216,10 @@ public class CareerListViewModel extends BasicViewModel
         this.career_sample_product_link.set(this.new_resume.getCareer_sample_product_link());
         this.new_resume_id = this.new_resume.getCareer_resume_id();
     }
+
+    public void reset()
+    {
+        this.careerResumeCollectionHelper.reset_collection();
+    }
     //endregion Methods
 }

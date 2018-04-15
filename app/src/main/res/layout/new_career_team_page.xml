@@ -16,6 +16,10 @@
         <variable
             name="NewTeamDoneButtonClicked"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewTeamDeleteButtonClicked"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -178,7 +182,7 @@
                     android:layout_below="@+id/newCareerTeamRemarksETxt"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
-                    android:onClick="@{(v) -> NewTeamDoneButtonClicked.onClick()}"
+                    android:onClick="@{(v) -> NewTeamDeleteButtonClicked.onClick()}"
                     android:text="Delete"
                     android:textAllCaps="false"
                     android:visibility="@{NewTeamVM.delet_button_visibility ? View.VISIBLE : View.INVISIBLE}"/>

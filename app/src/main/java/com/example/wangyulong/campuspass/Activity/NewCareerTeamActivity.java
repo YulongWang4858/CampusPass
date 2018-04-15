@@ -68,6 +68,15 @@ public class NewCareerTeamActivity extends AppCompatActivity
                 newTeamViewModel.upload_new_team();
             }
         });
+
+        this.binding.setNewTeamDeleteButtonClicked(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                newTeamViewModel.delete_current_entry();
+            }
+        });
     }
     //endregion Methods
 }

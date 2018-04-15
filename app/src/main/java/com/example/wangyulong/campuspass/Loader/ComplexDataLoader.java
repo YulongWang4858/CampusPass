@@ -1,9 +1,8 @@
 package com.example.wangyulong.campuspass.Loader;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.ExpandableListView;
 
-import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerResumeListRefreshEventListener;
@@ -26,25 +25,20 @@ import com.example.wangyulong.campuspass.Model.CareerModel;
 import com.example.wangyulong.campuspass.Model.CareerResumeModel;
 import com.example.wangyulong.campuspass.Model.CareerTeamModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
-import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyResumeModel;
 import com.example.wangyulong.campuspass.Model.RequestModel;
-import com.example.wangyulong.campuspass.R;
-import com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel;
-import com.example.wangyulong.campuspass.ViewModel.RequestViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Created by wangyulong on 06/03/18.
@@ -477,7 +471,12 @@ public class ComplexDataLoader extends BasicLoader
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
             {
-                //TODO: Implement later
+                _careerTeamCollectionHelper.change_team_info_in_collection(dataSnapshot.getValue(CareerTeamModel.class));
+
+                if (careerTeamListRefreshEventListener != null)
+                {
+                    careerTeamListRefreshEventListener.onCareerTeamListRefreshEventTrigger();
+                }
             }
 
             @Override
@@ -489,13 +488,15 @@ public class ComplexDataLoader extends BasicLoader
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s)
             {
-                //TODO: Implement later
+                //TODO: Implement if needed
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError)
             {
-                //TODO: Implement later
+                //TODO: Implement if needed
+
+                Log.d("database upload -> ", "canceling");
             }
         });
     }
@@ -614,6 +615,30 @@ public class ComplexDataLoader extends BasicLoader
                 //TODO: Implement later
             }
         });
+    }
+
+    public void remove_value_from_database(DatabaseReference ref, String id)
+    {
+        //remove child from database
+        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                Log.d("", "remove action complete");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                Log.d("", "remove action success");
+
+            }
+        });
+
+        //update local collection
+        this._careerTeamCollectionHelper.remove_team_from_list(id);
     }
 
     public void unload_request_from_database()
