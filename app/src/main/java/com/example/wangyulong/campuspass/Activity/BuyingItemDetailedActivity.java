@@ -9,13 +9,17 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel;
+import com.example.wangyulong.campuspass.ViewModel.SellingViewModel;
 import com.example.wangyulong.campuspass.databinding.BuyingPageItemsDetailBinding;
 
 public class BuyingItemDetailedActivity extends AppCompatActivity
 {
+    //region Fields and Const
     BuyingPageItemsDetailBinding binding;
-    BuyingListViewModel buyingListViewModel = BuyingListViewModel.buyingListViewModel();
+    SellingViewModel sellingViewModel = null;
+    //endregion Fields and Const
 
+    //region Override
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -24,17 +28,16 @@ public class BuyingItemDetailedActivity extends AppCompatActivity
 
         onCreateBinding();
     }
+    //endregion Override
 
+    //region Methods
     protected void onCreateBinding()
     {
-        binding = DataBindingUtil.setContentView(this, R.layout.buying_page_items_detail);
-        binding.setBuyingListVM(BuyingListViewModel.buyingListViewModel());
+        this.binding = DataBindingUtil.setContentView(this, R.layout.buying_page_items_detail);
+        this.sellingViewModel = SellingViewModel.sellingViewModel();
+        this.binding.setSellingVM(this.sellingViewModel);
 
-        settingUI();
-    }
-
-    protected void settingUI()
-    {
+        Glide.with(this).load(this.sellingViewModel.set_detail_photo().toString()).into(this.binding.detailedImg);
     }
 
     @Override
@@ -42,14 +45,10 @@ public class BuyingItemDetailedActivity extends AppCompatActivity
     {
         super.onResume();
 
-        //reload to selected item icon image
-        try
+        if (this.sellingViewModel != null)
         {
-            Glide.with(this).load(buyingListViewModel.get_new_item_selected_img_uri()).into(binding.detailedImg);
-        }
-        catch (Exception e)
-        {
-            Log.d("Error msg -> ", e.getMessage());
+            Glide.with(this).load(this.sellingViewModel.set_detail_photo().toString()).into(this.binding.detailedImg);
         }
     }
+    //endregion Methods
 }

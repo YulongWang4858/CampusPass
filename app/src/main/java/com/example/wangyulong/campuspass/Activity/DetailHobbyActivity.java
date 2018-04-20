@@ -95,8 +95,15 @@ public class DetailHobbyActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                Intent toParticipatePage = new Intent(getApplicationContext(), ParticipateHobbyActivity.class);
-                DetailHobbyActivity.this.startActivity(toParticipatePage);
+
+                if (!hobbyResumeViewModel.check_user_participation())
+                {
+                    Intent toParticipatePage = new Intent(getApplicationContext(), ParticipateHobbyActivity.class);
+                    DetailHobbyActivity.this.startActivity(toParticipatePage);
+                } else
+                {
+                    showSnackBar("You can only submit one resume in this section");
+                }
             }
         });
 

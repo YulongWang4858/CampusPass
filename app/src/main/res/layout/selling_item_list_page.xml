@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout>
 
     <data>
@@ -6,6 +7,10 @@
         <variable
             name="SellingVM"
             type="com.example.wangyulong.campuspass.ViewModel.SellingViewModel"/>
+
+        <variable
+            name="SellingItemButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <LinearLayout
@@ -16,10 +21,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="4"
-        tools:context="com.example.wangyulong.campuspass.Activity.BuyingActivity">
+        tools:context="com.example.wangyulong.campuspass.Activity.SellingItemListActivity">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/buying_recycler_view"
+            android:id="@+id/selling_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
@@ -27,15 +32,28 @@
             android:scrollbars="vertical"/>
 
         <RelativeLayout
-            android:id="@+id/buying_toolbar"
+            android:id="@+id/selling_list_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/buying_recycler_view"
+            android:layout_below="@+id/selling_recycler_view"
             android:layout_weight="1">
+
+            <Button
+                android:id="@+id/sellingItemButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo_style_button"
+                android:onClick="@{(v) -> SellingItemButtonClickedListener.onClick()}"
+                android:text="Sell"
+                android:textAllCaps="false"
+                android:textColor="@color/logoPurple"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/sellingItemButton"
                 android:layout_marginTop="10dp">
 
                 <include

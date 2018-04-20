@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -72,7 +74,7 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                setSellingItemCondition(adapterView.getItemAtPosition(i).toString());
+                sellingViewModel.set_item_condition(i);
             }
 
             @Override
@@ -88,7 +90,8 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                setSellingItemCategory(adapterView.getItemAtPosition(i).toString());
+                //setSellingItemCategory(adapterView.getItemAtPosition(i).toString());
+                sellingViewModel.set_item_category(i);
             }
 
             @Override
@@ -97,46 +100,6 @@ public class SellingActivity extends AppCompatActivity
                 //TODO: Show snack bar msg to notify
             }
         });
-    }
-
-
-    //parse and stores condition tag
-    protected void setSellingItemCondition(String condition)
-    {
-
-        Category.BuyingItemCondition item_condition;
-
-        switch (condition)
-        {
-            case "New":
-                item_condition = Category.BuyingItemCondition.NEW;
-            case "Dispose":
-                item_condition = Category.BuyingItemCondition.DISPOSE;
-            default:
-                item_condition = Category.BuyingItemCondition.SECOND_HAND;
-        }
-
-        sellingViewModel.set_item_condition(item_condition);
-    }
-
-    //parse and store category tag
-    protected void setSellingItemCategory(String tag)
-    {
-        Category.BuyingItemTag item_tag;
-
-        switch (tag)
-        {
-            case "Books":
-                item_tag = Category.BuyingItemTag.BOOKS;
-            case "Home Equipments":
-                item_tag = Category.BuyingItemTag.HOME_EQUIPEMENTS;
-            case "Electronics":
-                item_tag = Category.BuyingItemTag.ELECTRONICS;
-            default:
-                item_tag = Category.BuyingItemTag.FOOD;
-        }
-
-        sellingViewModel.set_item_tag(item_tag);
     }
 
     protected void bindButtons()
@@ -221,9 +184,26 @@ public class SellingActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                //TODO: Upload and link to mainmenupage
                 sellingViewModel.is_selling_item_upload_complete();
                 sellingViewModel.create_selling_item_on_database();
+            }
+        });
+
+        binding.setSellingPageCancelButton(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                finish();
+            }
+        });
+
+        binding.setSellingPageDeleteButton(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                sellingViewModel.delete_current_item();
             }
         });
     }
@@ -253,6 +233,48 @@ public class SellingActivity extends AppCompatActivity
             {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration
+    {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge)
+        {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state)
+        {
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge)
+            {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount)
+                { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else
+            {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount)
+                {
+                    outRect.top = spacing; // item top
+                }
             }
         }
     }

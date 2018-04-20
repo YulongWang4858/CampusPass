@@ -198,6 +198,24 @@ public class NewCareerResumeActivity extends AppCompatActivity
                 careerListViewModel.upload_resume_to_datebase();
             }
         });
+
+        this.binding.setNewCareerResumeCancelButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                finish();
+            }
+        });
+
+        this.binding.setNewCareerResumeDeleteButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                careerListViewModel.delete_career_resume();
+            }
+        });
     }
 
     protected void showSnackBar(String txt)

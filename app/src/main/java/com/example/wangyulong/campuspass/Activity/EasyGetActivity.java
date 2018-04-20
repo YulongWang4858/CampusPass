@@ -65,8 +65,8 @@ public class EasyGetActivity extends AppCompatActivity
             @Override
             public void onClick()
             {
-                Intent toSelling = new Intent(getApplicationContext(), SellingActivity.class);
-                EasyGetActivity.this.startActivity(toSelling);
+                Intent toSellingListPage = new Intent(getApplicationContext(), SellingItemListActivity.class);
+                EasyGetActivity.this.startActivity(toSellingListPage);
             }
         });
     }

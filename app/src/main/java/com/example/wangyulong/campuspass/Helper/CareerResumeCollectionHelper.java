@@ -99,5 +99,40 @@ public class CareerResumeCollectionHelper extends BasicViewModel
 
         return null;
     }
+
+    public void change_resume_in_collection(CareerResumeModel resume)
+    {
+        for (CareerResumeModel resumeModel : this.careerResumeList)
+        {
+            if (resumeModel.getCareer_resume_id().equals(resume.getCareer_resume_id()))
+            {
+                resumeModel = resume;
+                break;
+            }
+        }
+    }
+
+    public void remove_team_from_list(String resume_id)
+    {
+        int index_to_remove = -1;
+
+        for (int cur = 0; cur < this.careerResumeList.size(); cur++)
+        {
+            if (this.careerResumeList.get(cur).getCareer_resume_id().equals(resume_id))
+            {
+                index_to_remove = cur;
+
+                break;
+            }
+        }
+
+        if (index_to_remove != -1)
+        {
+            this.careerResumeList.remove(index_to_remove);
+
+            //debug
+            Log.d("collectionHelper -> ", "removing resume with id -> " + resume_id);
+        }
+    }
     //endregion Methods
 }

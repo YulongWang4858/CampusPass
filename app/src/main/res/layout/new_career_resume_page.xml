@@ -20,6 +20,14 @@
         <variable
             name="NewCareerResumeDoneButtonClickedListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewCareerResumeCancelButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="NewCareerResumeDeleteButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -170,6 +178,35 @@
                     android:textSize="10dp"
                     android:textStyle="bold"
                     android:visibility="@{CareerListVM.is_donebtn_visible ? View.VISIBLE : View.INVISIBLE}"/>
+
+                <Button
+                    android:id="@+id/newCareerResumeCancelBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerSetPhotoBtn"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{(v) -> NewCareerResumeCancelButtonClickedListener.onClick()}"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/newCareerResumeDeleteBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newCareerSetPhotoBtn"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/newCareerResumeCancelBtn"
+                    android:onClick="@{(v) -> NewCareerResumeDeleteButtonClickedListener.onClick()}"
+                    android:text="Delete"
+                    android:textAllCaps="false"
+                    android:textSize="10dp"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
         </ScrollView>

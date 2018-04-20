@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass.Loader;
 
+import android.content.ClipData;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -10,6 +11,7 @@ import com.example.wangyulong.campuspass.Events.CareerTeamListRefreshEventListen
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.MyItemListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
@@ -19,6 +21,8 @@ import com.example.wangyulong.campuspass.Helper.CareerTeamCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyResumeCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.ItemCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.MyItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.RequestEntryCollectionHelper;
 import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.Model.CareerModel;
@@ -28,10 +32,12 @@ import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyResumeModel;
+import com.example.wangyulong.campuspass.Model.ItemModel;
 import com.example.wangyulong.campuspass.Model.RequestModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,7 +64,7 @@ public class ComplexDataLoader extends BasicLoader
     private StorageReference hobbyIconsStorage = FirebaseStorage.getInstance().getReference();
 
     //helpers
-    private BuyingItemsCollectionHelper _itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
+    //private BuyingItemsCollectionHelper _itemCollectionHelper = BuyingItemsCollectionHelper.buyingItemsCollectionHelper();
     private RequestEntryCollectionHelper _requestCollectionHelper = RequestEntryCollectionHelper.requestEntryCollectionHelper();
     private HobbyCollectionHelper _hobbyCollectionHelper = HobbyCollectionHelper.hobbyCollectionHelper();
     private HobbyBriefCollectionHelper _hobbyBriefCollectionHelper = HobbyBriefCollectionHelper.hobbyBriefCollectionHelper();
@@ -66,23 +72,26 @@ public class ComplexDataLoader extends BasicLoader
     private CareerCollectionHelper _careerCollectionHelper = CareerCollectionHelper.careerCollectionHelper();
     private CareerResumeCollectionHelper _careerResumeCollectionHelper = CareerResumeCollectionHelper.careerResumeCollectionHelper();
     private CareerTeamCollectionHelper _careerTeamCollectionHelper = CareerTeamCollectionHelper.careerTeamCollectionHelper();
+    private ItemCollectionHelper _itemCollectionHelper = ItemCollectionHelper.itemCollectionHelper();
+    private MyItemsCollectionHelper _myItemCollectionHelper = MyItemsCollectionHelper.myItemsCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
     //event listeners
-    private ChildEventListener requestChildEventListener;
-    private ChildEventListener itemChildEventListener;
-    private ChildEventListener hobbyChildEventListener;
-    private ChildEventListener hobbyResumeChildEventListener;
-    private RequestListRefreshEventListener requestListRefreshEventListener;
-    private BuyingListRefreshEventListener buyingListRefreshEventListener;
-    private HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener;
-    private MyRequestListRefreshEventListener myRequestListRefreshEventListener;
-    private HobbyCardViewRefreshListener hobbyCardViewRefreshListener;
-    private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener;
-    private CareerListRefreshEventListener careerListRefreshEventListener;
-    private CareerResumeListRefreshEventListener careerResumeListRefreshEventListener;
+    private ChildEventListener requestChildEventListener = null;
+    private ChildEventListener itemChildEventListener = null;
+    private ChildEventListener hobbyChildEventListener = null;
+    private ChildEventListener hobbyResumeChildEventListener = null;
+    private RequestListRefreshEventListener requestListRefreshEventListener = null;
+    private BuyingListRefreshEventListener buyingListRefreshEventListener = null;
+    private HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener = null;
+    private MyRequestListRefreshEventListener myRequestListRefreshEventListener = null;
+    private HobbyCardViewRefreshListener hobbyCardViewRefreshListener = null;
+    private HobbyResumeListRefreshEventListener hobbyResumeListRefreshEventListener = null;
+    private CareerListRefreshEventListener careerListRefreshEventListener = null;
+    private CareerResumeListRefreshEventListener careerResumeListRefreshEventListener = null;
     private CareerTeamListRefreshEventListener careerTeamListRefreshEventListener = null;
+    private MyItemListRefreshEventListener myItemListRefreshEventListener = null;
     //endregion Fields and Const
 
     //region Properties
@@ -172,75 +181,6 @@ public class ComplexDataLoader extends BasicLoader
             }
         };
 
-        this.itemChildEventListener = new ChildEventListener()
-        {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s)
-            {
-                DatabaseSellingModel item_model = new DatabaseSellingModel();
-
-                //download item model from database
-                item_model.setItem_id(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_id());
-                item_model.setItem_title(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_title());
-                item_model.setItem_category_tag(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_category_tag());
-                item_model.setItem_condition_tag(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_condition_tag());
-                item_model.setItem_img_uri(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_img_uri());
-                item_model.setItem_short_descr(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_short_descr());
-                item_model.setItem_owner(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_owner());
-                item_model.setItem_stock_left(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_stock_left());
-                item_model.setItem_price(dataSnapshot.getValue(DatabaseSellingModel.class).getItem_price());
-
-                //for debugging
-                Log.d("download from database", "item id -> " + item_model.getItem_id());
-                Log.d("download from database", "title -> " + item_model.getItem_title());
-                Log.d("download from database", "short_descr -> " + item_model.getItem_short_descr());
-                Log.d("download from database", "condition -> " + item_model.getItem_condition_tag());
-                Log.d("download from database", "category -> " + item_model.getItem_category_tag());
-                Log.d("download from database", "owner -> " + item_model.getItem_owner());
-                Log.d("download from database", "price -> " + item_model.getItem_price());
-                Log.d("download from database", "stock -> " + item_model.getItem_stock_left());
-                Log.d("download from database", "download link -> " + item_model.getItem_img_uri());
-
-                if (!_itemCollectionHelper.check_existance(item_model))
-                {
-                    _itemCollectionHelper.add_item_to_collection(new BuyingItemModel(item_model.getItem_img_uri(), item_model.getItem_title(), item_model.getItem_short_descr(), item_model.getItem_category_tag(),
-                            item_model.getItem_condition_tag(), item_model.getItem_price(), item_model.getItem_stock_left(), item_model.getItem_owner(), item_model.getItem_id()));
-                } else
-                {
-                    Log.d("duplicated found", "");
-                }
-
-                if (buyingListRefreshEventListener != null)
-                {
-                    buyingListRefreshEventListener.onBuyingListRefreshEventTriggered();
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-                //TODO: Implement later
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot)
-            {
-                //TODO: Implement later
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s)
-            {
-                //TODO: Implement later
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-                //TODO: Implement later
-            }
-        };
-
         this.hobbyChildEventListener = new ChildEventListener()
         {
             @Override
@@ -296,7 +236,137 @@ public class ComplexDataLoader extends BasicLoader
     //region Methods
     public void load_items_from_database()
     {
-        this.itemDatabaseRef.addChildEventListener(this.itemChildEventListener);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("items_for_sale");
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                ItemModel new_item = dataSnapshot.getValue(ItemModel.class);
+
+                //debug
+                Log.d("downloading -> ", new_item.getItem_name());
+                Log.d("downloading -> ", new_item.getItem_descr());
+                Log.d("downloading -> ", new_item.getItem_category());
+                Log.d("downloading -> ", new_item.getItem_condition());
+                Log.d("downloading -> ", new_item.getItem_owner_id());
+                Log.d("downloading -> ", new_item.getItem_id());
+                Log.d("downloading -> ", new_item.getItem_price());
+                Log.d("downloading -> ", new_item.getItem_stock_left());
+                Log.d("downloading -> ", new_item.getItem_photo_uri());
+
+                //check duplicate, add to collection
+                if (!_itemCollectionHelper.check_exsitance(new_item))
+                {
+                    _itemCollectionHelper.add_item_to_collection(new_item);
+
+                    //trigger list refresh event
+                    if (buyingListRefreshEventListener != null)
+                    {
+                        buyingListRefreshEventListener.onBuyingListRefreshEventTriggered();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                _itemCollectionHelper.replace_item(dataSnapshot.getValue(ItemModel.class));
+
+                //trigger list refresh event
+                if (buyingListRefreshEventListener != null)
+                {
+                    buyingListRefreshEventListener.onBuyingListRefreshEventTriggered();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //trigger list refresh event
+                if (buyingListRefreshEventListener != null)
+                {
+                    buyingListRefreshEventListener.onBuyingListRefreshEventTriggered();
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+                //TODO: Implement later
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //TODO: Implement later
+            }
+        });
+    }
+
+    public void load_my_item_from_database()
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("items_for_sale");
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                ItemModel new_item = dataSnapshot.getValue(ItemModel.class);
+
+                if (!_myItemCollectionHelper.check_exsitance(new_item))
+                {
+                    String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid().toString();
+
+                    if (user_id.equals(new_item.getItem_owner_id()))
+                    {
+                        _myItemCollectionHelper.add_item_to_collection(new_item);
+
+                        //trigger refresh event
+                        if (myItemListRefreshEventListener != null)
+                        {
+                            myItemListRefreshEventListener.onMyItemListRefreshEventListener();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                _myItemCollectionHelper.replace_item(dataSnapshot.getValue(ItemModel.class));
+
+                //trigger refresh event
+                if (myItemListRefreshEventListener != null)
+                {
+                    myItemListRefreshEventListener.onMyItemListRefreshEventListener();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                //trigger refresh event
+                if (myItemListRefreshEventListener != null)
+                {
+                    myItemListRefreshEventListener.onMyItemListRefreshEventListener();
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
     }
 
     public void load_request_from_database()
@@ -394,6 +464,7 @@ public class ComplexDataLoader extends BasicLoader
                 {
                     _hobbyResumeCollectionHelper.add_item_to_collection(resume_model);
 
+                    //trigger refresh event
                     if (hobbyResumeListRefreshEventListener != null)
                     {
                         hobbyResumeListRefreshEventListener.onHobbyResumeListRefreshEventTrigger();
@@ -404,13 +475,23 @@ public class ComplexDataLoader extends BasicLoader
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
             {
-                //TODO: Implement later
+                //update value in collection
+                _hobbyResumeCollectionHelper.change_hobby_resume(dataSnapshot.getValue(HobbyResumeModel.class));
+
+                //trigger refresh event
+                if (hobbyResumeListRefreshEventListener != null)
+                {
+                    hobbyResumeListRefreshEventListener.onHobbyResumeListRefreshEventTrigger();
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot)
             {
-                //TODO: Implement later
+                if (hobbyResumeListRefreshEventListener != null)
+                {
+                    hobbyResumeListRefreshEventListener.onHobbyResumeListRefreshEventTrigger();
+                }
             }
 
             @Override
@@ -594,13 +675,21 @@ public class ComplexDataLoader extends BasicLoader
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s)
             {
-                //TODO: Implement later
+                _careerResumeCollectionHelper.change_resume_in_collection(dataSnapshot.getValue(CareerResumeModel.class));
+
+                if (careerResumeListRefreshEventListener != null)
+                {
+                    careerResumeListRefreshEventListener.onCareerResumeListRefreshEventTrigger();
+                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot)
             {
-                //TODO: Implement later
+                if (careerResumeListRefreshEventListener != null)
+                {
+                    careerResumeListRefreshEventListener.onCareerResumeListRefreshEventTrigger();
+                }
             }
 
             @Override
@@ -633,12 +722,76 @@ public class ComplexDataLoader extends BasicLoader
             public void onSuccess(Void aVoid)
             {
                 Log.d("", "remove action success");
-
             }
         });
 
         //update local collection
         this._careerTeamCollectionHelper.remove_team_from_list(id);
+    }
+
+    public void remove_value_from_hobby_resume(DatabaseReference ref, String id)
+    {
+        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+
+            }
+        });
+    }
+
+    public void remove_value_from_career_resume(DatabaseReference ref, String id)
+    {
+        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                Log.d("", "remove action complete");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                Log.d("", "remove action success");
+            }
+        });
+
+        //update local collection
+        this._careerResumeCollectionHelper.remove_team_from_list(id);
+    }
+
+    public void remove_value_from_items(DatabaseReference ref, String id)
+    {
+        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>()
+        {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                //debug
+                Log.d("", "remove action complete");
+            }
+        }).addOnSuccessListener(new OnSuccessListener<Void>()
+        {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                //debug
+                Log.d("", "remove action complete");
+            }
+        });
+
+        this._myItemCollectionHelper.remove_item_from_collection(id);
+        this._itemCollectionHelper.remove_item_from_collection(id);
     }
 
     public void unload_request_from_database()
@@ -694,6 +847,11 @@ public class ComplexDataLoader extends BasicLoader
     public void setCareerTeamListRefreshEventListener(CareerTeamListRefreshEventListener careerTeamListRefreshEventListener)
     {
         this.careerTeamListRefreshEventListener = careerTeamListRefreshEventListener;
+    }
+
+    public void setMyItemListRefreshEventListener(MyItemListRefreshEventListener myItemListRefreshEventListener)
+    {
+        this.myItemListRefreshEventListener = myItemListRefreshEventListener;
     }
     //endregion Methods
 }

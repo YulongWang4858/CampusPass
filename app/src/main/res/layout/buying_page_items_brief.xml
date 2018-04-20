@@ -17,11 +17,11 @@
             android:id="@+id/listItemImg"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:layout_centerVertical="true"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:layout_centerVertical="true"
             android:scaleType="centerCrop"/>
 
         <TextView
@@ -70,17 +70,15 @@
             android:textSize="12dp"
             android:textStyle="bold"/>
 
-        <RelativeLayout
-            android:id="@+id/purpleLine"
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="#99449C"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+        <ImageView
+            android:id="@+id/listItemDeco"
+            android:layout_width="350dp"
+            android:layout_height="20dp"
             android:layout_below="@+id/listItemCondition"
-            android:layout_marginTop="20dp">
-
-        </RelativeLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/vector_deco"/>
 
     </RelativeLayout>
 </layout>

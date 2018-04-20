@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="BuyingListVM"
-            type="com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel"/>
+            name="SellingVM"
+            type="com.example.wangyulong.campuspass.ViewModel.SellingViewModel"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,87 +25,98 @@
                 android:paddingRight="5dp"
                 android:paddingTop="5dp">
 
+                <TextView
+                    android:id="@+id/buyingItemDetailTitleTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{SellingVM.item_name}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="25dp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/buyingItemDecoImg0"
+                    android:layout_width="320dp"
+                    android:layout_height="15dp"
+                    android:layout_below="@+id/buyingItemDetailTitleTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/vector_deco"/>
+
                 <ImageView
                     android:id="@+id/detailedImg"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_below="@+id/buyingItemDecoImg0"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="25dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="25dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
-                    android:paddingTop="5dp"
-                    android:src="@{BuyingListVM._selected_item_img_rsc}"/>
+                    android:paddingTop="5dp"/>
 
                 <TextView
-                    android:id="@+id/detailedItemTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_toRightOf="@+id/detailedImg"
-                    android:text="@{BuyingListVM._selected_item_title}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorLightPink"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/detailedItemPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detailedItemTitle"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@+id/detailedImg"
-                    android:text="@{BuyingListVM._selected_item_price}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorVeryLightPink"
-                    android:textSize="20dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/detailedLongDescr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/detailedItemPrice"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/detailedImg"
-                    android:text="@{BuyingListVM._selected_item_short_descr}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPureBlack"
-                    android:textSize="10dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/detailedCategoryTag"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/buyingItemDetailPriceTxt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/detailedImg"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@{BuyingListVM._selected_item_condition}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12dp"
-                    android:textStyle="bold"/>
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{SellingVM.item_price}"
+                    android:textSize="20dp"/>
 
                 <TextView
-                    android:id="@+id/detailedClassificationTag"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/buyingItemDetailStockTxt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/detailedImg"
-                    android:layout_marginLeft="30dp"
+                    android:layout_below="@+id/buyingItemDetailPriceTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{SellingVM.item_stock}"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/buyingItemDetailCategoryTxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buyingItemDetailStockTxt"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{SellingVM.item_category}"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/buyingItemDetailConditionTxt"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buyingItemDetailStockTxt"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/buyingItemDetailCategoryTxt"
+                    android:text="@{SellingVM.item_condition}"
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/buyingItemDetailDescriptionTxt"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buyingItemDetailConditionTxt"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/detailedCategoryTag"
-                    android:text="@{BuyingListVM.get_selected_item_category()}"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12dp"
-                    android:textStyle="bold"/>
+                    android:gravity="center_horizontal"
+                    android:text="@{SellingVM.item_descr}"
+                    android:textSize="20dp"/>
 
             </RelativeLayout>
         </ScrollView>

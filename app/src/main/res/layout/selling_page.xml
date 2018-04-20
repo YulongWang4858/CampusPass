@@ -21,6 +21,14 @@
         <variable
             name="UploadSellingItemButtonClickedListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="SellingPageCancelButton"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="SellingPageDeleteButton"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,96 +44,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <EditText
                     android:id="@+id/askForTitleTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="40dp"
-                    android:text="Item Title: "
+                    android:gravity="center_horizontal"
+                    android:hint="Item Title"
+                    android:text="@={SellingVM.item_name}"
                     android:textAllCaps="false"
                     android:textSize="15dp"
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/itemTitleETxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_toRightOf="@+id/askForTitleTxt"
-                    android:text="@={SellingVM.itemModel.item_title}"/>
-
-                <TextView
                     android:id="@+id/askForDescrTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="320dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/askForTitleTxt"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="40dp"
-                    android:text="Short Item Description: "
+                    android:gravity="center_horizontal"
+                    android:hint="Item Description"
+                    android:lines="5"
+                    android:text="@={SellingVM.item_descr}"
                     android:textAllCaps="false"
                     android:textSize="15dp"
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/askForDescrETxt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/askForPriceTxt"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/askForDescrTxt"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginTop="15dp"
-                    android:text="@={SellingVM.itemModel.item_short_descr}"/>
-
-                <TextView
-                    android:id="@+id/askForPriceTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForDescrETxt"
-                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="30dp"
-                    android:text="Price: "
+                    android:gravity="center_horizontal"
+                    android:hint="Price"
+                    android:text="@={SellingVM.item_price}"
                     android:textAllCaps="false"
                     android:textSize="15dp"
                     android:textStyle="bold"/>
 
                 <EditText
-                    android:id="@+id/askForPriceETxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForDescrETxt"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_toRightOf="@+id/askForPriceTxt"
-                    android:text="@={SellingVM.itemModel.price}"/>
-
-                <TextView
                     android:id="@+id/askForStockTxt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForPriceTxt"
-                    android:layout_marginLeft="40dp"
+                    android:layout_below="@+id/askForDescrTxt"
+                    android:layout_marginLeft="50dp"
                     android:layout_marginTop="30dp"
-                    android:text="Stock Left: "
+                    android:layout_toRightOf="@+id/askForPriceTxt"
+                    android:gravity="center_horizontal"
+                    android:hint="Stock Left"
+                    android:text="@={SellingVM.item_stock}"
                     android:textAllCaps="false"
                     android:textSize="15dp"
                     android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/askForStockETxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForPriceETxt"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_toRightOf="@+id/askForStockTxt"
-                    android:text="@={SellingVM.itemModel.stock}"/>
 
                 <Spinner
                     android:id="@+id/itemConditionSpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForStockETxt"
+                    android:layout_below="@+id/askForStockTxt"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="#d11f08"
@@ -136,7 +118,7 @@
                     android:id="@+id/itemCategorySpinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/askForStockETxt"
+                    android:layout_below="@+id/askForStockTxt"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/itemConditionSpinner"
                     android:backgroundTint="#d11f08"
@@ -190,6 +172,30 @@
                     android:textAllCaps="false"
                     android:textSize="10dp"
                     android:visibility="@{SellingVM.isUploadFinished.get() ? View.VISIBLE : View.INVISIBLE}"/>
+
+                <Button
+                    android:id="@+id/sellingPageCancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/selectPhotoButton"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{(v) -> SellingPageCancelButton.onClick()}"
+                    android:text="Cancel"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/sellingPageDeleteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/selectPhotoButton"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/sellingPageCancelButton"
+                    android:onClick="@{(v) -> SellingPageDeleteButton.onClick()}"
+                    android:text="Delete"
+                    android:textAllCaps="false"
+                    android:visibility="@{SellingVM.delete_button_visibility ? View.VISIBLE : View.INVISIBLE}"/>
 
             </RelativeLayout>
         </ScrollView>

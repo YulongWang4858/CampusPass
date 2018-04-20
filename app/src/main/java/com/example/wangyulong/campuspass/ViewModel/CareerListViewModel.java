@@ -221,5 +221,12 @@ public class CareerListViewModel extends BasicViewModel
     {
         this.careerResumeCollectionHelper.reset_collection();
     }
+
+    public void delete_career_resume()
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("careers").child(this.new_resume.getCareer_category()).child(this.new_resume_id);
+
+        dataLoader.remove_value_from_career_resume(ref, new_resume_id);
+    }
     //endregion Methods
 }

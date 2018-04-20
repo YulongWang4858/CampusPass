@@ -20,6 +20,14 @@
         <variable
             name="HobbyResumeDoneButtonClickedListener"
             type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="HobbyResumeCancelButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="HobbyResumeDeleteButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout
@@ -135,6 +143,30 @@
                         android:textAllCaps="false"
                         android:textSize="12dp"
                         android:visibility="@{HobbyResumeVM.done_btn_visible.get() ? View.VISIBLE : View.INVISIBLE}"/>
+
+                    <Button
+                        android:id="@+id/hobbyResumeCancelButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/hobbyResumeSelectButton"
+                        android:layout_marginLeft="30dp"
+                        android:onClick="@{(v) -> HobbyResumeCancelButtonClickedListener.onClick()}"
+                        android:text="Cancel"
+                        android:textAllCaps="false"
+                        android:textSize="12dp"/>
+
+                    <Button
+                        android:id="@+id/hobbyResumeDeleteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/hobbyResumeSelectButton"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@+id/hobbyResumeCancelButton"
+                        android:onClick="@{(v) -> HobbyResumeDeleteButtonClickedListener.onClick()}"
+                        android:text="Delete"
+                        android:textAllCaps="false"
+                        android:textSize="12dp"/>
+
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>

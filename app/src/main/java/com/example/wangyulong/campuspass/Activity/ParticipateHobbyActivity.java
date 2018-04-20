@@ -165,6 +165,24 @@ public class ParticipateHobbyActivity extends AppCompatActivity
                 hobbyResumeViewModel.load_hobby_resumes();
             }
         });
+
+        this.binding.setHobbyResumeCancelButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                finish();
+            }
+        });
+
+        this.binding.setHobbyResumeDeleteButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                hobbyResumeViewModel.remove_hobby_resume();
+            }
+        });
     }
 
     protected void showSnackBar(String txt)

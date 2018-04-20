@@ -1,5 +1,6 @@
 package com.example.wangyulong.campuspass.Helper;
 
+import android.util.Log;
 import android.view.inputmethod.BaseInputConnection;
 
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
@@ -65,6 +66,53 @@ public class HobbyResumeCollectionHelper extends BasicCollectionHelper
     public void reset_collection()
     {
         this.hobby_resume_list = new ArrayList<>();
+    }
+
+    public boolean check_user_participation(String user_id)
+    {
+        for (HobbyResumeModel resume : this.hobby_resume_list)
+        {
+            if (resume.getHobby_resume_owner_id().equals(user_id))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void change_hobby_resume(HobbyResumeModel hobby)
+    {
+        for (HobbyResumeModel hobby_model : this.hobby_resume_list)
+        {
+            if (hobby_model.getHobby_resume_entry_id().equals(hobby.getHobby_resume_entry_id()))
+            {
+                hobby_model = hobby;
+            }
+        }
+    }
+
+    public void remove_resume_from_collection(String id)
+    {
+        int index_of_reusme = -1;
+
+        for (int cur = 0; cur < this.hobby_resume_list.size(); cur++)
+        {
+            if (this.hobby_resume_list.get(cur).getHobby_resume_entry_id().equals(id))
+            {
+                index_of_reusme = cur;
+
+                break;
+            }
+        }
+
+        if (index_of_reusme != -1)
+        {
+            //debug
+            Log.d("collectionHelper -> ", "removing resume of id -> " + id);
+
+            this.hobby_resume_list.remove(index_of_reusme);
+        }
     }
     //endregion Methods
 }

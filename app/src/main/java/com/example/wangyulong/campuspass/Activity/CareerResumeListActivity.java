@@ -49,11 +49,14 @@ public class CareerResumeListActivity extends AppCompatActivity
     //region Methods
     private void onCreateBinding()
     {
+        //init binding
         this.binding = DataBindingUtil.setContentView(this, R.layout.career_resume_list);
 
+        //init and set VM
         careerListViewModel = CareerListViewModel.careerListViewModel();
         this.binding.setCareerListVM(careerListViewModel);
 
+        //configure buttons
         this.bindButtons();
 
         //configure recycler view

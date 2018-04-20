@@ -1,123 +1,121 @@
 package com.example.wangyulong.campuspass.Activity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.databinding.generated.callback.OnClickListener;
-import android.graphics.Rect;
-import android.os.Bundle;
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleCursorAdapter;
 
-import com.example.wangyulong.campuspass.Adapter.BuyingListViewAdapter;
 import com.example.wangyulong.campuspass.Adapter.ItemThumbnailAdpter;
 import com.example.wangyulong.campuspass.ClickListener;
-import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
-import com.example.wangyulong.campuspass.Events.ShowItemDetailEventListener;
+import com.example.wangyulong.campuspass.Events.MyItemListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ShowItemEditEventListener;
+import com.example.wangyulong.campuspass.Helper.MyItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Model.ItemModel;
 import com.example.wangyulong.campuspass.R;
-import com.example.wangyulong.campuspass.ViewModel.BuyingListViewModel;
 import com.example.wangyulong.campuspass.ViewModel.SellingViewModel;
-import com.example.wangyulong.campuspass.databinding.BuyingPageBinding;
-import com.example.wangyulong.campuspass.databinding.BuyingPageItemsBriefBinding;
-import com.example.wangyulong.campuspass.databinding.BuyingPageItemsDetailBinding;
+import com.example.wangyulong.campuspass.databinding.SellingItemListPageBinding;
 
-import java.util.ArrayList;
-
-/**
- * Created by wangyulong on 23/02/18.
- */
-
-
-public class BuyingActivity extends AppCompatActivity
+public class SellingItemListActivity extends AppCompatActivity
 {
-
     //region Fields and Const
-    private BuyingPageBinding binding;
-    private BuyingListViewModel buyingListViewModel;
-    private ItemThumbnailAdpter adapter;
+    private SellingItemListPageBinding binding;
     private RecyclerView recyclerView;
+    private ItemThumbnailAdpter adapter;
+    private MyItemsCollectionHelper myItemsCollectionHelper;
+    private SellingViewModel sellingViewModel;
     //endregion Fields and Const
 
+    //region Properties
 
-    //Override
+    //endregion Properties
+
+    //region Override
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.buying_page);
+        setContentView(R.layout.selling_item_list_page);
 
-        //initialize binding
         onCreateBinding();
-
-        //initialize item list
-        loadBuyingList();
     }
     //endregion Override
 
     //region Methods
-    protected void onCreateBinding()
+    private void onCreateBinding()
     {
-        buyingListViewModel = BuyingListViewModel.buyingListViewModel();
-        binding = DataBindingUtil.setContentView(this, R.layout.buying_page);
+        this.binding = DataBindingUtil.setContentView(this, R.layout.selling_item_list_page);
+        this.sellingViewModel = SellingViewModel.sellingViewModel();
+        this.myItemsCollectionHelper = MyItemsCollectionHelper.myItemsCollectionHelper();
 
-        bindButton();
+        bindButtons();
+        initRecyclerView();
     }
 
-    protected void bindButton()
+    private void bindButtons()
     {
-
-    }
-
-    protected void loadBuyingList()
-    {
-        //Init adapter
-        this.recyclerView = this.binding.buyingRecyclerView;
-
-        this.adapter = new ItemThumbnailAdpter(this, (ArrayList<ItemModel>) this.buyingListViewModel.get_full_collection());
-
-        //set iconimg click event
-        this.adapter.setShowItemDetailEventListener(new ShowItemDetailEventListener()
+        binding.setSellingItemButtonClickedListener(new ClickListener()
         {
             @Override
-            public void onShowItemDetailEventTrigger()
+            public void onClick()
             {
-                Intent toItemDetailPage = new Intent(getApplicationContext(), BuyingItemDetailedActivity.class);
-                BuyingActivity.this.startActivity(toItemDetailPage);
+                //generate new UUID
+                sellingViewModel.disableEdit();
+                sellingViewModel.toggle_delete_visibility();
+
+                Intent toSellingItemPage = new Intent(getApplicationContext(), SellingActivity.class);
+                SellingItemListActivity.this.startActivity(toSellingItemPage);
+            }
+        });
+    }
+
+    private void initRecyclerView()
+    {
+        //init adapter
+        this.recyclerView = binding.sellingRecyclerView;
+        this.adapter = new ItemThumbnailAdpter(this, this.sellingViewModel.get_my_item_full_list());
+
+        //set thumbnail onclick event
+        this.adapter.setShowItemEditEventListener(new ShowItemEditEventListener()
+        {
+            @Override
+            public void onShowItemEditEventTrigger()
+            {
+                //enable edit
+                sellingViewModel.enableEdit();
+
+                Intent toEditSellingItemPage = new Intent(getApplicationContext(), SellingActivity.class);
+                SellingItemListActivity.this.startActivity(toEditSellingItemPage);
             }
         });
 
-        //set list refresh event
-        this.buyingListViewModel.setRefreshListener(new BuyingListRefreshEventListener()
+        //set list refresh listener
+        this.sellingViewModel.setRefreshListener(new MyItemListRefreshEventListener()
         {
             @Override
-            public void onBuyingListRefreshEventTriggered()
+            public void onMyItemListRefreshEventListener()
             {
                 adapter.notifyDataSetChanged();
             }
         });
 
-        //load list
-        this.buyingListViewModel.load_from_database();
+        //enable edit
+        this.adapter.enableEdit();
+        this.sellingViewModel.load_my_item_list_from_database();
 
         //configure recyclerview
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
-        this.recyclerView.setLayoutManager(layoutManager);
-        this.recyclerView.addItemDecoration(new BuyingActivity.GridSpacingItemDecoration(2, this.dpToPx(10), true));
-        this.recyclerView.setItemAnimator(new DefaultItemAnimator());
-        this.recyclerView.setAdapter(this.adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(new SellingItemListActivity.GridSpacingItemDecoration(2, this.dpToPx(10), true));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(this.adapter);
     }
 
     private int dpToPx(int dp)
@@ -172,8 +170,5 @@ public class BuyingActivity extends AppCompatActivity
     {
         Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
     }
-
     //endregion Methods
 }
-
-

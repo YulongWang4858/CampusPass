@@ -169,6 +169,7 @@ public class HobbyResumeViewModel extends BasicViewModel
 
         Log.d("debug -> ", "uploading new resume");
 
+        //upload to database
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("hobby_resumes");
         ref.child(this.hobby_of_interest).child(resume_id).setValue(resume).addOnCompleteListener(new OnCompleteListener<Void>()
         {
@@ -178,6 +179,14 @@ public class HobbyResumeViewModel extends BasicViewModel
                 Log.d("debug -> ", "resume upload completed");
             }
         });
+    }
+
+    public void remove_hobby_resume()
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("hobby_resumes").child(this.hobby_of_interest).child(this.my_resume.getHobby_resume_entry_id());
+        this._dataLoader.remove_value_from_hobby_resume(ref, this.my_resume.getHobby_resume_entry_id());
+
+        _hobbyResumeCollectionHelper.remove_resume_from_collection(this.my_resume.getHobby_resume_entry_id());
     }
 
     public void setHobbyResumeListRefreshListener(HobbyResumeListRefreshEventListener listener)
@@ -191,6 +200,11 @@ public class HobbyResumeViewModel extends BasicViewModel
         String uri_string = this.resume_model.getHobby_resume_photo_uri();
 
         return Uri.parse(uri_string);
+    }
+
+    public boolean check_user_participation()
+    {
+        return this._hobbyResumeCollectionHelper.check_user_participation(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
     }
     //endregion Methods
 }
