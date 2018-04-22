@@ -1,6 +1,8 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
 import com.example.wangyulong.campuspass.Activity.MainMenuActivity;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by wangyulong on 26/02/18.
@@ -32,6 +34,9 @@ public class MainMenuViewModel extends BasicViewModel
     //endregion Constructor
 
     //region Methods
-
+    public void load_user_info()
+    {
+        ComplexDataLoader.complexDataLoader().load_user_from_database(FirebaseAuth.getInstance().getCurrentUser().getUid().toString());
+    }
     //endregion Methods
 }

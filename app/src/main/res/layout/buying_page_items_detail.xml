@@ -6,11 +6,20 @@
         <variable
             name="SellingVM"
             type="com.example.wangyulong.campuspass.ViewModel.SellingViewModel"/>
+
+        <variable
+            name="ContactOwnerButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="BuyingItemDetailCancelButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
         <ScrollView
@@ -117,6 +126,30 @@
                     android:gravity="center_horizontal"
                     android:text="@{SellingVM.item_descr}"
                     android:textSize="20dp"/>
+
+                <Button
+                    android:id="@+id/buyingItemDetailContactOwnerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buyingItemDetailDescriptionTxt"
+                    android:background="@drawable/logo_style_button"
+                    android:onClick="@{(v) -> ContactOwnerButtonClickedListener.onClick()}"
+                    android:text="Contact Owner Now"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/buyingItemDetailCancelButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/buyingItemDetailContactOwnerButton"
+                    android:background="@drawable/logo_style_button"
+                    android:onClick="@{(v) -> BuyingItemDetailCancelButtonClickedListener.onClick()}"
+                    android:text="May be not ..."
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
         </ScrollView>

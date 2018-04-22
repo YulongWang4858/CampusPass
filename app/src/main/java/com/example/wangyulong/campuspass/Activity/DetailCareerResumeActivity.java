@@ -1,11 +1,13 @@
 package com.example.wangyulong.campuspass.Activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
+import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.CareerResumeDetailViewModel;
 import com.example.wangyulong.campuspass.databinding.CareerResumeDetailBinding;
@@ -66,6 +68,32 @@ public class DetailCareerResumeActivity extends AppCompatActivity
         {
             Log.d("debug -> ", "no image");
         }
+
+        bindButtons();
+    }
+
+    private void bindButtons()
+    {
+        this.binding.setCareerResumeCancelButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                finish();
+            }
+        });
+
+        this.binding.setCareerResumeContactStudentButtonClickedListener(new ClickListener()
+        {
+            @Override
+            public void onClick()
+            {
+                careerResumeDetailViewModel.initiate_chat();
+
+                Intent openChat = new Intent(getApplicationContext(), ChatRoomActivity.class);
+                DetailCareerResumeActivity.this.startActivity(openChat);
+            }
+        });
     }
     //endregion Methods
 }

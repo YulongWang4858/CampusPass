@@ -156,6 +156,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_toRightOf="@id/updateInfoButton"
                 android:background="@drawable/logo_style_short_button"
+                android:onClick="@{(v) -> ChatBoxButtonClickedListener.onClick()}"
                 android:text="Chat Box"
                 android:textAllCaps="false"
                 android:textColor="#825987"

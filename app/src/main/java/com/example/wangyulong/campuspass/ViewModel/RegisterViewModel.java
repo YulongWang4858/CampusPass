@@ -1,16 +1,19 @@
 package com.example.wangyulong.campuspass.ViewModel;
 
 import android.databinding.ObservableField;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.wangyulong.campuspass.Model.DatabaseUserModel;
+import com.example.wangyulong.campuspass.Events.UserInfoLoadCompleteEventListener;
+import com.example.wangyulong.campuspass.Events.UserPhotoUriDownloadedEventListener;
+import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
 import com.example.wangyulong.campuspass.Model.UserModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.UUID;
 
 /**
  * Created by wangyulong on 22/02/18.
@@ -18,24 +21,30 @@ import java.util.UUID;
 
 public class RegisterViewModel extends BasicViewModel
 {
-    //region Fields and Consts
+    //region Fields and Const
     private static RegisterViewModel _instance = null;
     private UserModel _new_user = new UserModel();
+    private UserModel current_user = null;
 
-    public ObservableField<String> user_name = _new_user.user_name;
-    public ObservableField<String> user_email = _new_user.user_email;
-    public ObservableField<String> user_contact_info = _new_user.user_contact_info;
-    public ObservableField<String> user_course_info = _new_user.user_course_info;
-    public ObservableField<String> user_pickup_address = _new_user.user_pickup_address;
-    public ObservableField<String> user_password = _new_user.user_password;
-    public ObservableField<String> user_career_info = _new_user.user_career_info;
-    public ObservableField<UUID> user_unique_id = _new_user.user_id;
+    //binding
+    public ObservableField<String> user_name = new ObservableField<>(new String(""));
+    public ObservableField<String> user_email = new ObservableField<>(new String(""));
+    public ObservableField<String> user_contact_info = new ObservableField<>(new String(""));
+    public ObservableField<String> user_course_info = new ObservableField<>(new String(""));
+    public ObservableField<String> user_pickup_address = new ObservableField<>(new String(""));
+    public ObservableField<String> user_password = new ObservableField<>(new String(""));
+    public ObservableField<String> user_career_info = new ObservableField<>(new String(""));
+    public ObservableField<String> user_unique_id = new ObservableField<>(new String(""));
+    private Uri user_profile_pic_uri;
 
     private String cur_user_name = new String("");
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseRef = database.getReference("user");
-    //endregion Fields and Consts
+    private UserModel updated_user_model;
+    private ComplexDataLoader dataLoader;
+    private UserPhotoUriDownloadedEventListener userPhotoUriDownloadedEventListener = null;
+    //endregion Fields and Const
 
     //region Properties
     public static RegisterViewModel registerViewModel()
@@ -52,104 +61,124 @@ public class RegisterViewModel extends BasicViewModel
     //region Constructor
     private RegisterViewModel()
     {
+        //init
+        this.dataLoader = ComplexDataLoader.complexDataLoader();
 
+        //register event listener
+        this.dataLoader.setUserInfoLoadCompleteEventListener(new UserInfoLoadCompleteEventListener()
+        {
+            @Override
+            public void onUserInfoLoadCompleteEventTrigger()
+            {
+                //store user info
+                if (dataLoader.get_downloaded_user() != null)
+                {
+                    current_user = dataLoader.get_downloaded_user();
+
+                    //fill in
+                    user_name.set(current_user.getUser_name());
+                    user_email.set(current_user.getUser_email());
+                    user_unique_id.set(current_user.getUser_id());
+                    user_password.set(current_user.getUser_password());
+                    user_profile_pic_uri = Uri.parse(current_user.getUser_profile_pic_uri());
+                    user_pickup_address.set(current_user.getUser_pickup_address());
+                    user_career_info.set(current_user.getUser_career_info());
+                    user_contact_info.set(current_user.getUser_contact());
+                    user_course_info.set(current_user.getUser_student_info());
+
+                    if (userPhotoUriDownloadedEventListener != null)
+                    {
+                        userPhotoUriDownloadedEventListener.onUserPhotoUriDownloadedEventTrigger();
+                    }
+                } else
+                {
+                    showOnSnackBar("Downloaded user data corrupted");
+
+                    //TODO: Trigger re-download
+                }
+            }
+        });
     }
     //endregion Constructor
 
     //region Methods
-    private boolean CreateUser(String name, String email, String hpNum, String studentInfo)
-    {
-        return true;
-    }
-
     public boolean VerifyUserInfoFormat()
     {
         return true;
-    }
-
-    public void init_new_user()
-    {
-        this._new_user = new UserModel();
-    }
-
-    public void fill_cur_user_info(DataSnapshot dataSnapshot)
-    {
-        for (DataSnapshot ds : dataSnapshot.getChildren())
-        {
-
-            if (ds.getKey().equals(firebaseAuth.getCurrentUser().getUid()))
-            {
-                String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
-                DatabaseUserModel user = new DatabaseUserModel();
-                this._new_user.user_name.set(ds.getValue(DatabaseUserModel.class).getUser_name());
-                this._new_user.user_email.set(ds.getValue(DatabaseUserModel.class).getUser_email());
-                this._new_user.user_contact_info.set(ds.getValue(DatabaseUserModel.class).getUser_contact());
-                this._new_user.user_career_info.set(ds.getValue(DatabaseUserModel.class).getUser_career_info());
-                this._new_user.user_pickup_address.set(ds.getValue(DatabaseUserModel.class).getUser_pickup_address());
-                this._new_user.user_password.set(ds.getValue(DatabaseUserModel.class).getUser_password());
-                this._new_user.user_course_info.set(ds.getValue(DatabaseUserModel.class).getUser_student_info());
-
-                if (this._new_user.user_name.equals(null))
-                {
-                    Log.d("Filling user name: ", this._new_user.user_name.get());
-                    Log.d("Filling user email: ", this._new_user.user_email.get());
-
-                    this.cur_user_name = this._new_user.user_name.get();
-                }
-            }
-        }
     }
 
     public void upload_to_database()
     {
         String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
 
-        databaseRef.child(_database_user_identifier).child("user_name")
-                .setValue(this._new_user.user_name.get());
-        databaseRef.child(_database_user_identifier).child("user_email")
-                .setValue(this._new_user.user_email.get());
-        databaseRef.child(_database_user_identifier).child("user_contact")
-                .setValue(this.user_contact_info.get());
-        databaseRef.child(_database_user_identifier).child("user_student_info")
-                .setValue(this.user_course_info.get());
-        databaseRef.child(_database_user_identifier).child("user_career_info")
-                .setValue(this.user_career_info.get());
-        databaseRef.child(_database_user_identifier).child("user_pickup_address")
-                .setValue(this.user_pickup_address.get());
-        databaseRef.child(_database_user_identifier).child("user_password")
-                .setValue(this.user_password.get());
+        this.current_user.setUser_name(this.user_name.get());
+        this.current_user.setUser_email(this.user_email.get());
+        this.current_user.setUser_student_info(this.user_course_info.get());
+        this.current_user.setUser_career_info(this.user_career_info.get());
+        this.current_user.setUser_pickup_address(this.user_pickup_address.get());
+        this.current_user.setUser_contact(this.user_contact_info.get());
+        this.current_user.setUser_profile_pic_uri(this.user_profile_pic_uri.toString());
+
+
+        //upload to database
+        databaseRef.child(_database_user_identifier).setValue(this.current_user)
+                .addOnCompleteListener(new OnCompleteListener<Void>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        //debug
+                        Log.d("debug -> ", "upload complete");
+                    }
+                });
     }
 
     //This method is to create a user template and store in database
     public void init_database()
     {
+        //init
         String _database_user_identifier = firebaseAuth.getCurrentUser().getUid();
+        UserModel new_user = new UserModel();
 
-        databaseRef.child(_database_user_identifier).child("user_name")
-                .setValue("");
-        databaseRef.child(_database_user_identifier).child("user_email")
-                .setValue(this.firebaseAuth.getCurrentUser().getEmail());
-        databaseRef.child(_database_user_identifier).child("user_contact")
-                .setValue("");
-        databaseRef.child(_database_user_identifier).child("user_student_info")
-                .setValue("");
-        databaseRef.child(_database_user_identifier).child("user_career_info")
-                .setValue("");
-        databaseRef.child(_database_user_identifier).child("user_pickup_address")
-                .setValue("");
-        databaseRef.child(_database_user_identifier).child("user_password")
-                .setValue("*******");
+        //fill skeleton
+        new_user.setUser_name("");
+        new_user.setUser_career_info("");
+        new_user.setUser_contact("");
+        new_user.setUser_email(this.firebaseAuth.getCurrentUser().getEmail());
+        new_user.setUser_id(_database_user_identifier);
+        new_user.setUser_password("*********");
+        new_user.setUser_profile_pic_uri("");
+        new_user.setUser_student_info("");
+        new_user.setUser_pickup_address("");
+
+        //upload skeleton
+        databaseRef.child(_database_user_identifier).setValue(new_user);
     }
 
     public String get_login_user_name()
     {
-        if (this.cur_user_name.equals(""))
+        return "";
+    }
+
+    public void setUser_profile_pic_uri(Uri uri)
+    {
+        this.user_profile_pic_uri = uri;
+    }
+
+    public String getUser_profile_pic_uri()
+    {
+        if (this.user_profile_pic_uri == null)
         {
-            return "";
+            return null;
         } else
         {
-            return this._new_user.user_name.get();
+            return this.user_profile_pic_uri.toString();
         }
+    }
+
+    public void setUserPhotoUriDownloadedEventListener(UserPhotoUriDownloadedEventListener listener)
+    {
+        this.userPhotoUriDownloadedEventListener = listener;
     }
     //endregion Methods
 }

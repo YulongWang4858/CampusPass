@@ -14,6 +14,7 @@ import com.example.wangyulong.campuspass.ClickListener;
 import com.example.wangyulong.campuspass.Constant.Category;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewLogicManager;
+import com.example.wangyulong.campuspass.ViewModel.MainMenuViewModel;
 import com.example.wangyulong.campuspass.ViewModel.RegisterViewModel;
 import com.example.wangyulong.campuspass.databinding.MainmenuPageBinding;
 import com.google.firebase.database.DataSnapshot;
@@ -34,7 +35,6 @@ public class MainMenuActivity extends ActivityGroup
 
     //region Fields and Const
     protected MainmenuPageBinding mainmenuPageBinding;
-    DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("user");
     //endregion Fields and Const
 
     //region Init
@@ -69,20 +69,7 @@ public class MainMenuActivity extends ActivityGroup
     //region Methods
     protected void initialDBSettings()
     {
-        databaseRef.addValueEventListener(new ValueEventListener()
-        {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                RegisterViewModel.registerViewModel().fill_cur_user_info(dataSnapshot);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError)
-            {
-
-            }
-        });
+        MainMenuViewModel.mainMenuViewModel().load_user_info();
     }
 
     protected void initialTabSettings()
@@ -146,6 +133,8 @@ public class MainMenuActivity extends ActivityGroup
             public void onClick()
             {
                 //TODO: Attach Chatbox here
+                Intent toChatRoomPage = new Intent(getApplicationContext(), ChatBoxActivity.class);
+                MainMenuActivity.this.startActivity(toChatRoomPage);
             }
         });
     }

@@ -1,6 +1,5 @@
 package com.example.wangyulong.campuspass.Activity;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
@@ -13,34 +12,32 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.example.wangyulong.campuspass.Adapter.ChatBoxThumbnailAdapter;
+import com.example.wangyulong.campuspass.Adapter.ChatRoomWindowAdapter;
 import com.example.wangyulong.campuspass.ClickListener;
-import com.example.wangyulong.campuspass.Events.ChatBoxLsitRefreshEventListener;
-import com.example.wangyulong.campuspass.Events.ShowChatRoomMessagesEventListener;
+import com.example.wangyulong.campuspass.Events.ChatMessageLoadedEventListener;
 import com.example.wangyulong.campuspass.R;
 import com.example.wangyulong.campuspass.ViewModel.ChatBoxViewModel;
 import com.example.wangyulong.campuspass.databinding.ChatBoxPageBinding;
 import com.example.wangyulong.campuspass.databinding.ChatRoomBinding;
 
-public class ChatBoxActivity extends AppCompatActivity
+import java.util.concurrent.RecursiveAction;
+
+public class ChatRoomActivity extends AppCompatActivity
 {
     //region Fields and Const
-    private ChatBoxPageBinding binding;
-    private ChatBoxThumbnailAdapter adapter;
+    private ChatRoomBinding binding;
     private ChatBoxViewModel chatBoxViewModel;
+    private ChatRoomWindowAdapter adapter;
     private RecyclerView recyclerView;
     //endregion Fields and Const
-
-    //region Properties
-
-    //endregion Properties
 
     //region Override
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat_box_page);
+        setContentView(R.layout.chat_room);
+        this.chatBoxViewModel = ChatBoxViewModel.chatBoxViewModel();
 
         onCreateBinding();
     }
@@ -49,50 +46,42 @@ public class ChatBoxActivity extends AppCompatActivity
     //region Methods
     private void onCreateBinding()
     {
-        this.binding = DataBindingUtil.setContentView(this, R.layout.chat_box_page);
-        this.chatBoxViewModel = ChatBoxViewModel.chatBoxViewModel();
-        this.recyclerView = this.binding.chatBoxRecyclerView;
-        this.adapter = new ChatBoxThumbnailAdapter(this, this.chatBoxViewModel.get_full_chat_box());
+        this.binding = DataBindingUtil.setContentView(this, R.layout.chat_room);
+        this.binding.setChatRoomVM(this.chatBoxViewModel);
 
-        this.chatBoxViewModel.setChatBoxLsitRefreshEventListener(new ChatBoxLsitRefreshEventListener()
+        this.bindButtons();
+
+        //init recyclerview
+        this.recyclerView = this.binding.messageCardview;
+        this.adapter = new ChatRoomWindowAdapter(this, this.chatBoxViewModel.get_full_list());
+
+        this.chatBoxViewModel.setChatMessageLoadedEventListener(new ChatMessageLoadedEventListener()
         {
             @Override
-            public void onChatBoxListRefreshEventTrigger()
+            public void onChatMessageLoadedEventTrigger()
             {
                 adapter.notifyDataSetChanged();
             }
         });
 
-        this.adapter.setShowChatRoomMessagesEventListener(new ShowChatRoomMessagesEventListener()
-        {
-            @Override
-            public void onShowChatRoomMessagesEventTrigger()
-            {
-                Intent expandToChatRoom = new Intent(getApplicationContext(), ChatRoomActivity.class);
-                ChatBoxActivity.this.startActivity(expandToChatRoom);
-            }
-        });
+        this.chatBoxViewModel.load_chat_messages();
 
-        this.chatBoxViewModel.load_chat_rooms();
-
-        //config
+        //set recyclerview config
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new ChatBoxActivity.GridSpacingItemDecoration(2, this.dpToPx(10), true));
+        recyclerView.addItemDecoration(new ChatRoomActivity.GridSpacingItemDecoration(2, this.dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(this.adapter);
-
-        bindButtons();
     }
 
     private void bindButtons()
     {
-        this.binding.setChatBoxCollapseButtonClickedListener(new ClickListener()
+        this.binding.setChatRoomSendButtonClickedListener(new ClickListener()
         {
             @Override
             public void onClick()
             {
-                finish();
+                chatBoxViewModel.SendMessage();
             }
         });
     }
@@ -149,7 +138,5 @@ public class ChatBoxActivity extends AppCompatActivity
     {
         Snackbar.make(findViewById(android.R.id.content), txt, Snackbar.LENGTH_LONG).show();
     }
-
     //endregion Methods
-
 }

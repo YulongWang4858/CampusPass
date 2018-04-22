@@ -45,36 +45,6 @@ public class ConnectionHelper
     //endregion Constructor
 
     //region Methods
-
-    public boolean ConnectUser(String matricN, String passW)
-    {
-        if (Connect(matricN, passW))
-        {
-            _user = new UserModel(matricN, passW);
-
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean Connect(String matricN, String passW)
-    {
-        //TODO: Implement Web Server Methods
-
-        return verify(matricN, passW);
-    }
-
-    private boolean verify(String email, String passW)
-    {
-        return true;
-    }
-
-    public boolean get_connection_stauts()
-    {
-        return this.isUserConnected.get();
-    }
-
     public void set_connection_status(boolean status)
     {
         this.isUserConnected.set(status);

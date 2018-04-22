@@ -91,6 +91,8 @@
         </activity>
         <activity android:name=".Activity.SellingItemListActivity">
         </activity>
+        <activity android:name=".Activity.ChatRoomActivity">
+        </activity>
     </application>
 
 </manifest>

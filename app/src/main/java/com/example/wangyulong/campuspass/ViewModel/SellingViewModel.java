@@ -10,6 +10,7 @@ import com.example.wangyulong.campuspass.Events.MyItemListRefreshEventListener;
 import com.example.wangyulong.campuspass.Helper.ItemCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.MyItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Loader.ComplexDataLoader;
+import com.example.wangyulong.campuspass.Model.ChatBoxModel;
 import com.example.wangyulong.campuspass.Model.ItemModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -196,6 +197,8 @@ public class SellingViewModel extends BasicViewModel
         this.item_stock.set(item.getItem_stock_left());
         this.item_photo_uri.set(item.getItem_photo_uri());
 
+        this.selectedItemModel = item;
+
         //debug
         Log.d("debug -> ", "new item selected: " + item.getItem_name());
 
@@ -241,6 +244,12 @@ public class SellingViewModel extends BasicViewModel
     public String set_detail_photo()
     {
         return this.item_photo_uri.get();
+    }
+
+    public void initiate_chat()
+    {
+        ChatBoxViewModel.chatBoxViewModel().load_target_user_info(this.selectedItemModel.getItem_owner_id());
+        ChatBoxViewModel.chatBoxViewModel().set_current_chat_target_id(this.selectedItemModel.getItem_owner_id());
     }
     //endregion Methods
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="ChatRoomVM"
+            type="com.example.wangyulong.campuspass.ViewModel.ChatBoxViewModel"/>
+
+        <variable
+            name="ChatRoomSendButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+    </data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/message_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/chatFloatingActionButton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="16dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="16dp"
+            android:scrollbars="vertical">
+        </android.support.v7.widget.RecyclerView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/chatFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:clickable="true"
+            android:onClick="@{(v) -> ChatRoomSendButtonClickedListener.onClick()}"
+            android:src="@drawable/ic_send"
+            android:tint="@color/colorPureWhite"
+            app:fabSize="mini"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toRightOf="@+id/chatFloatingActionButton">
+
+            <EditText
+                android:id="@+id/chatMsgInputETxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:hint="Message"
+                android:text="@={ChatRoomVM.message_content}"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+</layout>

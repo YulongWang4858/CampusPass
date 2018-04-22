@@ -7,6 +7,14 @@
         <variable
             name="CareerResumeDetailVM"
             type="com.example.wangyulong.campuspass.ViewModel.CareerResumeDetailViewModel"/>
+
+        <variable
+            name="CareerResumeContactStudentButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
+
+        <variable
+            name="CareerResumeCancelButtonClickedListener"
+            type="com.example.wangyulong.campuspass.ClickListener"/>
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -231,9 +239,31 @@
                     android:textAllCaps="false"
                     android:textColor="@color/colorPureBlack"/>
 
+                <Button
+                    android:id="@+id/careerResumeDetailContactButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeLinkTxt"
+                    android:background="@drawable/logo_style_button"
+                    android:onClick="@{(v) -> CareerResumeContactStudentButtonClickedListener.onClick()}"
+                    android:text="Contact Student"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="15dp"/>
+
+                <Button
+                    android:id="@+id/careerResumeDetailCancelButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/careerResumeDetailContactButton"
+                    android:background="@drawable/logo_style_button"
+                    android:onClick="@{(v) -> CareerResumeCancelButtonClickedListener.onClick()}"
+                    android:text="Cancel"
+                    android:textAllCaps="false"
+                    android:textColor="@color/logoPurple"
+                    android:textSize="15dp"/>
+
             </RelativeLayout>
-
         </ScrollView>
-
     </RelativeLayout>
 </layout>

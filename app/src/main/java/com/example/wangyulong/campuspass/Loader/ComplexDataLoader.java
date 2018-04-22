@@ -8,16 +8,23 @@ import com.example.wangyulong.campuspass.Events.BuyingListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerResumeListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.CareerTeamListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ChatBoxLsitRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.ChatMessageLoadedEventListener;
+import com.example.wangyulong.campuspass.Events.ChatRoomIdLoadedEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyBriefListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.HobbyCardViewRefreshListener;
 import com.example.wangyulong.campuspass.Events.HobbyResumeListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.MyItemListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.MyRequestListRefreshEventListener;
 import com.example.wangyulong.campuspass.Events.RequestListRefreshEventListener;
+import com.example.wangyulong.campuspass.Events.TargetUserLoadedEventListener;
+import com.example.wangyulong.campuspass.Events.UserInfoLoadCompleteEventListener;
 import com.example.wangyulong.campuspass.Helper.BuyingItemsCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.CareerCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.CareerResumeCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.CareerTeamCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.ChatBoxCollectionHelper;
+import com.example.wangyulong.campuspass.Helper.ChatMessageCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyBriefCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyCollectionHelper;
 import com.example.wangyulong.campuspass.Helper.HobbyResumeCollectionHelper;
@@ -28,12 +35,15 @@ import com.example.wangyulong.campuspass.Model.BuyingItemModel;
 import com.example.wangyulong.campuspass.Model.CareerModel;
 import com.example.wangyulong.campuspass.Model.CareerResumeModel;
 import com.example.wangyulong.campuspass.Model.CareerTeamModel;
+import com.example.wangyulong.campuspass.Model.ChatBoxModel;
+import com.example.wangyulong.campuspass.Model.ChatMessageModel;
 import com.example.wangyulong.campuspass.Model.DatabaseSellingModel;
 import com.example.wangyulong.campuspass.Model.DetailHobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyModel;
 import com.example.wangyulong.campuspass.Model.HobbyResumeModel;
 import com.example.wangyulong.campuspass.Model.ItemModel;
 import com.example.wangyulong.campuspass.Model.RequestModel;
+import com.example.wangyulong.campuspass.Model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -43,6 +53,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -55,6 +66,9 @@ public class ComplexDataLoader extends BasicLoader
 
     //region Fields and Const
     private static ComplexDataLoader _instance = null;
+    private UserModel user = null;
+    private UserModel target_user = null;
+    private String chat_id = null;
 
     //database
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -74,14 +88,14 @@ public class ComplexDataLoader extends BasicLoader
     private CareerTeamCollectionHelper _careerTeamCollectionHelper = CareerTeamCollectionHelper.careerTeamCollectionHelper();
     private ItemCollectionHelper _itemCollectionHelper = ItemCollectionHelper.itemCollectionHelper();
     private MyItemsCollectionHelper _myItemCollectionHelper = MyItemsCollectionHelper.myItemsCollectionHelper();
+    private ChatMessageCollectionHelper _chatMessageCollectionHelper = ChatMessageCollectionHelper.chatMessageCollectionHelper();
+    private ChatBoxCollectionHelper _chatBoxCollectionHelper = ChatBoxCollectionHelper.chatBoxCollectionHelper();
     private String new_item_title = "";
     public boolean is_request_read_allowed = false;
 
     //event listeners
     private ChildEventListener requestChildEventListener = null;
-    private ChildEventListener itemChildEventListener = null;
     private ChildEventListener hobbyChildEventListener = null;
-    private ChildEventListener hobbyResumeChildEventListener = null;
     private RequestListRefreshEventListener requestListRefreshEventListener = null;
     private BuyingListRefreshEventListener buyingListRefreshEventListener = null;
     private HobbyBriefListRefreshEventListener hobbyBriefListRefreshEventListener = null;
@@ -92,6 +106,11 @@ public class ComplexDataLoader extends BasicLoader
     private CareerResumeListRefreshEventListener careerResumeListRefreshEventListener = null;
     private CareerTeamListRefreshEventListener careerTeamListRefreshEventListener = null;
     private MyItemListRefreshEventListener myItemListRefreshEventListener = null;
+    private UserInfoLoadCompleteEventListener userInfoLoadCompleteEventListener = null;
+    private ChatRoomIdLoadedEventListener chatRoomIdLoadedEventListener = null;
+    private ChatMessageLoadedEventListener chatMessageLoadedEventListener = null;
+    private ChatBoxLsitRefreshEventListener chatBoxLsitRefreshEventListener = null;
+    private TargetUserLoadedEventListener targetUserLoadedEventListener = null;
     //endregion Fields and Const
 
     //region Properties
@@ -706,6 +725,205 @@ public class ComplexDataLoader extends BasicLoader
         });
     }
 
+    public void load_user_from_database(String user_id)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(user_id);
+
+        ref.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                //load data
+                user = dataSnapshot.getValue(UserModel.class);
+
+                //store in viewmodel
+                if (userInfoLoadCompleteEventListener != null)
+                {
+                    userInfoLoadCompleteEventListener.onUserInfoLoadCompleteEventTrigger();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //do nothing
+            }
+        });
+    }
+
+    public void load_target_user_from_database(final String target_user_id)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(target_user_id);
+
+        ref.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                //load data
+                user = dataSnapshot.getValue(UserModel.class);
+
+                target_user = user;
+
+                if (targetUserLoadedEventListener != null)
+                {
+                    targetUserLoadedEventListener.onTargetUserLoadedEventTrigger();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //do nothing
+            }
+        });
+    }
+
+    public void load_chat_id_from_database(String owner_id, String target_id)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(owner_id).child("chat_room").child(target_id);
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                ChatBoxModel chatBoxModel = dataSnapshot.getValue(ChatBoxModel.class);
+
+                if (chatBoxModel == null)
+                {
+                    chat_id = null;
+                } else
+                {
+                    chat_id = chatBoxModel.getChat_box_id();
+                }
+
+                if (chatRoomIdLoadedEventListener != null)
+                {
+                    chatRoomIdLoadedEventListener.onChatRoomIdLoadedEventTrigger();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+                //do nothing
+            }
+        });
+    }
+
+    public void load_chat_messages_from_database(String chat_id)
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("chats").child(chat_id);
+
+        ref.orderByChild("chat_msg_timestamp").addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                //download message
+                ChatMessageModel chat_msg = dataSnapshot.getValue(ChatMessageModel.class);
+
+                if (!_chatMessageCollectionHelper.check_exsitance(chat_msg))
+                {
+                    _chatMessageCollectionHelper.add_item_to_collection(chat_msg);
+
+                    //trigger event
+                    chatMessageLoadedEventListener.onChatMessageLoadedEventTrigger();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
+
+    public void load_chat_rooms_from_database()
+    {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(FirebaseAuth.getInstance().getCurrentUser().getUid().toString())
+                .child("chat_room");
+
+        ref.addChildEventListener(new ChildEventListener()
+        {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
+            {
+                ChatBoxModel chatbox = dataSnapshot.getValue(ChatBoxModel.class);
+
+                if (chatbox != null)
+                {
+                    if (!_chatBoxCollectionHelper.check_exsitance(chatbox))
+                    {
+                        _chatBoxCollectionHelper.add_item_to_collection(chatbox);
+                    }
+
+                    if (chatBoxLsitRefreshEventListener != null)
+                    {
+                        chatBoxLsitRefreshEventListener.onChatBoxListRefreshEventTrigger();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                ChatBoxModel chatBoxModel = dataSnapshot.getValue(ChatBoxModel.class);
+
+                _chatBoxCollectionHelper.replace_item(chatBoxModel);
+
+                if (chatBoxLsitRefreshEventListener != null)
+                {
+                    chatBoxLsitRefreshEventListener.onChatBoxListRefreshEventTrigger();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
+
+    public UserModel get_downloaded_user()
+    {
+        return this.user;
+    }
+
     public void remove_value_from_database(DatabaseReference ref, String id)
     {
         //remove child from database
@@ -746,6 +964,16 @@ public class ComplexDataLoader extends BasicLoader
 
             }
         });
+    }
+
+    public String getChat_id()
+    {
+        return this.chat_id;
+    }
+
+    public UserModel getTarget_user()
+    {
+        return this.target_user;
     }
 
     public void remove_value_from_career_resume(DatabaseReference ref, String id)
@@ -852,6 +1080,31 @@ public class ComplexDataLoader extends BasicLoader
     public void setMyItemListRefreshEventListener(MyItemListRefreshEventListener myItemListRefreshEventListener)
     {
         this.myItemListRefreshEventListener = myItemListRefreshEventListener;
+    }
+
+    public void setUserInfoLoadCompleteEventListener(UserInfoLoadCompleteEventListener userInfoLoadCompleteEventListener)
+    {
+        this.userInfoLoadCompleteEventListener = userInfoLoadCompleteEventListener;
+    }
+
+    public void setChatRoomIdLoadedEventListener(ChatRoomIdLoadedEventListener chatRoomIdLoadedEventListener)
+    {
+        this.chatRoomIdLoadedEventListener = chatRoomIdLoadedEventListener;
+    }
+
+    public void setChatMessageLoadedEventListener(ChatMessageLoadedEventListener listener)
+    {
+        this.chatMessageLoadedEventListener = listener;
+    }
+
+    public void setChatBoxLsitRefreshEventListener(ChatBoxLsitRefreshEventListener listener)
+    {
+        this.chatBoxLsitRefreshEventListener = listener;
+    }
+
+    public void setTargetUserLoadedEventListener(TargetUserLoadedEventListener targetUserLoadedEventListener)
+    {
+        this.targetUserLoadedEventListener = targetUserLoadedEventListener;
     }
     //endregion Methods
 }

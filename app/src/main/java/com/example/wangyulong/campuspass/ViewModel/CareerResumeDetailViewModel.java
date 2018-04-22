@@ -25,6 +25,7 @@ public class CareerResumeDetailViewModel extends BasicViewModel
     public ObservableField<String> links = new ObservableField<>(new String(""));
     public ObservableField<String> section_about_self_name = new ObservableField<>(new String(""));
 
+    private String item_owner_id = null;
     //endregion Fields and Const
 
     //region Properties
@@ -62,6 +63,7 @@ public class CareerResumeDetailViewModel extends BasicViewModel
         this.section_about_self_name.set("About " + resume.getCareer_owner_name());
         this.experience.set(resume.getCareer_experience());
         this.photo_uri.set(resume.getCareer_resume_photo_uri());
+        this.item_owner_id = resume.getCareer_owner_id();
     }
 
     public String get_resume_photo_uri()
@@ -72,6 +74,11 @@ public class CareerResumeDetailViewModel extends BasicViewModel
         }
 
         return this.photo_uri.get();
+    }
+
+    public void initiate_chat()
+    {
+        ChatBoxViewModel.chatBoxViewModel().set_current_chat_target_id(this.item_owner_id);
     }
     //endregion Methods
 }
